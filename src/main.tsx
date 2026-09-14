@@ -2,7 +2,7 @@ import {StrictMode} from 'react';
 import {createRoot} from 'react-dom/client';
 import {BrowserRouter, Routes, Route} from 'react-router';
 import App from './App';
-import StoryPoint from './pages/StoryPoint/index';
+import StoryPoint from './pages/StoryBook/index';
 import './index.css';
 
 createRoot(document.getElementById('root')!).render(
