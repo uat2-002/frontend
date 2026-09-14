@@ -1,6 +1,6 @@
 import React from 'react';
 import ButtomComponent from './ButtonComponent';
-const StoryPoint = () => {
+const StoryBook = () => {
   return (
     <>
       <ButtomComponent />
@@ -8,4 +8,4 @@ const StoryPoint = () => {
   );
 };
 
-export default StoryPoint;
+export default StoryBook;
