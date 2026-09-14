@@ -1,17 +1,17 @@
 import {StrictMode} from 'react';
 import {createRoot} from 'react-dom/client';
-import {BrowserRouter, Routes, Route} from 'react-router';
+import {createBrowserRouter, RouterProvider} from 'react-router';
 import App from './App';
 import StoryPoint from './pages/StoryBook/index';
 import './index.css';
 
+const router = createBrowserRouter([
+  {path: '/', element: <App />},
+  {path: '/ui-library', element: <StoryPoint />},
+]);
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/ui-library" element={<StoryPoint />} />
-      </Routes>
-    </BrowserRouter>
+   <RouterProvider router={router} />
   </StrictMode>
 );
