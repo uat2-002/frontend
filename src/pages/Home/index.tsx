@@ -1,3 +1,10 @@
+import HealthCheck from '@/components/HealthCheck';
+
 export const Home = () => {
-  return <div> Home page</div>;
+  return (
+    <>
+      <h1>Home page</h1>
+      <HealthCheck />
+    </>
+  );
 };
