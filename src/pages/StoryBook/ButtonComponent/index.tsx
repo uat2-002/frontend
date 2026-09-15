@@ -1,4 +1,4 @@
-import {Button} from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import Item from './components/Item';
 
 const BUTTON_PROPS = [
@@ -25,24 +25,24 @@ const BUTTON_PROPS = [
 ];
 
 const BUTTON_VARIANTS = [
-  {variant: 'default', label: 'Default'},
-  {variant: 'outline', label: 'Outline'},
-  {variant: 'secondary', label: 'Secondary'},
-  {variant: 'ghost', label: 'Ghost'},
-  {variant: 'destructive', label: 'Destructive'},
-  {variant: 'link', label: 'Link'},
+  { variant: 'default', label: 'Default' },
+  { variant: 'outline', label: 'Outline' },
+  { variant: 'secondary', label: 'Secondary' },
+  { variant: 'ghost', label: 'Ghost' },
+  { variant: 'destructive', label: 'Destructive' },
+  { variant: 'link', label: 'Link' },
 ] as const;
 
 const BUTTON_SIZES = [
-  {size: 'xs', label: 'Extra Small'},
-  {size: 'sm', label: 'Small'},
-  {size: 'default', label: 'Default'},
-  {size: 'lg', label: 'Large'},
+  { size: 'xs', label: 'Extra Small' },
+  { size: 'sm', label: 'Small' },
+  { size: 'default', label: 'Default' },
+  { size: 'lg', label: 'Large' },
 ] as const;
 
 const DISABLED_BUTTONS = [
-  {label: 'Disabled', variant: 'default'},
-  {label: 'Disabled Destructive', variant: 'destructive'},
+  { label: 'Disabled', variant: 'default' },
+  { label: 'Disabled Destructive', variant: 'destructive' },
 ] as const;
 
 const ButtonComponent = () => {
@@ -52,7 +52,7 @@ const ButtonComponent = () => {
         <h3>Buttons Props</h3>
 
         <ul className="space-y-2 text-sm text-muted-foreground">
-          {BUTTON_PROPS.map((item) => (
+          {BUTTON_PROPS.map(item => (
             <Item key={item.title} title={item.title} description={item.description} />
           ))}
         </ul>
@@ -62,7 +62,7 @@ const ButtonComponent = () => {
         <h3>Variants</h3>
 
         <div className="flex flex-wrap gap-3">
-          {BUTTON_VARIANTS.map(({variant, label}) => (
+          {BUTTON_VARIANTS.map(({ variant, label }) => (
             <Button key={label} variant={variant}>
               {label}
             </Button>
@@ -74,7 +74,7 @@ const ButtonComponent = () => {
         <h3>Sizes</h3>
 
         <div className="flex flex-wrap items-center gap-3">
-          {BUTTON_SIZES.map(({size, label}) => (
+          {BUTTON_SIZES.map(({ size, label }) => (
             <Button key={label} size={size}>
               {label}
             </Button>
@@ -86,7 +86,7 @@ const ButtonComponent = () => {
         <h3>Disabled</h3>
 
         <div className="flex gap-3">
-          {DISABLED_BUTTONS.map(({label, variant}) => (
+          {DISABLED_BUTTONS.map(({ label, variant }) => (
             <Button key={label} disabled variant={variant}>
               {label}
             </Button>
