@@ -1,9 +1,9 @@
-import React from 'react';
-import ButtomComponent from './ButtonComponent';
+import ButtonComponent from './ButtonComponent';
+
 const StoryBook = () => {
   return (
     <>
-      <ButtomComponent />
+      <ButtonComponent />
     </>
   );
 };
