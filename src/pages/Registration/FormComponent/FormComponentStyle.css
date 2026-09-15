@@ -1,0 +1,70 @@
+:root {
+  --background-color: #09090b;
+  --surface-color: #18181b;
+  --evelated-color: #27272a;
+  --text-primary-color: #fafafa;
+  --text-secondary-color: #71717a;
+  --text-contrast-color: #09090b;;
+  --accent-color: #ef4444;
+  --success-color: #4ade80;
+  --link-text-color: #5cbeff;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.formContainer {
+  background-color: var(--background-color);
+  color: var(--text-primary-color);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.registrationInputField {
+  width: 20vw;
+  padding: 20px;
+  background-color: var(--surface-color);
+  border: solid 2px var(--evelated-color);
+  border-radius: 5px;
+}
+
+.registrationInputField input {
+  background-color: var(--background-color);
+  border-color: var(--evelated-color);
+}
+
+.registrationInputField a,
+.registrationInputField a:visited,
+.registrationInputField a:hover,
+.registrationInputField a:active {
+  text-decoration: underline;
+  color: var(--link-text-color);
+}
+
+.registrationInputField h2 {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.registrationInputField .buttonField {
+  display: flex;
+  justify-content: space-between;
+}
+
+.registrationInputField .submitFormButton {
+    background-color: var(--success-color);
+    color: var(--text-contrast-color);
+}
+
+.registrationInputField .resetFormButton {
+    background-color: var(--evelated-color);
+    color: var(--text-primary-color);
+}
