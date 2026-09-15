@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import Item from './components/Item';
+import Item from '@/components/shared/Item';
 
 const BUTTON_PROPS = [
   {
