@@ -17,13 +17,13 @@ export function SignupForm({ className, ...props }: React.ComponentProps<'div'>)
       <Card>
         <CardHeader className="text-center">
           <CardTitle className="text-xl">Create your account</CardTitle>
-          <CardDescription>Enter your email below to create your account</CardDescription>
+          <CardDescription>Enter your information below to create your account</CardDescription>
         </CardHeader>
         <CardContent>
           <form>
             <FieldGroup>
               <Field>
-                <FieldLabel htmlFor="name">Full Name</FieldLabel>
+                <FieldLabel htmlFor="name">Username</FieldLabel>
                 <Input id="name" type="text" placeholder="John Doe" required />
               </Field>
               <Field>
