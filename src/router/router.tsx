@@ -5,10 +5,14 @@ import { PATH_HOME, PATH_UI_LIBRARY, PATH_LOGIN, PATH_REGISTRATION } from './pat
 import Login from '@/pages/Login';
 import Registration from '@/pages/Registration';
 import { ProtectedRoutes } from '@/components/ProtectedRoutes/ProtectedRoutes';
+import type { AuthUser } from '@/components/ProtectedRoutes/ProtectedRoutes';
+
+// mocked: add user for testing here
+const user: AuthUser | null = null;
 
 export const router = createBrowserRouter([
   { 
-    element: <ProtectedRoutes />, 
+    element: <ProtectedRoutes user={user} />, 
     children: [
     { path: PATH_HOME, element: <Home /> },
     { path: PATH_UI_LIBRARY, element: <StoryBook /> },
