@@ -1,4 +1,4 @@
-import {Outlet, Navigate} from 'react-router-'
+import {Outlet, Navigate} from 'react-router'
 
 export const ProtectedRoutes = () => {
     const user = null;
