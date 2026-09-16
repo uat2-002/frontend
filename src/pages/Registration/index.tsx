@@ -1,11 +1,13 @@
-import RegistrationInputFieldgroup from './FormComponent/FormComponent.tsx';
+import { SignupForm } from "./SignUpForm.tsx"
+import { AlertDestructive } from "./AlertDestructive.tsx"
 
-const RegistrationForm = () => {
+export default function SignupPage() {
   return (
-    <>
-      <RegistrationInputFieldgroup />
-    </>
-  );
-};
+    <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10">
+      <div className="flex w-full max-w-sm flex-col gap-6">
+        <SignupForm />
+      </div>
+    </div>
+  )
+}
 
-export default RegistrationForm;
