@@ -1,6 +1,6 @@
 import { Home } from '@/pages/Home';
 import StoryBook from '@/pages/StoryBook/index';
-import NotFound from '@/components/ui/notFound';
+import NotFound from '@/pages/NotFound';
 import { createBrowserRouter } from 'react-router';
 import { PATH_HOME, PATH_UI_LIBRARY, PATH_NOT_FOUND } from './path';
 
