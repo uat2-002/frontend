@@ -11,6 +11,17 @@ export default defineConfig([
     rules: {
       'no-unused-vars': 'off',
       'no-undef': 'off',
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['./*', '../*'],
+              message: 'Use the @ alias instead of relative imports.',
+            },
+          ],
+        },
+      ],
 
       '@typescript-eslint/no-unused-vars': 'warn',
 
@@ -21,7 +32,7 @@ export default defineConfig([
       'react/prop-types': 'off',
       semi: ['error', 'always'],
       quotes: ['error', 'single'],
-      'no-console': 'warn',
+      'no-console': ['warn', { allow: ['error'] }],
       'no-undef': 'error',
       'no-extra-semi': 'error',
       'max-len': ['error', { code: 120 }],
