@@ -1,11 +1,13 @@
-import ButtonComponent from './ButtonComponent';
-import ModalComponent from './ModalComponent';
+import ButtonComponent from '@/pages/StoryBook/ButtonComponent';
+import ModalComponent from '@/pages/StoryBook/ModalComponent';
+import ToastComponent from '@/pages/StoryBook/ToastComponent';
 
 const StoryBook = () => {
   return (
     <>
       <ButtonComponent />
-      <ModalComponent/>
+      <ModalComponent />
+      <ToastComponent />
     </>
   );
 };
