@@ -2,8 +2,8 @@ import { Home } from '@/pages/Home';
 import StoryBook from '@/pages/StoryBook/index';
 import SignUpPage from '@/pages/SignUp/index';
 import NotFound from '@/pages/NotFound';
-import { PATH_HOME, PATH_UI_LIBRARY, PATH_SIGN_UP } from './path';
-import { PATH_HOME, PATH_UI_LIBRARY, PATH_SIGN_UP, PATH_NOT_FOUND } from './path';
+import { createBrowserRouter } from 'react-router';
+import { PATH_HOME, PATH_UI_LIBRARY, PATH_SIGN_UP, PATH_NOT_FOUND } from '@/router/path.ts';
 
 export const router = createBrowserRouter([
   { path: PATH_HOME, element: <Home /> },

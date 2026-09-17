@@ -15,6 +15,8 @@ import { Input } from '@/components/ui/input.tsx';
 
 import { AlertDestructive } from './AlertDestructive.tsx';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export function SignUpForm({ className, ...props }: React.ComponentProps<'div'>) {
   const navigate = useNavigate();
 
@@ -27,7 +29,7 @@ export function SignUpForm({ className, ...props }: React.ComponentProps<'div'>)
     setError('');
 
     try {
-      const response = await fetch('http://localhost:3000/register', {
+      const response = await fetch(`${API_URL}/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
