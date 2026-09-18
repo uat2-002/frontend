@@ -1,4 +1,4 @@
-export const PATH_HOME = '/';
-export const PATH_UI_LIBRARY = '/ui-library';
-export const PATH_MY_LIST = '/my_list';
-export const PATH_NOT_FOUND = '/*';
+export const PATH_HOME: string = '/';
+export const PATH_UI_LIBRARY: string = '/ui-library';
+export const PATH_MY_LIST: string = '/my_list';
+export const PATH_NOT_FOUND: string = '/*';

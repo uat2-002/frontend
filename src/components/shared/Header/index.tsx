@@ -6,10 +6,11 @@ import {
   AvatarFallback,
 } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
+import { PATH_HOME, PATH_MY_LIST } from '@/router/path';
 
 const navigation = [
-  { label: 'Home', to: '/' },
-  { label: 'My List', to: '/my_list' },
+  { label: 'Home', to: PATH_HOME},
+  { label: 'My List', to: PATH_MY_LIST},
 ];
 
 const Header = () => {
