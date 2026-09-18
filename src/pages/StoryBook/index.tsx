@@ -1,5 +1,11 @@
-import ButtonComponent from '@/pages/StoryBook/ButtonComponent';
-import ModalComponent from '@/pages/StoryBook/ModalComponent';
+import ButtonComponent from './ButtonComponent';
+import ModalComponent from './ModalComponent';
+import SeparatorComponent from './SeparatorComponent';
+import InputComponent from './InputComponent';
+import LabelComponent from './LabelComponent';
+import FieldComponent from './FieldComponent';
+import AlertComponent from './AlertComponent';
+import CardComponent from './CardComponent';
 import ToastComponent from '@/pages/StoryBook/ToastComponent';
 
 const StoryBook = () => {
@@ -8,6 +14,12 @@ const StoryBook = () => {
       <ButtonComponent />
       <ModalComponent />
       <ToastComponent />
+      <SeparatorComponent />
+      <InputComponent />
+      <LabelComponent />
+      <FieldComponent />
+      <AlertComponent />
+      <CardComponent />
     </>
   );
 };
