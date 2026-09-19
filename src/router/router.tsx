@@ -13,7 +13,6 @@ export const router = createBrowserRouter([
       { path: PATH_HOME, element: <Home /> },
       { path: PATH_MY_LIST, element: <MyList /> },
     ],
-
   },
   { path: PATH_UI_LIBRARY, element: <StoryBook /> },
   { path: PATH_NOT_FOUND, element: <NotFound /> },

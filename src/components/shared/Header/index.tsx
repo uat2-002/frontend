@@ -8,7 +8,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { PATH_HOME, PATH_MY_LIST } from '@/router/path';
 
-const navigation = [
+const NAVIGATION_LIST = [
   { label: 'Home', to: PATH_HOME},
   { label: 'My List', to: PATH_MY_LIST},
 ];
@@ -20,9 +20,8 @@ const Header = () => {
         <NavLink to="/" className="text-lg font-semibold">
           Serial Tracker
         </NavLink>
-
         <nav className="ml-10 flex items-center gap-7">
-          {navigation.map(item => (
+          {NAVIGATION_LIST.map(item => (
             <NavLink
               key={item.to}
               to={item.to}
@@ -37,7 +36,6 @@ const Header = () => {
             </NavLink>
           ))}
         </nav>
-
         <div className="ml-auto flex items-center gap-1">
           <Button
             variant="ghost"
@@ -46,7 +44,6 @@ const Header = () => {
           >
             <Bell className="size-4" />
           </Button>
-
           <Avatar className="ml-1 size-8">
             <AvatarFallback className="text-xs">
               SW
