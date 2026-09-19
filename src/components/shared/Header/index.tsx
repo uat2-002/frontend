@@ -1,17 +1,8 @@
 import { Bell } from 'lucide-react';
 import { NavLink } from 'react-router';
-
-import {
-  Avatar,
-  AvatarFallback,
-} from '@/components/ui/avatar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { PATH_HOME, PATH_MY_LIST } from '@/router/path';
-
-const NAVIGATION_LIST = [
-  { label: 'Home', to: PATH_HOME},
-  { label: 'My List', to: PATH_MY_LIST},
-];
+import { NAVIGATION_LIST } from '@/components/shared/Header/navigation_list';
 
 const Header = () => {
   return (
