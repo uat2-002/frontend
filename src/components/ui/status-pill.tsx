@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 export type UserStatus = "watching" | "plan_to_watch" | "watched" | "not_worth_it";
 export type SeriesStatus = "ongoing" | "ended";

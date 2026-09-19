@@ -1,6 +1,7 @@
 import * as React from "react";
-import { cn } from "../../lib/utils";
-import { StatusPill, UserStatus } from "./status-pill";
+import { cn } from "@/lib/utils";
+import { StatusPill } from "./status-pill";
+import type { UserStatus } from "./status-pill";
 
 export interface MediaCardProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
