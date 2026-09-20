@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/buttonA';
+import { Button } from '@/components/ui/button';
 import Item from '@/components/shared/Item';
 
 const BUTTON_PROPS = [
