@@ -1,3 +1,4 @@
+import ComponentSection from '@/components/shared/Container/ComponentSection';
 import { Button } from '@/components/ui/button';
 import Item from '@/components/shared/Item';
 
@@ -47,7 +48,7 @@ const DISABLED_BUTTONS = [
 
 const ButtonComponent = () => {
   return (
-    <div className="space-y-8 p-6">
+    <ComponentSection>
       <section className="space-y-3">
         <h3>Buttons Props</h3>
 
@@ -93,7 +94,7 @@ const ButtonComponent = () => {
           ))}
         </div>
       </section>
-    </div>
+    </ComponentSection>
   );
 };
 

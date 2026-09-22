@@ -1,3 +1,4 @@
+import ComponentSection from '@/components/shared/Container/ComponentSection';
 import { CheckCircle2Icon } from 'lucide-react';
 import { AlertCircleIcon } from 'lucide-react';
 import { AlertTriangleIcon } from 'lucide-react';
@@ -15,7 +16,7 @@ const ALERT_PROPS = [
 
 export default function AlertComponent() {
   return (
-    <div className="space-y-8 p-6">
+    <ComponentSection>
       <section className="space-y-3">
         <h3 className="text-lg font-semibold">Alert Props</h3>
         <ul className="space-y-2 text-sm text-muted-foreground">
@@ -85,6 +86,6 @@ export default function AlertComponent() {
           </Alert>
         </div>
       </section>
-    </div>
+   </ComponentSection>
   );
 }
