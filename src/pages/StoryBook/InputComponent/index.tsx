@@ -1,3 +1,4 @@
+import ComponentSection from '@/components/shared/Container/ComponentSection';
 import { Input } from "@/components/ui/input.tsx"
 import Item from '@/components/shared/Item';
 
@@ -25,7 +26,7 @@ const INPUT_PROPS = [
 ];
 export default function InputComponent() {
   return (
-    <div className="space-y-8 p-6">
+   <ComponentSection>
       <section className="space-y-3">
         <h3 className="text-lg font-semibold">Input Props</h3>
         <ul className="space-y-2 text-sm text-muted-foreground">
@@ -52,6 +53,6 @@ export default function InputComponent() {
       </section>
 
       
-    </div>
+    </ComponentSection>
   );
 }

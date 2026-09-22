@@ -1,3 +1,4 @@
+import ComponentSection from '@/components/shared/Container/ComponentSection';
 import { showToast } from '@/lib/toast';
 import Item from '@/components/shared/Item';
 import { Button } from '@/components/ui/button';
@@ -13,7 +14,7 @@ const SHOWTOAST_PROPS = [
 
 export default function ToastComponent() {
   return (
-    <div className="space-y-8 p-6">
+    <ComponentSection>
       <section className="space-y-3">
         <h3 className="text-lg font-semibold">showToast Props</h3>
         <p className="text-sm text-muted-foreground">
@@ -32,6 +33,6 @@ export default function ToastComponent() {
           <Button onClick={() => showToast('Example message', 'info')}>Show Toast Example</Button>
         </div>
       </section>
-    </div>
+    </ComponentSection>
   );
 }

@@ -1,3 +1,4 @@
+import ComponentSection from '@/components/shared/Container/ComponentSection';
 import Modal from '@/components/shared/Modal';
 import Item from '@/components/shared/Item';
 
@@ -33,7 +34,7 @@ const MODAL_PROPS = [
 ];
 export default function ModalComponent() {
   return (
-    <div className="space-y-8 p-6">
+    <ComponentSection>
       <section className="space-y-3">
         <h3 className="text-lg font-semibold">Modal Props</h3>
         <ul className="space-y-2 text-sm text-muted-foreground">
@@ -58,6 +59,6 @@ export default function ModalComponent() {
           </Modal>
         </div>
       </section>
-    </div>
+    </ComponentSection>
   );
 }

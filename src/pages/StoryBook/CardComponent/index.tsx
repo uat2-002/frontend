@@ -1,3 +1,4 @@
+import ComponentSection from '@/components/shared/Container/ComponentSection';
 import {
   Card,
   CardAction,
@@ -18,7 +19,7 @@ const CARD_PROPS = [
 
 export default function CardComponent() {
   return (
-    <div className="space-y-8 p-6">
+    <ComponentSection>
       <section className="space-y-3">
         <h3 className="text-lg font-semibold">Card Props</h3>
         <ul className="space-y-2 text-sm text-muted-foreground">
@@ -47,6 +48,6 @@ export default function CardComponent() {
           </Card>
         </div>
       </section>
-    </div>
+    </ComponentSection>
   );
 }

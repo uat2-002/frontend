@@ -1,3 +1,4 @@
+import ComponentSection from '@/components/shared/Container/ComponentSection';
 import { Separator } from '@/components/ui/separator.tsx';
 import Item from '@/components/shared/Item';
 
@@ -13,7 +14,7 @@ const SEPARATOR_PROPS = [
 ];
 export default function SeparatorComponent() {
   return (
-    <div className="space-y-8 p-6">
+    <ComponentSection>
       <section className="space-y-3">
         <h3 className="text-lg font-semibold">Separator Props</h3>
         <ul className="space-y-2 text-sm text-muted-foreground">
@@ -63,6 +64,6 @@ export default function SeparatorComponent() {
           </div>
         </div>
       </section>
-    </div>
+    </ComponentSection>
   );
 }

@@ -1,3 +1,4 @@
+import ComponentSection from '@/components/shared/Container/ComponentSection';
 import { Label } from '@/components/ui/label';
 import Item from '@/components/shared/Item';
 
@@ -10,7 +11,7 @@ const LABEL_PROPS = [
 
 export default function LabelComponent() {
   return (
-    <div className="space-y-8 p-6">
+    <ComponentSection>
       <section className="space-y-3">
         <h3 className="text-lg font-semibold">Label Props</h3>
         <ul className="space-y-2 text-sm text-muted-foreground">
@@ -29,6 +30,6 @@ export default function LabelComponent() {
           <Label htmlFor="terms">Accept terms and conditions</Label>
         </div>
       </section>
-    </div>
+    </ComponentSection>
   );
 }
