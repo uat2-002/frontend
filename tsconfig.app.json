@@ -9,7 +9,8 @@
     ],
     "module": "esnext",
     "types": [
-      "vite/client"
+      "vite/client",
+      "jest"
     ],
     "allowArbitraryExtensions": true,
     "skipLibCheck": true,
