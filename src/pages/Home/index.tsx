@@ -13,17 +13,15 @@ export const Home = () => {
     const fetchSeries = async () => {
       try {
         setLoading(true);
+        setError(null);
         const API_URL = import.meta.env.VITE_API_URL;
         const response = await axios.get(`${API_URL}/api/series`);
         
-       
         const data = Array.isArray(response.data) ? response.data : response.data.data || [];
         setSeriesList(data);
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (err) {
-  console.error('Деталі помилки:', err);
-  setError('Error loading series');
-
+        console.error('Деталі помилки:', err);
+        setError('Error loading series');
       } finally {
         setLoading(false);
       }
@@ -33,14 +31,14 @@ export const Home = () => {
   }, []);
 
   if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <>
       <h1>Home page</h1>
       <HealthCheck />
 
-      <div style={{ padding: '20px', display: 'grid', gap: '20px' }}>
+      <div className="p-5 grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {Array.isArray(seriesList) && seriesList.map(series => (
           <MediaCard
             key={series.id}
@@ -49,6 +47,7 @@ export const Home = () => {
             imageUrl={`https://image.tmdb.org/t/p/w500${series.poster}`}
             rating={series.rating}
             releaseYear={series.releaseDate ? series.releaseDate.split('-')[0] : ''}
+            actionState="add"
             onAddClick={() => console.log('Add clicked', series.id)}
           />
         ))}
