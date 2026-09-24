@@ -39,7 +39,7 @@ export const SignInForm = ({ className, ...props }: React.ComponentProps<'div'>)
       if (!response.ok) {
         setError(data.error || 'Log In failed');
         return;
-      };
+      }
 
       saveTokens({
         accessToken: data.accessToken,
@@ -50,7 +50,7 @@ export const SignInForm = ({ className, ...props }: React.ComponentProps<'div'>)
     } catch {
       setError('Could not connect to the server');
     }
-  };
+  }
 
   const handleSignUpRedirect = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();

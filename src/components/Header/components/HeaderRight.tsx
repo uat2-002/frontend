@@ -1,12 +1,12 @@
 import { BellButton } from '@/components/Header/components/BellButton';
 import { UserAvatar } from '@/components/Header/components/UserAvatar';
 import { getAccessToken } from '@/auth/tokenStorage';
-import { SignInButton } from './SignInButton';
-import { SignOutButton } from './SignOutButton';
+import { SignInButton } from '@/components/Header/components/SignInButton';
+import { SignOutButton } from '@/components/Header/components/SignOutButton';
 import { useState } from 'react';
 
 export const HeaderRight = () => {
-  const [isSignedIn, setIsSignedIn] = useState(
+  const [, setIsSignedIn] = useState(
     () => Boolean(getAccessToken())
   );
 
