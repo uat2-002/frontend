@@ -6,7 +6,7 @@ import AppLayout from '@/components/shared/AppLayout';
 import { PATH_HOME, PATH_UI_LIBRARY, PATH_MY_LIST, PATH_SIGN_UP, PATH_BROWSE, PATH_NOT_FOUND } from '@/router/path';
 import SignUpPage from '@/pages/SignUp/index';
 import { MyList } from '@/pages/MyList';
-import BrowsePage from '@/pages/Browse';
+import { BrowsePage } from '@/pages/Browse';
 
 export const router = createBrowserRouter([
   {

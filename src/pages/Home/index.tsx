@@ -1,5 +1,5 @@
 import HealthCheck from '@/components/HealthCheck';
-import PopularSeriesSection from '@/components/shared/PopularSeriesSection';
+import { PopularSeriesSection } from '@/components/shared/PopularSeriesSection';
 
 export const Home = () => {
   return (

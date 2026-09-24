@@ -1,12 +1,12 @@
 import { useSearchParams, useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
-import SearchBar from './components/SearchBar.tsx';
-import SearchResultCard from '@/components/shared/SearchResultCard';
-import PopularSeriesSection from '@/components/shared/PopularSeriesSection';
+import { SearchBar } from './components/SearchBar.tsx';
+import { SearchResultCard } from '@/components/shared/SearchResultCard';
+import { PopularSeriesSection } from '@/components/shared/PopularSeriesSection';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-export default function BrowsePage() {
+export const BrowsePage = () => {
   const navigate = useNavigate();
 
   const [searchParams] = useSearchParams();
@@ -82,4 +82,4 @@ export default function BrowsePage() {
       {renderedContent}
     </div>
   );
-}
+};

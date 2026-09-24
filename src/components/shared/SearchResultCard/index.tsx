@@ -6,7 +6,7 @@ import {
 } from '@/components/ui/card';
 import noPosterPlaceholder from '@/assets/noPosterPlaceholder.png';
 
-export default function SearchResultCard({ onClick, ...props }) {
+export const SearchResultCard = ({ ...props }) => {
   let seriesPosterPath;
   if (props.poster_path == null) {
     seriesPosterPath = noPosterPlaceholder
@@ -15,7 +15,7 @@ export default function SearchResultCard({ onClick, ...props }) {
   }
 
   return (
-    <Card className="relative w-full max-w-[220px] pt-0 cursor-pointer" onClick={onClick}>
+    <Card className="relative w-full max-w-[220px] pt-0 cursor-pointer">
       <img
         src={seriesPosterPath}
         alt="Serial cover"

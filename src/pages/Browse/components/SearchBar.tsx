@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Field } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 
-export default function SearchBar() {
+export const SearchBar = () => {
   const navigate = useNavigate();
   const [query, setQuery] = useState('');
 
@@ -18,11 +18,13 @@ export default function SearchBar() {
         value={query}
         onChange={e => setQuery(e.target.value)}
       />
-      <Button onClick={() => {
-        navigate(`/browse?query=${query}&page=1`);
-      }}>
+      <Button
+        onClick={() => {
+          navigate(`/browse?query=${query}&page=1`);
+        }}
+      >
         <Search></Search>
       </Button>
     </Field>
   );
-}
+};
