@@ -4,7 +4,6 @@ import { SearchResultCard } from '@/components/shared/SearchResultCard';
 const API_URL = import.meta.env.VITE_API_URL;
 
 export const PopularSeriesSection = () => {
-
   const [data, setData] = useState([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -15,13 +14,13 @@ export const PopularSeriesSection = () => {
         const data = await response.json();
 
         if (!response.ok) {
-          setError(data.error || "Couldn't reach the API");
+          setError(data.error || 'Could not reach the API');
           return;
         }
 
         setData(data.results);
-      } catch (err) {
-        setError("Couldn't reach the API");
+      } catch {
+        setError('Could not reach the API');
       }
     }
 

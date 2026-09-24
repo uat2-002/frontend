@@ -1,17 +1,12 @@
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import noPosterPlaceholder from '@/assets/noPosterPlaceholder.png';
 
 export const SearchResultCard = ({ ...props }) => {
   let seriesPosterPath;
   if (props.poster_path == null) {
-    seriesPosterPath = noPosterPlaceholder
+    seriesPosterPath = noPosterPlaceholder;
   } else {
-    seriesPosterPath = "https://image.tmdb.org/t/p/w185" + props.poster_path
+    seriesPosterPath = 'https://image.tmdb.org/t/p/w185' + props.poster_path;
   }
 
   return (
@@ -27,4 +22,4 @@ export const SearchResultCard = ({ ...props }) => {
       </CardHeader>
     </Card>
   );
-}
+};

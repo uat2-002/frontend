@@ -1,6 +1,6 @@
 import { useSearchParams, useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
-import { SearchBar } from './components/SearchBar.tsx';
+import { SearchBar } from './components/SearchBar';
 import { SearchResultCard } from '@/components/shared/SearchResultCard';
 import { PopularSeriesSection } from '@/components/shared/PopularSeriesSection';
 
@@ -30,13 +30,13 @@ export const BrowsePage = () => {
         const result = await response.json();
 
         if (!response.ok) {
-          setError(result.error || "Couldn't reach the API");
+          setError(result.error || 'Could not reach the API');
           return;
         }
 
         setData(result.results);
-      } catch (err) {
-        setError("Couldn't reach the API");
+      } catch {
+        setError('Could not reach the API');
       } finally {
         setLoading(false);
       }
