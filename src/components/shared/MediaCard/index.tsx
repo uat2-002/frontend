@@ -1,7 +1,7 @@
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Check, Plus } from 'lucide-react';
+import { Check, Plus, Star } from 'lucide-react';
 import { Progress, ProgressTrack, ProgressIndicator } from '@/components/ui/progress';
 
 export type UserStatus = 'watching' | 'plan_to_watch' | 'watched' | 'not_worth_it' | 'none';
@@ -15,6 +15,8 @@ type MediaCardProps = {
   actionState?: ActionState;
   progressValue?: number;
   onAddClick?: () => void;
+  rating?: number;
+  releaseYear?: string;
 };
 
 export const MediaCard = ({
@@ -25,6 +27,8 @@ export const MediaCard = ({
   actionState = 'none',
   progressValue = 0,
   onAddClick,
+  rating,
+  releaseYear,
 }: MediaCardProps) => {
   const isWatching = status === 'watching';
   const isNotWorthIt = status === 'not_worth_it';
@@ -80,6 +84,17 @@ export const MediaCard = ({
           {description}
         </p>
       </div>
+      {(rating || releaseYear) && (
+        <div className="flex items-center gap-2 text-xs font-medium mt-1 mb-1">
+          {rating && (
+            <span className="flex items-center text-yellow-500">
+              <Star className="w-3 h-3 mr-1 fill-current" />
+              {rating.toFixed(1)}
+            </span>
+          )}
+          {releaseYear && <span className="text-muted-foreground">{releaseYear}</span>}
+        </div>
+      )}
 
       <div className="mt-4 shrink-0 flex items-end">
         {actionState === 'add' ? (

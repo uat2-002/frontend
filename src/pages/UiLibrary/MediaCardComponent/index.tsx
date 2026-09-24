@@ -35,6 +35,15 @@ const MEDIA_CARD_PROPS = [
     title: 'onAddClick',
     description: 'function (optional) - Click handler for the "Add" button.',
   },
+  {
+    title: 'rating',
+    description:
+      'number (optional) - Rating score (e.g., 7.5). Renders a star icon with the score.',
+  },
+  {
+    title: 'releaseYear',
+    description: 'string (optional) - Release year string (e.g., "2022").',
+  },
 ];
 
 type MockExample = {
@@ -45,6 +54,8 @@ type MockExample = {
   status?: UserStatus;
   actionState?: ActionState;
   progressValue?: number;
+  rating?: number;
+  releaseYear?: string;
 };
 
 const MOCK_EXAMPLES: MockExample[] = [
@@ -91,6 +102,8 @@ const MOCK_EXAMPLES: MockExample[] = [
     description: '2017 · Hong Kong sitcom',
     imageUrl: 'https://image.tmdb.org/t/p/w342/lgD4j9gUGmMckZpWWRJjorWqGVT.jpg',
     actionState: 'added',
+    rating: 5.4,
+    releaseYear: '2017',
   },
 ];
 
@@ -120,6 +133,8 @@ export default function MediaCardComponent() {
               actionState={item.actionState}
               progressValue={item.progressValue}
               onAddClick={() => {}}
+              rating={item.rating}
+              releaseYear={item.releaseYear}
             />
           ))}
         </div>
