@@ -1,13 +1,96 @@
-import { Badge } from '@/components/ui/badge';
-import { Card } from '@/components/ui/card';
 import ComponentSection from '@/pages/UiLibrary/shared/Container/ComponentSection';
 import Item from '@/pages/UiLibrary/shared/Item';
-import { Play } from 'lucide-react';
+import { MediaCard, type UserStatus, type ActionState } from '@/components/shared/MediaCard';
 
 const MEDIA_CARD_PROPS = [
   {
-    title: 'variant',
-    description: 'custom states: watching, watched, not_worth_it',
+    title: 'title',
+    description: 'string (required) - Media card title.',
+  },
+  {
+    title: 'description',
+    description: 'string (optional) - Description or metadata (e.g., "Season 2 · Episode 4").',
+  },
+  {
+    title: 'imageUrl',
+    description:
+      'string | null (optional) - Image poster URL. If null, a fallback placeholder is shown.',
+  },
+  {
+    title: 'status',
+    description:
+      '"watching" | "plan_to_watch" | "watched" | "not_worth_it" | "none"  (default: "none").Controls the bottom badge',
+  },
+  {
+    title: 'actionState',
+    description:
+      '"add" | "added" | "none" (default: "none"). Shows the corresponding button instead of the status badge.',
+  },
+  {
+    title: 'progressValue',
+    description:
+      'number (optional) - Progress percentage (0-100). Renders a progress bar only if status is set to "watching".',
+  },
+  {
+    title: 'onAddClick',
+    description: 'function (optional) - Click handler for the "Add" button.',
+  },
+];
+
+type MockExample = {
+  id: number;
+  title: string;
+  description: string;
+  imageUrl: string | null;
+  status?: UserStatus;
+  actionState?: ActionState;
+  progressValue?: number;
+};
+
+const MOCK_EXAMPLES: MockExample[] = [
+  {
+    id: 1,
+    title: 'Northbound',
+    description: 'Season 2 · Episode 4 of 8',
+    imageUrl: null,
+    status: 'watching',
+    actionState: 'none',
+    progressValue: 50,
+  },
+  {
+    id: 2,
+    title: 'Autumn Light',
+    description: '3 seasons · Ended',
+    imageUrl: null,
+    status: 'watched',
+  },
+  {
+    id: 3,
+    title: 'Old Town Shadows',
+    description: '1 season · Ongoing',
+    imageUrl: null,
+    status: 'plan_to_watch',
+  },
+  {
+    id: 4,
+    title: 'City Clock',
+    description: '1 season · Canceled',
+    imageUrl: null,
+    status: 'not_worth_it',
+  },
+  {
+    id: 5,
+    title: 'North Wind',
+    description: '2022 · Thriller',
+    imageUrl: null,
+    actionState: 'add',
+  },
+  {
+    id: 6,
+    title: 'Come Home Love: Lo and Behold',
+    description: '2017 · Hong Kong sitcom',
+    imageUrl: 'https://image.tmdb.org/t/p/w342/lgD4j9gUGmMckZpWWRJjorWqGVT.jpg',
+    actionState: 'added',
   },
 ];
 
@@ -26,51 +109,19 @@ export default function MediaCardComponent() {
       <section className="space-y-4">
         <h3>Media Card Examples</h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
-          <Card className="p-4 space-y-3 bg-card border w-full max-w-[320px]">
-            <div className="w-full h-36 bg-blue-950 rounded-lg relative flex items-end p-2.5">
-              <div
-                className="absolute top-2.5 right-2.5 w-6 h-6 bg-black/40 rounded-full flex items-center
-              justify-center"
-              >
-                <Play className="w-3 h-3 text-white fill-white" />
-              </div>
-              <div className="w-full bg-muted/40 h-1.5 rounded-full overflow-hidden">
-                <div className="bg-destructive w-1/2 h-full" />
-              </div>
-            </div>
-            <div>
-              <h4 className="font-semibold text-foreground text-base">Northbound</h4>
-              <p className="text-xs text-muted-foreground">Season 2 · Episode 4 of 8</p>
-            </div>
-            <Badge variant="destructive" className="text-xs">
-              Watching
-            </Badge>
-          </Card>
-
-          <Card className="p-4 space-y-3 bg-card border w-full max-w-[320px]">
-            <div className="w-full h-36 bg-emerald-950 rounded-lg relative flex items-start justify-end p-2.5">
-              <span className="text-emerald-400 font-bold text-sm">✓</span>
-            </div>
-            <div>
-              <h4 className="font-semibold text-foreground text-base">Autumn Light</h4>
-              <p className="text-xs text-muted-foreground">3 seasons · ended</p>
-            </div>
-            <Badge variant="default" className="text-xs">
-              Watched
-            </Badge>
-          </Card>
-
-          <Card className="p-4 space-y-3 bg-card border opacity-50 w-full max-w-[320px]">
-            <div className="w-full h-36 bg-zinc-900 rounded-lg border border-border/20" />
-            <div>
-              <h4 className="font-semibold text-foreground text-base">City Clock</h4>
-              <p className="text-xs text-muted-foreground">1 season · canceled</p>
-            </div>
-            <Badge variant="secondary" className="text-xs">
-              Not Worth It
-            </Badge>
-          </Card>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {MOCK_EXAMPLES.map(item => (
+            <MediaCard
+              key={item.id}
+              title={item.title}
+              description={item.description}
+              imageUrl={item.imageUrl}
+              status={item.status}
+              actionState={item.actionState}
+              progressValue={item.progressValue}
+              onAddClick={() => {}}
+            />
+          ))}
         </div>
       </section>
     </ComponentSection>
