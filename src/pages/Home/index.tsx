@@ -1,4 +1,4 @@
-import HealthCheck from '@/components/HealthCheck';
+import { HealthCheck } from '@/components/HealthCheck';
 import { PopularSeriesSection } from '@/components/shared/PopularSeriesSection';
 
 export const Home = () => {

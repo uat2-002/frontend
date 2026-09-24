@@ -1,7 +1,7 @@
 import { checkHealth } from '@/api/checkHealth';
 import { useEffect, useState } from 'react';
 
-const HealthCheck = () => {
+export const HealthCheck = () => {
   const [data, setData] = useState<string>('Checking health...');
 
   useEffect(() => {
@@ -20,5 +20,3 @@ const HealthCheck = () => {
 
   return <>Series Tracker ({data})</>;
 };
-
-export default HealthCheck;
