@@ -49,12 +49,12 @@ export const MediaCard = ({
     <Card
       role="article"
       aria-label={title}
-      className={`p-4 flex flex-col h-full bg-card border w-full max-w-[320px] ${
+      className={`flex flex-col h-full bg-card border w-full max-w-[280px] overflow-hidden cursor-pointer ${
         isNotWorthIt ? 'opacity-50 grayscale-[50%]' : ''
       }`}
     >
       <div
-        className={`w-full h-36 ${bgFallbackColor} rounded-lg relative overflow-hidden shrink-0 mb-3`}
+        className={`w-full aspect-[2/3] ${bgFallbackColor} relative shrink-0 overflow-hidden`}
         aria-hidden={!imageUrl}
       >
         {imageUrl && (
@@ -62,7 +62,7 @@ export const MediaCard = ({
         )}
 
         {isWatching && (
-          <div className="absolute bottom-0 left-0 w-full z-10">
+          <div className="absolute bottom-0 left-0 w-full z-20">
             <Progress
               value={progressValue}
               aria-label={`Progress for ${title}`}
@@ -76,56 +76,61 @@ export const MediaCard = ({
         )}
       </div>
 
-      <div className="flex-1 space-y-1">
-        <h4 className="font-semibold text-foreground text-base line-clamp-1" title={title}>
-          {title}
-        </h4>
-        <p className="text-xs text-muted-foreground line-clamp-2" title={description}>
-          {description}
-        </p>
-      </div>
-      {(rating || releaseYear) && (
-        <div className="flex items-center gap-2 text-xs font-medium mt-1 mb-1">
-          {rating && (
-            <span className="flex items-center text-yellow-500">
-              <Star className="w-3 h-3 mr-1 fill-current" />
-              {rating.toFixed(1)}
-            </span>
+      <div className="flex-1 flex flex-col p-4 pt-3">
+        <div className="flex-1 space-y-1">
+          <h4 className="font-semibold text-foreground text-base line-clamp-1" title={title}>
+            {title}
+          </h4>
+          {description && (
+            <p className="text-xs text-muted-foreground line-clamp-2" title={description}>
+              {description}
+            </p>
           )}
-          {releaseYear && <span className="text-muted-foreground">{releaseYear}</span>}
         </div>
-      )}
 
-      <div className="mt-4 shrink-0 flex items-end">
-        {actionState === 'add' ? (
-          <Button
-            variant="outline"
-            aria-label={`Add ${title} to your list`}
-            className="w-full bg-white text-black hover:bg-white/90 font-medium"
-            onClick={onAddClick}
-          >
-            <Plus className="w-4 h-4 mr-2" aria-hidden="true" />
-            Add
-          </Button>
-        ) : actionState === 'added' ? (
-          <Button
-            variant="secondary"
-            className="w-full bg-secondary/80 text-muted-foreground hover:bg-secondary cursor-default font-medium"
-            disabled
-            aria-label={`${title} is already added to your list`}
-          >
-            <Check className="w-4 h-4 mr-2" aria-hidden="true" />
-            Added
-          </Button>
-        ) : currentBadge ? (
-          <Badge
-            variant={currentBadge.variant}
-            className="text-xs rounded-md"
-            aria-label={`Status: ${currentBadge.label}`}
-          >
-            {currentBadge.label}
-          </Badge>
-        ) : null}
+        {(rating || releaseYear) && (
+          <div className="flex items-center gap-2 text-xs font-medium mt-2 mb-2">
+            {rating && (
+              <span className="flex items-center text-yellow-500">
+                <Star className="w-3 h-3 mr-1 fill-current" />
+                {rating.toFixed(1)}
+              </span>
+            )}
+            {releaseYear && <span className="text-muted-foreground">{releaseYear}</span>}
+          </div>
+        )}
+
+        <div className="mt-3 shrink-0 flex items-end">
+          {actionState === 'add' ? (
+            <Button
+              variant="outline"
+              aria-label={`Add ${title} to your list`}
+              className="w-full bg-white text-black hover:bg-white/90 font-medium h-9"
+              onClick={onAddClick}
+            >
+              <Plus className="w-4 h-4 mr-2" aria-hidden="true" />
+              Add
+            </Button>
+          ) : actionState === 'added' ? (
+            <Button
+              variant="secondary"
+              className="w-full bg-secondary/80 text-muted-foreground hover:bg-secondary cursor-default font-medium h-9"
+              disabled
+              aria-label={`${title} is already added to your list`}
+            >
+              <Check className="w-4 h-4 mr-2" aria-hidden="true" />
+              Added
+            </Button>
+          ) : currentBadge ? (
+            <Badge
+              variant={currentBadge.variant}
+              className="text-xs rounded-md"
+              aria-label={`Status: ${currentBadge.label}`}
+            >
+              {currentBadge.label}
+            </Badge>
+          ) : null}
+        </div>
       </div>
     </Card>
   );
