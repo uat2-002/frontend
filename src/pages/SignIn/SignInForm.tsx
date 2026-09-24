@@ -1,9 +1,10 @@
+import { saveTokens } from '@/auth/tokenStorage';
 import { Button } from '@/components/ui/button.tsx';
 import { Card, CardContent, CardHeader, CardTitle, } from '@/components/ui/card.tsx';
 import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui/field.tsx';
 import { Input } from '@/components/ui/input.tsx';
 import { AlertDestructive } from '@/pages/SignUp/AlertDestructive';
-import { PATH_MY_LIST, PATH_SIGN_UP, PATH_HOME } from '@/router/path';
+import { PATH_MY_LIST, PATH_SIGN_UP } from '@/router/path';
 import { cn } from 'cn';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
@@ -40,7 +41,12 @@ export const SignInForm = ({ className, ...props }: React.ComponentProps<'div'>)
         return;
       };
 
-      navigate(PATH_HOME);
+      saveTokens({
+        accessToken: data.accessToken,
+        refreshToken: data.refreshToken,
+      });
+
+      navigate(PATH_MY_LIST);
     } catch {
       setError('Could not connect to the server');
     }
