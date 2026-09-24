@@ -3,14 +3,19 @@ import { UserAvatar } from '@/components/Header/components/UserAvatar';
 import { getAccessToken } from '@/auth/tokenStorage';
 import { SignInButton } from './SignInButton';
 import { SignOutButton } from './SignOutButton';
+import { useState } from 'react';
 
 export const HeaderRight = () => {
+  const [isSignedIn, setIsSignedIn] = useState(
+    () => Boolean(getAccessToken())
+  );
+
   return (
     <div className="ml-auto flex items-center gap-1">
       <BellButton />
       <UserAvatar />
       { getAccessToken() 
-        ? <SignOutButton />
+        ? <SignOutButton onSignedOut={() => setIsSignedIn(false)} />
         : <SignInButton />
       }
     </div>

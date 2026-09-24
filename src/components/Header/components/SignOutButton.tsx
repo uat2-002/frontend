@@ -5,7 +5,11 @@ import { getAccessToken, clearTokens } from '@/auth/tokenStorage';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-export const SignOutButton = () => {
+type SignOutButtonProps = {
+  onSignedOut: () => void;
+};
+
+export const SignOutButton = ({ onSignedOut }: SignOutButtonProps) => {
   const navigate = useNavigate();
 
   async function hendleLogOut() {
@@ -19,7 +23,6 @@ export const SignOutButton = () => {
             Authorization: `Bearer ${accessToken}`,
           },
         });
-
         if (!response.ok) {
           throw new Error(`Logout failed: ${response.status}`);
         }
@@ -28,6 +31,7 @@ export const SignOutButton = () => {
       console.error('Server logout failed', error);
     } finally {
       clearTokens();
+      onSignedOut();
       navigate(PATH_HOME);
     }
   }
