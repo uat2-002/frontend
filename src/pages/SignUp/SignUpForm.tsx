@@ -1,8 +1,3 @@
-import React from 'react';
-import { useState } from 'react';
-import { useNavigate } from 'react-router';
-import { cn } from 'cn';
-
 import { Button } from '@/components/ui/button.tsx';
 import {
   Card,
@@ -13,12 +8,15 @@ import {
 } from '@/components/ui/card.tsx';
 import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui/field.tsx';
 import { Input } from '@/components/ui/input.tsx';
-
-import { AlertDestructive } from './AlertDestructive.tsx';
+import { AlertDestructive } from '@/pages/SignUp/AlertDestructive';
+import { PATH_HOME } from '@/router/path';
+import { cn } from 'cn';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-export function SignUpForm({ className, ...props }: React.ComponentProps<'div'>) {
+export const SignUpForm = ({ className, ...props }: React.ComponentProps<'div'>) => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
@@ -48,9 +46,9 @@ export function SignUpForm({ className, ...props }: React.ComponentProps<'div'>)
         return;
       }
 
-      //registration succeeded - need to navigate user to login page, dont have login page at the moment
-      navigate('/');
-    } catch (err) {
+      // TODO:registration succeeded - need to navigate user to login page, dont have login page at the moment
+      navigate(PATH_HOME);
+    } catch {
       setError('Could not connect to the server');
     }
   }
@@ -100,4 +98,4 @@ export function SignUpForm({ className, ...props }: React.ComponentProps<'div'>)
       </Card>
     </div>
   );
-}
+};

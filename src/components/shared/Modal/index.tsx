@@ -1,27 +1,27 @@
-import React from 'react';
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogFooter,
-  DialogClose,
 } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
+import type { ReactNode } from 'react';
 
-interface ModalProps {
+type ModalProps = {
   triggerOpen: string;
   title: string;
   description?: string;
-  children: React.ReactNode;
+  children: ReactNode;
   cancelText?: string;
   confirmText?: string;
   onConfirm?: () => void;
-}
+};
 
-export default function Modal({
+export const Modal = ({
   triggerOpen,
   title,
   children,
@@ -29,25 +29,23 @@ export default function Modal({
   cancelText,
   confirmText,
   onConfirm,
-}: ModalProps) {
-  return (
-    <Dialog>
-      <DialogTrigger render={<Button variant="outline">{triggerOpen}</Button>}></DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>{description}</DialogDescription>
-        </DialogHeader>
-        <div className="py-2">{children}</div>
-        {(cancelText || confirmText) && (
-          <DialogFooter className="justify-center gap-2">
-            {cancelText && <DialogClose render={<Button variant="outline">{cancelText}</Button>} />}
-            {confirmText && (
-              <DialogClose render={<Button onClick={onConfirm}>{confirmText}</Button>} />
-            )}
-          </DialogFooter>
-        )}
-      </DialogContent>
-    </Dialog>
-  );
-}
+}: ModalProps) => (
+  <Dialog>
+    <DialogTrigger render={<Button variant="outline">{triggerOpen}</Button>}></DialogTrigger>
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>{title}</DialogTitle>
+        <DialogDescription>{description}</DialogDescription>
+      </DialogHeader>
+      <div className="py-2">{children}</div>
+      {(cancelText || confirmText) && (
+        <DialogFooter className="justify-center gap-2">
+          {cancelText && <DialogClose render={<Button variant="outline">{cancelText}</Button>} />}
+          {confirmText && (
+            <DialogClose render={<Button onClick={onConfirm}>{confirmText}</Button>} />
+          )}
+        </DialogFooter>
+      )}
+    </DialogContent>
+  </Dialog>
+);

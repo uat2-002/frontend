@@ -1,10 +1,8 @@
-import HealthCheck from '@/components/HealthCheck';
+import { HealthCheck } from '@/components/HealthCheck';
 
-export const Home = () => {
-  return (
-    <>
-      <h1>Home page</h1>
-      <HealthCheck />
-    </>
-  );
-};
+export const Home = () => (
+  <>
+    <h1>Home page</h1>
+    <HealthCheck />
+  </>
+);
