@@ -1,5 +1,0 @@
-export { SkeletonAvatar } from "./SkeletonAvatar"
-export { SkeletonCard } from "./SkeletonCard"
-export { SkeletonText } from "./SkeletonText"
-export { SkeletonForm } from "./SkeletonForm"
-export { SkeletonTable } from "./SkeletonTable"

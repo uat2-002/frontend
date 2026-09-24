@@ -1,4 +1,4 @@
-import { Skeleton } from "@/components/ui/skeleton"
+import { Skeleton } from '@/components/ui/skeleton';
 
 export function SkeletonForm() {
   return (
@@ -13,5 +13,5 @@ export function SkeletonForm() {
       </div>
       <Skeleton className="h-8 w-24" />
     </div>
-  )
+  );
 }
