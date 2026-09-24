@@ -19,7 +19,7 @@ export default function SearchBar() {
         onChange={e => setQuery(e.target.value)}
       />
       <Button onClick={() => {
-        navigate(`/browse?search_querry=${query}`);
+        navigate(`/browse?query=${query}&page=1`);
       }}>
         <Search></Search>
       </Button>
