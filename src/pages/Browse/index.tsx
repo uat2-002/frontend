@@ -1,14 +1,12 @@
-import { useSearchParams, useNavigate } from 'react-router';
+import { useSearchParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { SearchBar } from '@/pages/Browse/components/SearchBar';
-import { SearchResultCard } from '@/components/shared/SearchResultCard';
-import { PopularSeriesSection } from '@/components/shared/PopularSeriesSection';
+import { SearchResultCard } from '@/pages/Browse/components/SearchResultCard';
+import { PopularSeriesSection } from '@/pages/Browse/components/PopularSeriesSection';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 export const BrowsePage = () => {
-  const navigate = useNavigate();
-
   const [searchParams] = useSearchParams();
   const [data, setData] = useState([]);
   const [error, setError] = useState();
@@ -26,7 +24,7 @@ export const BrowsePage = () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch(`${API_URL}/api/search/series?query=${query}&page=${page}`);
+        const response = await fetch(`${API_URL}/api/search/series?query=${query}&page=${page}`); 
         const result = await response.json();
 
         if (!response.ok) {
@@ -34,7 +32,7 @@ export const BrowsePage = () => {
           return;
         }
 
-        setData(result.results);
+        setData(result);
       } catch {
         setError('Could not reach the API');
       } finally {
@@ -53,24 +51,24 @@ export const BrowsePage = () => {
     renderedContent = <p>Loading...</p>;
   } else if (error) {
     renderedContent = <p>{error}</p>;
-  } else if (data.length > 0) {
+  } else if (data.results.length > 0) {
     renderedContent = (
+
+      <div>
+      <h3 className="text-lg font-semibold pt-4 pb-4">{data.total_results} series found</h3>
       <div className="grid grid-cols-5 gap-6">
-        {data.map(series => (
+        {data.results.map(series => (
           <SearchResultCard
             key={series.id}
             {...series}
-            onClick={() => redirect(`/series_page?id=${series.id}`)}
           />
         ))}
       </div>
+    </div>
+
     );
   } else {
-    renderedContent = <p>Couldn't find anything</p>;
-  }
-
-  function redirect(link: string) {
-    navigate(link);
+    renderedContent = <p>Could not find anything</p>;
   }
 
   return (

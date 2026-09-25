@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { SearchResultCard } from '@/components/shared/SearchResultCard';
+import { SearchResultCard } from '@/pages/Browse/components/SearchResultCard';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -32,10 +32,13 @@ export const PopularSeriesSection = () => {
   }
 
   return (
-    <div className="grid grid-cols-5 gap-6">
-      {data.map(series => (
-        <SearchResultCard key={series.id} {...series} />
-      ))}
+    <div>
+      <h3 className="text-lg font-semibold pt-4 pb-4">Popular series</h3>
+      <div className="grid grid-cols-5 gap-6">
+        {data.map(series => (
+          <SearchResultCard key={series.id} {...series} />
+        ))}
+      </div>
     </div>
   );
 };
