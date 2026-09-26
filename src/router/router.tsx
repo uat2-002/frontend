@@ -1,5 +1,4 @@
 import { AppLayout } from '@/components/AppLayout';
-import type { AuthUser } from '@/components/ProtectedRoutes/ProtectedRoutes';
 import { ProtectedRoutes } from '@/components/ProtectedRoutes/ProtectedRoutes';
 import { Home } from '@/pages/Home';
 import { NotFound } from '@/pages/NotFound';
@@ -17,15 +16,12 @@ import {
 } from '@/router/path';
 import { createBrowserRouter } from 'react-router';
 
-// mocked: add user for testing here
-const user: AuthUser | null = null;
-
 export const router = createBrowserRouter([
   {
     element: <AppLayout />,
     children: [
       {
-        element: <ProtectedRoutes user={user} />,
+        element: <ProtectedRoutes />,
         children: [{ path: PATH_MY_LIST, element: <SeriesList /> }],
       },
       { path: PATH_HOME, element: <Home /> },
