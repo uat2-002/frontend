@@ -1,3 +1,4 @@
+import { GoHomeButton } from '@/components/shared/GoHomeButton';
 import { Button } from '@/components/ui/button.tsx';
 import {
   Card,
@@ -9,7 +10,7 @@ import {
 import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui/field.tsx';
 import { Input } from '@/components/ui/input.tsx';
 import { AlertDestructive } from '@/pages/SignUp/AlertDestructive';
-import { PATH_HOME } from '@/router/path';
+import { PATH_HOME, PATH_SIGN_IN } from '@/router/path';
 import { cn } from 'cn';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
@@ -46,7 +47,6 @@ export const SignUpForm = ({ className, ...props }: React.ComponentProps<'div'>)
         return;
       }
 
-      // TODO:registration succeeded - need to navigate user to login page, dont have login page at the moment
       navigate(PATH_HOME);
     } catch {
       setError('Could not connect to the server');
@@ -55,9 +55,10 @@ export const SignUpForm = ({ className, ...props }: React.ComponentProps<'div'>)
 
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
-      {error && <AlertDestructive errorDescription={error} />}
-      <Card>
+      {error && <AlertDestructive errorDescription={error} />} 
+      <Card>   
         <CardHeader className="text-center">
+          <GoHomeButton />
           <CardTitle className="text-xl">Create your account</CardTitle>
           <CardDescription>Enter your information below to create your account</CardDescription>
         </CardHeader>
@@ -89,7 +90,11 @@ export const SignUpForm = ({ className, ...props }: React.ComponentProps<'div'>)
               <Field>
                 <Button type="submit">Create Account</Button>
                 <FieldDescription className="text-center">
-                  Already have an account? <a href="#">Sign in</a>
+                  Already have an account? 
+                  <Button
+                    variant="link"
+                    onClick={ () => navigate(PATH_SIGN_IN) }
+                  >Sign In</Button>
                 </FieldDescription>
               </Field>
             </FieldGroup>

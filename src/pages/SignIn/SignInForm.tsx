@@ -1,4 +1,5 @@
 import { saveTokens } from '@/auth/tokenStorage';
+import { GoHomeButton } from '@/components/shared/GoHomeButton';
 import { Button } from '@/components/ui/button.tsx';
 import { Card, CardContent, CardHeader, CardTitle, } from '@/components/ui/card.tsx';
 import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui/field.tsx';
@@ -52,16 +53,12 @@ export const SignInForm = ({ className, ...props }: React.ComponentProps<'div'>)
     }
   }
 
-  const handleSignUpRedirect = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    navigate(PATH_SIGN_UP);
-  };
-
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       {error && <AlertDestructive errorDescription={error} />}
       <Card>
         <CardHeader className="text-center">
+          <GoHomeButton />
           <CardTitle className="text-xl">Log in to Series Tracker</CardTitle>
         </CardHeader>
         <CardContent>
@@ -92,8 +89,10 @@ export const SignInForm = ({ className, ...props }: React.ComponentProps<'div'>)
                 <Button type="submit">Log In</Button>
                 <FieldDescription className="text-center">
                   New to Series Tracker? 
-                  <span> </span>
-                  <a href="#" onClick={ handleSignUpRedirect }>Sign Up</a>
+                  <Button 
+                    variant="link"
+                    onClick={ () => navigate(PATH_SIGN_UP) }
+                    >Sign Up</Button>
                 </FieldDescription>
               </Field>
             </FieldGroup>

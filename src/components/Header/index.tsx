@@ -1,4 +1,4 @@
-import { HeaderRight } from '@/components/Header/components/HeaderRight';
+import { HeaderRight } from '@/components/Header/components/HeaderRight/HeaderRight';
 import { Logotype } from '@/components/Header/components/Logotype';
 import { Navbar } from '@/components/Header/components/Navbar';
 
