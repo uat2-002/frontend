@@ -18,14 +18,11 @@ export const PopularSeriesSection = () => {
     async function fetchPopularSeries() {
       try {
         const response = await fetch(`${API_URL}/api/series`);
-        const result: { results: Series[]; error?: string } = await response.json();
+        const result = await response.json();
 
-        if (!response.ok) {
-          setError(result.error || 'Could not reach the API');
-          return;
-        }
+        const data = Array.isArray(result) ? result : result.data || [];
 
-        setData(result.results);
+        setData(data);
       } catch {
         setError('Could not reach the API');
       }
