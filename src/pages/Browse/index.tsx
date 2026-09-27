@@ -6,10 +6,25 @@ import { PopularSeriesSection } from '@/pages/Browse/components/PopularSeriesSec
 
 const API_URL = import.meta.env.VITE_API_URL;
 
+type Series = {
+  id: number;
+  name: string;
+  poster_path: string;
+  first_air_date: string;
+};
+
+type SearchResponse = {
+  results: Series[];
+  total_results: number;
+};
+
 export const BrowsePage = () => {
   const [searchParams] = useSearchParams();
-  const [data, setData] = useState([]);
-  const [error, setError] = useState();
+  const [data, setData] = useState<SearchResponse>({
+    results: [],
+    total_results: 0,
+  });
+  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   const query = searchParams.get('query');
@@ -24,8 +39,8 @@ export const BrowsePage = () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch(`${API_URL}/api/search/series?query=${query}&page=${page}`); 
-        const result = await response.json();
+        const response = await fetch(`${API_URL}/api/search/series?query=${query}&page=${page}`);
+        const result: SearchResponse & { error?: string } = await response.json();
 
         if (!response.ok) {
           setError(result.error || 'Could not reach the API');
@@ -53,19 +68,14 @@ export const BrowsePage = () => {
     renderedContent = <p>{error}</p>;
   } else if (data.results.length > 0) {
     renderedContent = (
-
       <div>
-      <h3 className="text-lg font-semibold pt-4 pb-4">{data.total_results} series found</h3>
-      <div className="grid grid-cols-5 gap-6">
-        {data.results.map(series => (
-          <SearchResultCard
-            key={series.id}
-            {...series}
-          />
-        ))}
+        <h3 className="text-lg font-semibold pt-4 pb-4">{data.total_results} series found</h3>
+        <div className="grid grid-cols-5 gap-6">
+          {data.results.map(series => (
+            <SearchResultCard key={series.id} {...series} />
+          ))}
+        </div>
       </div>
-    </div>
-
     );
   } else {
     renderedContent = <p>Could not find anything</p>;

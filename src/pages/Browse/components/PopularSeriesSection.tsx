@@ -3,22 +3,29 @@ import { SearchResultCard } from '@/pages/Browse/components/SearchResultCard';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
+type Series = {
+  id: number;
+  name: string;
+  poster_path: string;
+  first_air_date: string;
+};
+
 export const PopularSeriesSection = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Series[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchPopularSeries() {
       try {
         const response = await fetch(`${API_URL}/api/series`);
-        const data = await response.json();
+        const result: { results: Series[]; error?: string } = await response.json();
 
         if (!response.ok) {
-          setError(data.error || 'Could not reach the API');
+          setError(result.error || 'Could not reach the API');
           return;
         }
 
-        setData(data.results);
+        setData(result.results);
       } catch {
         setError('Could not reach the API');
       }
