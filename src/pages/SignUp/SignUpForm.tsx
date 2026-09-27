@@ -1,3 +1,4 @@
+import { GoHomeButton } from '@/components/shared/GoHomeButton';
 import { Button } from '@/components/ui/button.tsx';
 import {
   Card,
@@ -55,9 +56,10 @@ export const SignUpForm = ({ className, ...props }: React.ComponentProps<'div'>)
 
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
-      {error && <AlertDestructive errorDescription={error} />}
-      <Card>
+      {error && <AlertDestructive errorDescription={error} />} 
+      <Card>   
         <CardHeader className="text-center">
+          <GoHomeButton />
           <CardTitle className="text-xl">Create your account</CardTitle>
           <CardDescription>Enter your information below to create your account</CardDescription>
         </CardHeader>
