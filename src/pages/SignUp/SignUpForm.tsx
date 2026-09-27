@@ -9,11 +9,11 @@ import {
 } from '@/components/ui/card.tsx';
 import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui/field.tsx';
 import { Input } from '@/components/ui/input.tsx';
-import { AlertDestructive } from '@/pages/SignUp/AlertDestructive';
-import { PATH_HOME, PATH_SIGN_IN } from '@/router/path';
+import { PATH_SIGN_IN } from '@/router/path';
 import { cn } from 'cn';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import { showToast } from '@/lib/toast';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -22,7 +22,13 @@ export const SignUpForm = ({ className, ...props }: React.ComponentProps<'div'>)
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+  if (error) {
+    showToast(error, 'error');
+  }
+}, [error]);
 
   async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -47,7 +53,7 @@ export const SignUpForm = ({ className, ...props }: React.ComponentProps<'div'>)
         return;
       }
 
-      navigate(PATH_HOME);
+      navigate(PATH_SIGN_IN);
     } catch {
       setError('Could not connect to the server');
     }
@@ -55,8 +61,7 @@ export const SignUpForm = ({ className, ...props }: React.ComponentProps<'div'>)
 
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
-      {error && <AlertDestructive errorDescription={error} />} 
-      <Card>   
+      <Card>
         <CardHeader className="text-center">
           <GoHomeButton />
           <CardTitle className="text-xl">Create your account</CardTitle>
