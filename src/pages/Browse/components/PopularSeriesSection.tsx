@@ -5,9 +5,9 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 type Series = {
   id: number;
-  name: string;
-  poster_path: string;
-  first_air_date: string;
+  title: string;
+  poster: string;
+  releaseDate: string;
 };
 
 export const PopularSeriesSection = () => {
