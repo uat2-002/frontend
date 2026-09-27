@@ -3,15 +3,13 @@ import { UserAvatar } from '@/components/Header/components/HeaderRight/UserAvata
 import { getAccessToken } from '@/auth/tokenStorage';
 import { SignOutButton } from '@/components/Header/components/HeaderRight/SignOutButton';
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
 import { PATH_SIGN_IN, PATH_SIGN_UP } from '@/router/path';
-import { useNavigate } from 'react-router';
+import { AuthButton } from '@/components/Header/components/HeaderRight/AuthButton';
 
 export const HeaderRight = () => {
   const [, setIsSignedIn] = useState(
     () => Boolean(getAccessToken())
   );
-  const navigate = useNavigate();
 
   return (
     <div className="ml-auto flex items-center gap-1">
@@ -20,18 +18,9 @@ export const HeaderRight = () => {
       { getAccessToken() 
         ? <SignOutButton onSignedOut={() => setIsSignedIn(false)} />
         : <>
-            <Button
-              size="lg"
-              variant="outline"
-              onClick={() => navigate(PATH_SIGN_IN)}
-            >Sign In</Button>
-
-            <Button
-              size="lg"
-              variant="default"
-              onClick={() => navigate(PATH_SIGN_UP)}
-            >Sign Up</Button>
-          </>
+            <AuthButton variant="outline" path={ PATH_SIGN_IN }>Sign In</AuthButton>
+            <AuthButton variant="default" path={ PATH_SIGN_UP }>Sign Up</AuthButton>
+          </> 
       }
     </div>
   );
