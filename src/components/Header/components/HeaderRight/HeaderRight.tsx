@@ -5,11 +5,13 @@ import { SignOutButton } from '@/components/Header/components/HeaderRight/SignOu
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { PATH_SIGN_IN, PATH_SIGN_UP } from '@/router/path';
+import { useNavigate } from 'react-router';
 
 export const HeaderRight = () => {
   const [, setIsSignedIn] = useState(
     () => Boolean(getAccessToken())
   );
+  const navigate = useNavigate();
 
   return (
     <div className="ml-auto flex items-center gap-1">
@@ -21,15 +23,13 @@ export const HeaderRight = () => {
             <Button
               size="lg"
               variant="outline"
-              render={<a href={ PATH_SIGN_IN }/>}
-              nativeButton={false}
+              onClick={() => navigate(PATH_SIGN_IN)}
             >Sign In</Button>
 
             <Button
               size="lg"
               variant="default"
-              render={<a href={ PATH_SIGN_UP }/>}
-              nativeButton={false}
+              onClick={() => navigate(PATH_SIGN_UP)}
             >Sign Up</Button>
           </>
       }
