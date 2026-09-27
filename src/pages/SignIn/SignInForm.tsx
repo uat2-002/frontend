@@ -1,14 +1,14 @@
 import { saveTokens } from '@/auth/tokenStorage';
 import { GoHomeButton } from '@/components/shared/GoHomeButton';
 import { Button } from '@/components/ui/button.tsx';
-import { Card, CardContent, CardHeader, CardTitle, } from '@/components/ui/card.tsx';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card.tsx';
 import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui/field.tsx';
 import { Input } from '@/components/ui/input.tsx';
-import { AlertDestructive } from '@/pages/SignUp/AlertDestructive';
 import { PATH_MY_LIST, PATH_SIGN_UP } from '@/router/path';
 import { cn } from 'cn';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import { showToast } from '@/lib/toast';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -17,7 +17,13 @@ export const SignInForm = ({ className, ...props }: React.ComponentProps<'div'>)
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (error) {
+      showToast(error, 'error');
+    }
+  }, [error]);
 
   async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -55,7 +61,6 @@ export const SignInForm = ({ className, ...props }: React.ComponentProps<'div'>)
 
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
-      {error && <AlertDestructive errorDescription={error} />}
       <Card>
         <CardHeader className="text-center">
           <GoHomeButton />
@@ -88,11 +93,10 @@ export const SignInForm = ({ className, ...props }: React.ComponentProps<'div'>)
               <Field>
                 <Button type="submit">Log In</Button>
                 <FieldDescription className="text-center">
-                  New to Series Tracker? 
-                  <Button 
-                    variant="link"
-                    onClick={ () => navigate(PATH_SIGN_UP) }
-                    >Sign Up</Button>
+                  New to Series Tracker?
+                  <Button variant="link" onClick={() => navigate(PATH_SIGN_UP)}>
+                    Sign Up
+                  </Button>
                 </FieldDescription>
               </Field>
             </FieldGroup>
