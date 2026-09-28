@@ -48,7 +48,7 @@ export const Home = () => {
             rating={series.rating}
             releaseYear={series.releaseDate ? series.releaseDate.split('-')[0] : ''}
             actionState="add"
-            onAddClick={() => console.log('Add clicked', series.id)}
+            onAddClick={() => console.error('Add clicked', series.id)}
           />
         ))}
       </div>
