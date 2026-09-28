@@ -1,15 +1,10 @@
+import { saveTokens } from '@/auth/tokenStorage';
 import { GoHomeButton } from '@/components/shared/GoHomeButton';
 import { Button } from '@/components/ui/button.tsx';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card.tsx';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card.tsx';
 import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui/field.tsx';
 import { Input } from '@/components/ui/input.tsx';
-import { PATH_SIGN_IN } from '@/router/path';
+import { PATH_MY_LIST, PATH_SIGN_UP } from '@/router/path';
 import { cn } from 'cn';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
@@ -17,7 +12,7 @@ import { showToast } from '@/lib/toast';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-export const SignUpForm = ({ className, ...props }: React.ComponentProps<'div'>) => {
+export const SignInForm = ({ className, ...props }: React.ComponentProps<'div'>) => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
@@ -25,17 +20,17 @@ export const SignUpForm = ({ className, ...props }: React.ComponentProps<'div'>)
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-  if (error) {
-    showToast(error, 'error');
-  }
-}, [error]);
+    if (error) {
+      showToast(error, 'error');
+    }
+  }, [error]);
 
   async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     setError('');
 
     try {
-      const response = await fetch(`${API_URL}/api/register`, {
+      const response = await fetch(`${API_URL}/api/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -49,11 +44,16 @@ export const SignUpForm = ({ className, ...props }: React.ComponentProps<'div'>)
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.error || 'Registration failed');
+        setError(data.error || 'Log In failed');
         return;
       }
 
-      navigate(PATH_SIGN_IN);
+      saveTokens({
+        accessToken: data.accessToken,
+        refreshToken: data.refreshToken,
+      });
+
+      navigate(PATH_MY_LIST);
     } catch {
       setError('Could not connect to the server');
     }
@@ -64,8 +64,7 @@ export const SignUpForm = ({ className, ...props }: React.ComponentProps<'div'>)
       <Card>
         <CardHeader className="text-center">
           <GoHomeButton />
-          <CardTitle className="text-xl">Create your account</CardTitle>
-          <CardDescription>Enter your information below to create your account</CardDescription>
+          <CardTitle className="text-xl">Log in to Series Tracker</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit}>
@@ -89,17 +88,15 @@ export const SignUpForm = ({ className, ...props }: React.ComponentProps<'div'>)
                     required
                     onChange={e => setPassword(e.target.value)}
                   />
-                  <FieldDescription>Must be at least 8 characters long.</FieldDescription>
                 </Field>
               </Field>
               <Field>
-                <Button type="submit">Create Account</Button>
+                <Button type="submit">Log In</Button>
                 <FieldDescription className="text-center">
-                  Already have an account? 
-                  <Button
-                    variant="link"
-                    onClick={ () => navigate(PATH_SIGN_IN) }
-                  >Sign In</Button>
+                  New to Series Tracker?
+                  <Button variant="link" onClick={() => navigate(PATH_SIGN_UP)}>
+                    Sign Up
+                  </Button>
                 </FieldDescription>
               </Field>
             </FieldGroup>
