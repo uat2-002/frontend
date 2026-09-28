@@ -1,20 +1,15 @@
 import { useSearchParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { SearchBar } from '@/pages/Browse/components/SearchBar';
-import { SearchResultCard } from '@/pages/Browse/components/SearchResultCard';
 import { PopularSeriesSection } from '@/pages/Browse/components/PopularSeriesSection';
+import { MediaCard } from '@/components/shared/MediaCard';
+import type { SeriesItem } from '@/types/seriesType';
+import noPosterPlaceholder from '@/assets/noPosterPlaceholder.png';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-type Series = {
-  id: number;
-  name: string;
-  poster_path: string;
-  first_air_date: string;
-};
-
 type SearchResponse = {
-  results: Series[];
+  results: SeriesItem[];
   total_results: number;
 };
 
@@ -72,7 +67,20 @@ export const BrowsePage = () => {
         <h3 className="text-lg font-semibold pt-4 pb-4">{data.total_results} series found</h3>
         <div className="grid grid-cols-5 gap-6">
           {data.results.map(series => (
-            <SearchResultCard key={series.id} {...series} />
+            <MediaCard
+              key={series.id}
+              title={series.name}
+              description={series.overview}
+              imageUrl={
+                series.poster_path
+                  ? `https://image.tmdb.org/t/p/w500${series.poster_path}`
+                  : noPosterPlaceholder
+              }
+              rating={series.vote_average}
+              releaseYear={series.first_air_date ? series.first_air_date.split('-')[0] : ''}
+              actionState="add"
+              onAddClick={() => console.error('Add clicked', series.id)}
+            />
           ))}
         </div>
       </div>

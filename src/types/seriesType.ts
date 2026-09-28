@@ -5,4 +5,10 @@ export interface SeriesItem {
   description: string;
   rating: number;
   releaseDate: string;
+
+  name: string;
+  poster_path: string;
+  overview : string;
+  vote_average: number;
+  first_air_date: string;
 }

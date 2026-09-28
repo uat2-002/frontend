@@ -3,6 +3,7 @@ import axios from 'axios';
 import { HealthCheck } from '@/components/HealthCheck';
 import type { SeriesItem } from '@/types/seriesType';
 import { MediaCard } from '@/components/shared/MediaCard';
+import noPosterPlaceholder from '@/assets/noPosterPlaceholder.png';
 
 export const Home = () => {
   const [seriesList, setSeriesList] = useState<SeriesItem[]>([]);
@@ -44,7 +45,11 @@ export const Home = () => {
             key={series.id}
             title={series.title}
             description={series.description}
-            imageUrl={`https://image.tmdb.org/t/p/w500${series.poster}`}
+            imageUrl={
+                series.poster
+                  ? `https://image.tmdb.org/t/p/w500${series.poster}`
+                  : noPosterPlaceholder
+              }
             rating={series.rating}
             releaseYear={series.releaseDate ? series.releaseDate.split('-')[0] : ''}
             actionState="add"

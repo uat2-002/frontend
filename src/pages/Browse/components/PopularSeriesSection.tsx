@@ -1,17 +1,12 @@
 import { useEffect, useState } from 'react';
-import { SearchResultCard } from '@/pages/Browse/components/SearchResultCard';
+import { MediaCard } from '@/components/shared/MediaCard';
+import type { SeriesItem } from '@/types/seriesType';
+import noPosterPlaceholder from '@/assets/noPosterPlaceholder.png';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-type Series = {
-  id: number;
-  title: string;
-  poster: string;
-  releaseDate: string;
-};
-
 export const PopularSeriesSection = () => {
-  const [data, setData] = useState<Series[]>([]);
+  const [seriesList, setSeriesList] = useState<SeriesItem[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -22,7 +17,7 @@ export const PopularSeriesSection = () => {
 
         const data = Array.isArray(result) ? result : result.data || [];
 
-        setData(data);
+        setSeriesList(data);
       } catch {
         setError('Could not reach the API');
       }
@@ -39,8 +34,21 @@ export const PopularSeriesSection = () => {
     <div>
       <h3 className="text-lg font-semibold pt-4 pb-4">Popular series</h3>
       <div className="grid grid-cols-5 gap-6">
-        {data.map(series => (
-          <SearchResultCard key={series.id} {...series} />
+        {seriesList.map(series => (
+          <MediaCard
+            key={series.id}
+            title={series.title}
+            description={series.description}
+            imageUrl={
+                series.poster
+                  ? `https://image.tmdb.org/t/p/w500${series.poster}`
+                  : noPosterPlaceholder
+              }
+            rating={series.rating}
+            releaseYear={series.releaseDate ? series.releaseDate.split('-')[0] : ''}
+            actionState="add"
+            onAddClick={() => console.error('Add clicked', series.id)}
+          />
         ))}
       </div>
     </div>
