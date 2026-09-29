@@ -1,16 +1,15 @@
 export default {
   clearMocks: true,
+  collectCoverage: true,
+  coverageDirectory: 'coverage',
+  injectGlobals: true,
+  extensionsToTreatAsEsm: ['.ts', '.tsx'],
   testEnvironment: 'jsdom',
-  setupFilesAfterEnv: ['<rootDir>/src/test/setup.ts'],
   moduleNameMapper: {
+    '\\.(png|jpg|jpeg|gif|webp|svg|ico)$': '<rootDir>/src/__mock__/fileMock.ts',
     '^@/(.*)$': '<rootDir>/src/$1',
   },
   transform: {
-    '^.+\\.tsx?$': [
-      'ts-jest',
-      {
-        tsconfig: '<rootDir>/tsconfig.test.json',
-      },
-    ],
+    '^.+\\.[jt]sx?$': 'babel-jest',
   },
 };
