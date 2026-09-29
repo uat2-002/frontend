@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { fetchSeriesDetails, type SeriesDetails as SeriesDetailsType } from '@/api/series';
 import { ErrorMessage } from '@/components/shared/ErrorMessage';
 import { SkeletonBackdrop } from '@/components/shared/skeletons/SkeletonBackdrop';
-import { SeriesBackdrop } from '@/components/shared/SeriesBackdrop';
+import { SeriesBackdrop } from '@/pages/SeriesDetails/components/SeriesBackdrop';
 
 export const SeriesDetails = () => {
   const { id } = useParams<{ id: string }>();

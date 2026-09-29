@@ -17,7 +17,7 @@ export const SeriesBackdrop = ({ series }: SeriesBackdropProps) => {
   const backdropUrl = series.backdrop ? `${TMDB_IMAGE_BASE}/original${series.backdrop}` : null;
 
   return (
-    <div className="relative w-full h-105 overflow-hidden rounded-xl">
+    <div className="relative aspect-video w-full overflow-hidden rounded-xl">
       {backdropUrl ? (
         <img src={backdropUrl} alt={series.title} className="w-full h-full object-cover" />
       ) : (
@@ -26,7 +26,7 @@ export const SeriesBackdrop = ({ series }: SeriesBackdropProps) => {
 
       <div className="absolute inset-0 bg-linear-to-t from-background via-background/60 to-transparent" />
 
-      <div className="absolute bottom-0 left-0 right-0 px-12 pb-10">
+      <div className="absolute inset-x-0 bottom-0 px-6 pb-6 sm:px-8 sm:pb-8 md:px-12 md:pb-10">
         <h1 className="text-3xl font-bold tracking-tight">{series.title}</h1>
 
         <div className="mt-2 flex items-center gap-2 text-sm text-foreground/70">
