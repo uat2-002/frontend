@@ -105,7 +105,7 @@ export const MediaCard = ({
             <Button
               variant="outline"
               aria-label={`Add ${title} to your list`}
-              className="w-full bg-white text-black hover:bg-white/90 font-medium h-9"
+              className="w-full bg-white text-black hover:bg-white/90 font-medium h-9 dark:text-white"
               onClick={onAddClick}
             >
               <Plus className="w-4 h-4 mr-2" aria-hidden="true" />
