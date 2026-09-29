@@ -5,3 +5,4 @@ export const PATH_SIGN_IN = '/sign-in';
 export const PATH_SIGN_UP = '/sign-up';
 export const PATH_BROWSE: string = '/browse';
 export const PATH_NOT_FOUND: string = '/*';
+export const PATH_SERIES_DETAILS = '/series/:id';

@@ -6,6 +6,7 @@ import { SeriesList } from '@/pages/SeriesList';
 import { SignIn } from '@/pages/SignIn';
 import { SignUp } from '@/pages/SignUp';
 import { BrowsePage } from '@/pages/Browse';
+import { SeriesDetails } from '@/pages/SeriesDetails';
 import UiLibrary from '@/pages/UiLibrary';
 import {
   PATH_HOME,
@@ -15,6 +16,7 @@ import {
   PATH_SIGN_UP,
   PATH_UI_LIBRARY,
   PATH_BROWSE,
+  PATH_SERIES_DETAILS,
 } from '@/router/path';
 import { createBrowserRouter } from 'react-router';
 
@@ -29,6 +31,7 @@ export const router = createBrowserRouter([
       { path: PATH_HOME, element: <Home /> },
       { path: PATH_UI_LIBRARY, element: <UiLibrary /> },
       { path: PATH_BROWSE, element: <BrowsePage /> },
+      { path: PATH_SERIES_DETAILS, element: <SeriesDetails /> },
       { path: PATH_NOT_FOUND, element: <NotFound /> },
     ],
   },
