@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { MediaCard } from '@/components/shared/MediaCard';
 import type { SeriesItem } from '@/types/seriesType';
 import noPosterPlaceholder from '@/assets/noPosterPlaceholder.png';
+import { ErrorMessage } from '@/components/shared/ErrorMessage';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -27,7 +28,7 @@ export const PopularSeriesSection = () => {
   }, []);
 
   if (error) {
-    return <p>{error}</p>;
+    return <ErrorMessage title="Failed to load popular series" message={error} />;
   }
 
   return (
@@ -40,10 +41,10 @@ export const PopularSeriesSection = () => {
             title={series.title}
             description={series.description}
             imageUrl={
-                series.poster
-                  ? `https://image.tmdb.org/t/p/w500${series.poster}`
-                  : noPosterPlaceholder
-              }
+              series.poster
+                ? `https://image.tmdb.org/t/p/w500${series.poster}`
+                : noPosterPlaceholder
+            }
             rating={series.rating}
             releaseYear={series.releaseDate ? series.releaseDate.split('-')[0] : ''}
             actionState="add"
