@@ -4,6 +4,7 @@ import { fetchSeriesDetails, type SeriesDetails as SeriesDetailsType } from '@/a
 import { ErrorMessage } from '@/components/shared/ErrorMessage';
 import { SkeletonBackdrop } from '@/components/shared/skeletons/SkeletonBackdrop';
 import { SeriesBackdrop } from '@/pages/SeriesDetails/components/SeriesBackdrop';
+import { SeriesSeasons } from '@/pages/SeriesDetails/components/SeriesSeasons';
 
 export const SeriesDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -39,8 +40,9 @@ export const SeriesDetails = () => {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full space-y-8">
       <SeriesBackdrop series={series} />
+      <SeriesSeasons seriesId={series.tmdbId} seasons={series.seasons} />
     </div>
   );
 };
