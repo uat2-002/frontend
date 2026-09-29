@@ -6,6 +6,7 @@ import { MediaCard } from '@/components/shared/MediaCard';
 import type { SeriesItem } from '@/types/seriesType';
 import noPosterPlaceholder from '@/assets/noPosterPlaceholder.png';
 import { Pagination } from '@/components/shared/Pagination';
+import { ErrorMessage } from '@/components/shared/ErrorMessage';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -72,7 +73,7 @@ export const BrowsePage = () => {
   } else if (loading) {
     renderedContent = <p>Loading...</p>;
   } else if (error) {
-    renderedContent = <p>{error}</p>;
+    renderedContent = <ErrorMessage title="Failed to load search results" message={error} />;
   } else if (data.results.length > 0) {
     renderedContent = (
       <div>
@@ -103,7 +104,7 @@ export const BrowsePage = () => {
       </div>
     );
   } else {
-    renderedContent = <p>Could not find anything</p>;
+    renderedContent = <ErrorMessage title="Could not find anything" variant="default" message="Try another search" />;
   }
 
   return (
