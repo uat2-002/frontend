@@ -38,7 +38,7 @@ export const SeasonAccordionItem = ({ seriesId, season, isOpen }: SeasonAccordio
 
   return (
     <AccordionItem value={String(season.seasonNumber)} className="border-none">
-      <AccordionTrigger className="w-full items-center px-4 py-3 sm:px-6 sm:py-4 hover:no-underline hover:bg-muted/30 transition-colors">
+      <AccordionTrigger className="items-center px-4 py-3 sm:px-6 sm:py-4 hover:no-underline hover:bg-muted/30">
         <span className="font-semibold text-base text-foreground">{season.name}</span>
       </AccordionTrigger>
 
