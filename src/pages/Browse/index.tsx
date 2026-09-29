@@ -5,25 +5,29 @@ import { PopularSeriesSection } from '@/pages/Browse/components/PopularSeriesSec
 import { MediaCard } from '@/components/shared/MediaCard';
 import type { SeriesItem } from '@/types/seriesType';
 import noPosterPlaceholder from '@/assets/noPosterPlaceholder.png';
+import { Pagination } from '@/components/shared/Pagination';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 type SearchResponse = {
   results: SeriesItem[];
   total_results: number;
+  total_pages: number;
 };
 
 export const BrowsePage = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [data, setData] = useState<SearchResponse>({
     results: [],
     total_results: 0,
+    total_pages: 0,
   });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   const query = searchParams.get('query');
-  const page = searchParams.get('page');
+  const page = searchParams.get('page') || '1';
+  const currentPage = parseInt(page, 10);
 
   useEffect(() => {
     if (!query) {
@@ -34,7 +38,9 @@ export const BrowsePage = () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch(`${API_URL}/api/search/series?query=${query}&page=${page}`);
+        const response = await fetch(
+          `${API_URL}/api/search/series?query=${query}&page=${currentPage}`
+        );
         const result: SearchResponse & { error?: string } = await response.json();
 
         if (!response.ok) {
@@ -51,7 +57,13 @@ export const BrowsePage = () => {
     }
 
     fetchSearchResults();
-  }, [query, page]);
+  }, [query, currentPage]);
+
+  const handlePageChange = (newPage: number) => {
+    searchParams.set('page', newPage.toString());
+    setSearchParams(searchParams);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   let renderedContent;
 
@@ -83,6 +95,11 @@ export const BrowsePage = () => {
             />
           ))}
         </div>
+        <Pagination
+          totalPages={data.total_pages}
+          currentPage={currentPage}
+          onChange={handlePageChange}
+        />
       </div>
     );
   } else {
