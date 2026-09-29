@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import React from 'react';
 
 type ThemeMode = 'light' | 'dark' | 'system';
 type ColorTheme = string | null;

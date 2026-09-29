@@ -4,24 +4,27 @@ import { SignOutButton } from '@/components/Header/components/HeaderRight/SignOu
 import { useState } from 'react';
 import { PATH_SIGN_IN, PATH_SIGN_UP } from '@/router/path';
 import { AuthButton } from '@/components/Header/components/HeaderRight/AuthButton';
-import { ColorThemeSwitch } from '@/components/Header/components/ColorThemeSwitch/ColorThemeSwitch.tsx'
+import { ColorThemeSwitch } from '@/components/Header/components/ColorThemeSwitch/ColorThemeSwitch.tsx';
 
 export const HeaderRight = () => {
-  const [, setIsSignedIn] = useState(
-    () => Boolean(getAccessToken())
-  );
+  const [, setIsSignedIn] = useState(() => Boolean(getAccessToken()));
 
   return (
     <div className="ml-auto flex items-center gap-1">
       <ColorThemeSwitch />
       <UserAvatar />
-      { getAccessToken() 
-        ? <SignOutButton onSignedOut={() => setIsSignedIn(false)} />
-        : <>
-            <AuthButton variant="outline" path={ PATH_SIGN_IN }>Sign In</AuthButton>
-            <AuthButton variant="default" path={ PATH_SIGN_UP }>Sign Up</AuthButton>
-          </> 
-      }
+      {getAccessToken() ? (
+        <SignOutButton onSignedOut={() => setIsSignedIn(false)} />
+      ) : (
+        <>
+          <AuthButton variant="outline" path={PATH_SIGN_IN}>
+            Sign In
+          </AuthButton>
+          <AuthButton variant="default" path={PATH_SIGN_UP}>
+            Sign Up
+          </AuthButton>
+        </>
+      )}
     </div>
   );
 };
