@@ -13,6 +13,7 @@ import SeasonProgressBlockComponent from '@/pages/UiLibrary/SeasonProgressBlockC
 import SeparatorComponent from '@/pages/UiLibrary/SeparatorComponent';
 import StatusPillsComponent from '@/pages/UiLibrary/StatusPillsComponent';
 import ToastComponent from '@/pages/UiLibrary/ToastComponent';
+import PaginationComponent from '@/pages/UiLibrary/PaginationComponent';
 import ErrorMessageComponent from '@/pages/UiLibrary/ErrorMessageComponent';
 
 const UiLibrary = () => (
@@ -32,6 +33,7 @@ const UiLibrary = () => (
     <SearchResultCardComponent />
     <EpisodeRowComponent />
     <SeasonProgressBlockComponent />
+    <PaginationComponent />
     <ErrorMessageComponent />
   </>
 );
