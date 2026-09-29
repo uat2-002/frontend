@@ -4,6 +4,7 @@ import { HealthCheck } from '@/components/HealthCheck';
 import type { SeriesItem } from '@/types/seriesType';
 import { MediaCard } from '@/components/shared/MediaCard';
 import noPosterPlaceholder from '@/assets/noPosterPlaceholder.png';
+import { ErrorMessage } from '@/components/shared/ErrorMessage';
 
 export const Home = () => {
   const [seriesList, setSeriesList] = useState<SeriesItem[]>([]);
@@ -17,11 +18,9 @@ export const Home = () => {
         setError(null);
         const API_URL = import.meta.env.VITE_API_URL;
         const response = await axios.get(`${API_URL}/api/series`);
-        
         const data = Array.isArray(response.data) ? response.data : response.data.data || [];
         setSeriesList(data);
-      } catch (err) {
-        console.error('Деталі помилки:', err);
+      } catch {
         setError('Error loading series');
       } finally {
         setLoading(false);
@@ -32,34 +31,35 @@ export const Home = () => {
   }, []);
 
   if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
-
+  if (error) {
+    return <ErrorMessage title="Failed to load popular series" message={error} />;
+  }
   return (
     <>
       <h1>Home page</h1>
       <HealthCheck />
 
       <div className="p-5 grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {Array.isArray(seriesList) && seriesList.map(series => (
-          <MediaCard
-            key={series.id}
-            title={series.title}
-            description={series.description}
-            imageUrl={
+        {Array.isArray(seriesList) &&
+          seriesList.map(series => (
+            <MediaCard
+              key={series.id}
+              title={series.title}
+              description={series.description}
+              imageUrl={
                 series.poster
                   ? `https://image.tmdb.org/t/p/w500${series.poster}`
                   : noPosterPlaceholder
               }
-            rating={series.rating}
-            releaseYear={series.releaseDate ? series.releaseDate.split('-')[0] : ''}
-            actionState="add"
-            onAddClick={() => console.error('Add clicked', series.id)}
-          />
-        ))}
+              rating={series.rating}
+              releaseYear={series.releaseDate ? series.releaseDate.split('-')[0] : ''}
+              actionState="add"
+              onAddClick={() => console.error('Add clicked', series.id)}
+            />
+          ))}
       </div>
     </>
   );
 };
 
 export default Home;
-
