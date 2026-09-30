@@ -28,7 +28,7 @@ export const StatusSelector = ({ seriesId }: StatusSelectorProps) => {
 
   const updateMutation = useMutation({
     mutationFn: (newStatus: UserStatus) => updateUserStatus(seriesId, newStatus),
-    onSuccess: (data, variables) => {
+    onSuccess: (_, variables) => {
       setIsOpen(false);
       queryClient.invalidateQueries({ queryKey: ['user-series-status', seriesId] });
       const statusLabel = badgeConfig[variables as keyof typeof badgeConfig].label;
