@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { HealthCheck } from '@/components/HealthCheck';
+// import { HealthCheck } from '@/components/HealthCheck';
 import type { SeriesItem } from '@/types/seriesType';
 import { MediaCard } from '@/components/shared/MediaCard';
 import noPosterPlaceholder from '@/assets/noPosterPlaceholder.png';
@@ -31,14 +31,10 @@ export const Home = () => {
   }, []);
 
   if (loading) return <div>Loading...</div>;
-  if (error) {
-    return <ErrorMessage title="Failed to load popular series" message={error} />;
-  }
+  if (error) return <ErrorMessage title="Failed to load popular series" message={error} />;
+
   return (
     <>
-      <h1>Home page</h1>
-      <HealthCheck />
-
       <div className="p-5 grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {Array.isArray(seriesList) &&
           seriesList.map(series => (
@@ -53,8 +49,6 @@ export const Home = () => {
               }
               rating={series.rating}
               releaseYear={series.releaseDate ? series.releaseDate.split('-')[0] : ''}
-              actionState="add"
-              onAddClick={() => console.error('Add clicked', series.id)}
             />
           ))}
       </div>

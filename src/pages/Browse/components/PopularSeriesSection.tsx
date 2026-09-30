@@ -6,7 +6,12 @@ import { ErrorMessage } from '@/components/shared/ErrorMessage';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-export const PopularSeriesSection = () => {
+type PopularSeriesSectionProps = {
+  addedSeriesIds: number[];
+  onAddClick: (tmdbId: number) => void;
+}
+
+export const PopularSeriesSection = ({ addedSeriesIds, onAddClick }: PopularSeriesSectionProps) => {
   const [seriesList, setSeriesList] = useState<SeriesItem[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -47,8 +52,8 @@ export const PopularSeriesSection = () => {
             }
             rating={series.rating}
             releaseYear={series.releaseDate ? series.releaseDate.split('-')[0] : ''}
-            actionState="add"
-            onAddClick={() => console.error('Add clicked', series.id)}
+            actionState={addedSeriesIds.includes(+series.id) ? 'added' : 'add'}
+            onAddClick={() => onAddClick(+series.id)}     
           />
         ))}
       </div>
