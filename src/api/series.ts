@@ -1,5 +1,5 @@
 import { apiClient } from '@/api/client';
-
+import { getAccessToken } from '@/auth/tokenStorage';
 export type SeriesSeasonSummary = {
   tmdbId: number;
   seasonNumber: number;
@@ -40,6 +40,19 @@ export type SeasonWithEpisodes = {
   episodes: Episode[];
 };
 
+export type UserStatus = 'watching' | 'plan_to_watch' | 'watched' | 'not_worth_it' | 'none';
+
+interface UserSeriesStatusResponse {
+  userStatus: UserStatus;
+  seriesId?: number;
+}
+
+interface UpdateUserStatusResponse {
+  seriesId: number;
+  userStatus: UserStatus;
+  message: string;
+}
+
 export const fetchSeriesDetails = async (id: string | number): Promise<SeriesDetails> => {
   const { data } = await apiClient.get<SeriesDetails>(`/api/series/${id}`);
   return data;
@@ -52,5 +65,33 @@ export const fetchSeasonEpisodes = async (
   const { data } = await apiClient.get<SeasonWithEpisodes>(
     `/api/series/${seriesId}/season/${seasonNumber}`
   );
+  return data;
+};
+
+export const fetchUserSeriesStatus = async (seriesId: number | string): Promise<UserStatus> => {
+  const token = getAccessToken();
+
+  const { data } = await apiClient.get<UserSeriesStatusResponse>(`/user/series/${seriesId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return data.userStatus;
+};
+
+export const updateUserStatus = async (seriesId: number | string, userStatus: string) => {
+  const token = getAccessToken();
+
+  const { data } = await apiClient.patch<UpdateUserStatusResponse>(
+    `/user/series/${seriesId}`,
+    { userStatus },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
   return data;
 };
