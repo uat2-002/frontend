@@ -10,7 +10,7 @@ import { showToast } from '@/lib/toast';
 
 export const Home = () => {
   const [seriesList, setSeriesList] = useState<SeriesItem[]>([]);
-  const [addedSeriesId, setAddedSeriesId] = useState<number[]>([]);
+  const [addedSeriesIds, setAddedSeriesIds] = useState<number[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -42,7 +42,7 @@ export const Home = () => {
     try {
       await axios(`${import.meta.env.VITE_API_URL}/api/series/${tmdbId}`);
       await addSeries(tmdbId);
-      setAddedSeriesId( (previousSeriesIds) => [...previousSeriesIds, tmdbId]);
+      setAddedSeriesIds(previousSeriesIds => [...previousSeriesIds, tmdbId]);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         showToast(`Error: ${error.response?.data?.error}`);
@@ -50,7 +50,7 @@ export const Home = () => {
         showToast(`Couldn't add series: ${error}`);
       }
     }
-  }
+  };
 
   return (
     <>
@@ -70,7 +70,7 @@ export const Home = () => {
               }
               rating={series.rating}
               releaseYear={series.releaseDate ? series.releaseDate.split('-')[0] : ''}
-              actionState={addedSeriesId.includes(+series.id) ? 'added' : 'add'}
+              actionState={addedSeriesIds.includes(+series.id) ? 'added' : 'add'}
               onAddClick={() => handleAddSeriesToMyList(+series.id)}
             />
           ))}
