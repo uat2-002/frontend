@@ -11,7 +11,7 @@ export const Footer = () => {
         <p className="text-center font-medium text-balance">
           Series Tracker
           {` ©${new Date().getFullYear()}`}{' '}
-          <a href={PATH_PRIVACY} className="hover:underline">
+          <a href={PATH_PRIVACY} className="underline">
             Privacy policy
           </a>
         </p>
