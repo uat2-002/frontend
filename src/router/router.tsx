@@ -32,9 +32,9 @@ export const router = createBrowserRouter([
       { path: PATH_UI_LIBRARY, element: <UiLibrary /> },
       { path: PATH_BROWSE, element: <BrowsePage /> },
       { path: PATH_SERIES_DETAILS, element: <SeriesDetails /> },
+      { path: PATH_SIGN_IN, element: <SignIn /> },
+      { path: PATH_SIGN_UP, element: <SignUp /> },
       { path: PATH_NOT_FOUND, element: <NotFound /> },
     ],
   },
-  { path: PATH_SIGN_UP, element: <SignUp /> },
-  { path: PATH_SIGN_IN, element: <SignIn /> },
 ]);

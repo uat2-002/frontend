@@ -2,9 +2,9 @@ import { Header } from '@/components/Header';
 import { Outlet } from 'react-router';
 
 export const AppLayout = () => (
-  <div className="min-h-svh bg-background text-foreground">
+  <div className="min-h-svh bg-background text-foreground flex flex-col">
     <Header />
-    <main className="mx-auto w-full max-w-6xl px-4 py-8 md:px-6">
+    <main className="flex-1 w-full">
       <Outlet />
     </main>
   </div>
