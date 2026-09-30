@@ -11,7 +11,7 @@ type PopularSeriesSectionProps = {
   onAddClick: (tmdbId: number) => void;
 }
 
-export const PopularSeriesSection = ({addedSeriesIds, onAddClick}: PopularSeriesSectionProps) => {
+export const PopularSeriesSection = ({ addedSeriesIds, onAddClick }: PopularSeriesSectionProps) => {
   const [seriesList, setSeriesList] = useState<SeriesItem[]>([]);
   const [error, setError] = useState<string | null>(null);
 
