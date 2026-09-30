@@ -4,11 +4,6 @@ import axios from 'axios';
 export const addSeries = async (tmdbId: number) => {
   const token = getAccessToken();
 
-  // ToDo: add refresh from auth and error to user
-  if(!token) {
-    throw new Error('Log in to add a series');
-  }
-
   await axios.post(
     `${import.meta.env.VITE_API_URL}/user/series`, 
     { tmdbId }, 
@@ -16,4 +11,17 @@ export const addSeries = async (tmdbId: number) => {
       headers: { Authorization: `Bearer ${token}` },
     },
   );
+};
+
+export const getUserSeries = async () => {
+  const token = getAccessToken();
+
+  const tmdmIds = await axios.get(
+    `${import.meta.env.VITE_API_URL}/user/series`, 
+    { 
+      headers: { Authorization: `Bearer ${token}` },
+    },
+  );
+
+  return tmdmIds;
 };
