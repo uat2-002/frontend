@@ -5,7 +5,6 @@ import { MediaCard } from '@/components/shared/MediaCard';
 import noPosterPlaceholder from '@/assets/noPosterPlaceholder.png';
 import { ErrorMessage } from '@/components/shared/ErrorMessage';
 
-
 export const Home = () => {
   const [seriesList, setSeriesList] = useState<SeriesItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -35,7 +34,6 @@ export const Home = () => {
 
   return (
     <>
-    
   <div className="p-5 pb-0">
   <h1 className="text-lg font-medium tracking-tight text-zinc-500 sm:text-xl">
     20 more Popular Series
