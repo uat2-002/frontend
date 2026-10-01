@@ -25,10 +25,10 @@ export const SignUpForm = ({ className, ...props }: React.ComponentProps<'div'>)
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-  if (error) {
-    showToast(error, 'error');
-  }
-}, [error]);
+    if (error) {
+      showToast(error, 'error');
+    }
+  }, [error]);
 
   async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -52,6 +52,9 @@ export const SignUpForm = ({ className, ...props }: React.ComponentProps<'div'>)
         setError(data.error || 'Registration failed');
         return;
       }
+
+      localStorage.setItem('registered_email', data.email || email);
+      showToast('Registration successful! Please log in', 'success');
 
       navigate(PATH_SIGN_IN);
     } catch {
@@ -95,11 +98,10 @@ export const SignUpForm = ({ className, ...props }: React.ComponentProps<'div'>)
               <Field>
                 <Button type="submit">Create Account</Button>
                 <FieldDescription className="text-center">
-                  Already have an account? 
-                  <Button
-                    variant="link"
-                    onClick={ () => navigate(PATH_SIGN_IN) }
-                  >Sign In</Button>
+                  Already have an account?
+                  <Button variant="link" onClick={() => navigate(PATH_SIGN_IN)}>
+                    Sign In
+                  </Button>
                 </FieldDescription>
               </Field>
             </FieldGroup>

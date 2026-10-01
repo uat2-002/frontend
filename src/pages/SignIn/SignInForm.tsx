@@ -15,7 +15,14 @@ const API_URL = import.meta.env.VITE_API_URL;
 export const SignInForm = ({ className, ...props }: React.ComponentProps<'div'>) => {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(() => {
+    const savedEmail = localStorage.getItem('registered_email');
+    if (savedEmail) {
+      localStorage.removeItem('registered_email');
+      return savedEmail;
+    }
+    return '';
+  });
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
 
@@ -76,6 +83,7 @@ export const SignInForm = ({ className, ...props }: React.ComponentProps<'div'>)
                   type="email"
                   placeholder="m@example.com"
                   required
+                  value={email}
                   onChange={e => setEmail(e.target.value)}
                 />
               </Field>
