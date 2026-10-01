@@ -1,4 +1,5 @@
 import type { SeriesDetails } from '@/api/series';
+import { StatusSelector } from '@/pages/SeriesDetails/components/StatusDropdown';
 
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
@@ -37,6 +38,7 @@ export const SeriesBackdrop = ({ series }: SeriesBackdropProps) => {
               {series.numberOfSeasons} season{series.numberOfSeasons > 1 ? 's' : ''}
             </span>
           )}
+          <StatusSelector seriesId={series.tmdbId} />
         </div>
 
         {series.overview && (
