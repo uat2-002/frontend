@@ -32,13 +32,13 @@ export const Pagination = ({ totalPages, currentPage, onChange }: PaginationProp
 
       containerClassName="flex items-center justify-center gap-2 mt-6 select-none"
 
-      pageLinkClassName="flex items-center justify-center w-10 h-10 
+      pageLinkClassName="flex items-center justify-center w-7 h-7 md:w-10 md:h-10
       rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
-      previousLinkClassName="flex items-center justify-center h-10 px-4 
+      previousLinkClassName="flex items-center justify-center h-7 md:h-10 px-4 
       rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
-      nextLinkClassName="flex items-center justify-center h-10 px-4
+      nextLinkClassName="flex items-center justify-center h-7 md:h-10 px-4
        rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
-      breakLinkClassName="flex items-center justify-center w-10 h-10 text-gray-500"
+      breakLinkClassName="flex items-center justify-center w-7 h-7 md:w-10 md:h-10 text-gray-500"
 
       activeLinkClassName="!bg-black !text-white !border-black hover:!bg-gray-800"
 
