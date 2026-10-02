@@ -7,6 +7,7 @@ import type { SeriesItem } from '@/types/seriesType';
 import noPosterPlaceholder from '@/assets/noPosterPlaceholder.png';
 import { Pagination } from '@/components/shared/Pagination';
 import { ErrorMessage } from '@/components/shared/ErrorMessage';
+import { SkeletonCard } from '@/components/shared/skeletons/SkeletonCard';
 import axios from 'axios';
 import { addSeries, getUserSeries } from '@/api/watchlist';
 import { showToast } from '@/lib/toast';
@@ -101,9 +102,19 @@ export const BrowsePage = () => {
   let renderedContent;
 
   if (!query) {
-    renderedContent = <PopularSeriesSection addedSeriesIds={addedSeriesIds} onAddClick={handleAddSeriesToMyList} />;
+    renderedContent = (
+      <PopularSeriesSection addedSeriesIds={addedSeriesIds} onAddClick={handleAddSeriesToMyList} />
+    );
   } else if (loading) {
-    renderedContent = <p>Loading...</p>;
+    renderedContent = (
+      <div className="w-full">
+        <div className="grid grid-cols-5 gap-6">
+          {Array.from({ length: 10 }).map((_, index) => (
+            <SkeletonCard key={index} />
+          ))}
+        </div>
+      </div>
+    );
   } else if (error) {
     renderedContent = <ErrorMessage title="Failed to load search results" message={error} />;
   } else if (data.results.length > 0) {
@@ -136,7 +147,13 @@ export const BrowsePage = () => {
       </div>
     );
   } else {
-    renderedContent = <ErrorMessage title="Could not find anything" variant="default" message="Try another search" />;
+    renderedContent = (
+      <ErrorMessage
+        title="Could not find anything"
+        variant="default"
+        message="Try another search"
+      />
+    );
   }
 
   return (
