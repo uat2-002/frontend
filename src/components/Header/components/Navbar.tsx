@@ -1,9 +1,9 @@
 import { PUBLIC_NAVIGATION, PRIVATE_NAVIGATION } from '@/components/Header/constants';
-import { getAccessToken } from '@/auth/tokenStorage';
+import { useAuth } from '@/auth/AuthContext';
 import { NavLink } from 'react-router';
 
 export const Navbar = () => {
-  const isAuth = Boolean(getAccessToken());
+  const { isAuth } = useAuth();
 
   const navigationList = isAuth ? [...PRIVATE_NAVIGATION, ...PUBLIC_NAVIGATION] : PUBLIC_NAVIGATION;
 

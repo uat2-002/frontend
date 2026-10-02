@@ -1,7 +1,5 @@
 import { UserAvatar } from '@/components/Header/components/HeaderRight/UserAvatar';
-import { getAccessToken } from '@/auth/tokenStorage';
 import { SignOutButton } from '@/components/Header/components/HeaderRight/SignOutButton';
-import { useState } from 'react';
 import { PATH_SIGN_IN, PATH_SIGN_UP } from '@/router/path';
 import { AuthButton } from '@/components/Header/components/HeaderRight/AuthButton';
 import { ColorThemeSwitch } from '@/components/Header/components/ColorThemeSwitch/ColorThemeSwitch.tsx';
@@ -11,16 +9,17 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu.tsx';
+import { useAuth } from '@/auth/AuthContext';
 
 export const HeaderRight = () => {
-  const [isSignedIn, setIsSignedIn] = useState(() => Boolean(getAccessToken()));
+  const { isAuth } = useAuth();
   const userEmail = localStorage.getItem('userEmail') || 'User';
   const avatarLetter = userEmail.charAt(0).toUpperCase();
 
   return (
     <div className="ml-auto flex items-center gap-1">
       <ColorThemeSwitch />
-      {isSignedIn ? (
+      {isAuth ? (
         <DropdownMenu>
           <DropdownMenuTrigger
             render={
@@ -34,7 +33,7 @@ export const HeaderRight = () => {
           />
           <DropdownMenuContent align="end">
             <DropdownMenuItem>
-              <SignOutButton onSignedOut={() => setIsSignedIn(false)} />
+              <SignOutButton />
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

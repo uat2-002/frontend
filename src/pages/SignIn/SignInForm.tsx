@@ -1,4 +1,3 @@
-import { saveTokens } from '@/auth/tokenStorage';
 import { Button } from '@/components/ui/button.tsx';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card.tsx';
 import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui/field.tsx';
@@ -8,11 +7,13 @@ import { cn } from 'cn';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { showToast } from '@/lib/toast';
+import { useAuth } from '@/auth/AuthContext';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 export const SignInForm = ({ className, ...props }: React.ComponentProps<'div'>) => {
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const [email, setEmail] = useState(() => {
     const savedEmail = localStorage.getItem('registered_email');
@@ -54,12 +55,13 @@ export const SignInForm = ({ className, ...props }: React.ComponentProps<'div'>)
         return;
       }
 
-      saveTokens({
-        accessToken: data.accessToken,
-        refreshToken: data.refreshToken,
-      });
-
-      localStorage.setItem('userEmail', email);
+      login(
+        {
+          accessToken: data.accessToken,
+          refreshToken: data.refreshToken,
+        },
+        email
+      );
 
       navigate(PATH_MY_LIST);
     } catch {
