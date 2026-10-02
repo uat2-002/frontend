@@ -39,7 +39,7 @@ export const Home = () => {
     20 more Popular Series
   </h1>
 </div>
-      <div className="p-5 grid gap-5 grid-cols-2 md:grid-cols-5">
+      <div className="p-5 grid gap-5 grid-cols-2 md:grid-cols-4 ld:grid-cols-5">
         {Array.isArray(seriesList) &&
           seriesList.map(series => (
             <MediaCard
