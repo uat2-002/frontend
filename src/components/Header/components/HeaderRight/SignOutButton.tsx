@@ -1,6 +1,5 @@
 import { PATH_HOME } from '@/router/path';
 import { useNavigate } from 'react-router';
-import { Button } from '@/components/ui/button';
 import { getAccessToken, clearTokens } from '@/auth/tokenStorage';
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -12,7 +11,7 @@ type SignOutButtonProps = {
 export const SignOutButton = ({ onSignedOut }: SignOutButtonProps) => {
   const navigate = useNavigate();
 
-  async function hendleLogOut() {
+  async function handleLogOut() {
     const accessToken = getAccessToken();
 
     try {
@@ -31,10 +30,15 @@ export const SignOutButton = ({ onSignedOut }: SignOutButtonProps) => {
       console.error('Server logout failed', error);
     } finally {
       clearTokens();
+      localStorage.removeItem('userEmail');
       onSignedOut();
       navigate(PATH_HOME);
     }
   }
 
-  return <Button size="lg" onClick={hendleLogOut}>Sign Out</Button>;
+  return (
+    <span onClick={handleLogOut} className="w-full cursor-pointer text-red-500">
+      Sign Out
+    </span>
+  );
 };

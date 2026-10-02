@@ -59,6 +59,8 @@ export const SignInForm = ({ className, ...props }: React.ComponentProps<'div'>)
         refreshToken: data.refreshToken,
       });
 
+      localStorage.setItem('userEmail', email);
+
       navigate(PATH_MY_LIST);
     } catch {
       setError('Could not connect to the server');

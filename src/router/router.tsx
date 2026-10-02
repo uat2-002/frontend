@@ -36,8 +36,8 @@ export const router = createBrowserRouter([
       { path: PATH_SERIES_DETAILS, element: <SeriesDetails /> },
       { path: PATH_NOT_FOUND, element: <NotFound /> },
       { path: PATH_PRIVACY, element: <PrivacyPolicy /> },
+      { path: PATH_SIGN_UP, element: <SignUp /> },
+      { path: PATH_SIGN_IN, element: <SignIn /> },
     ],
   },
-  { path: PATH_SIGN_UP, element: <SignUp /> },
-  { path: PATH_SIGN_IN, element: <SignIn /> },
 ]);

@@ -1,7 +1,5 @@
-import { PATH_BROWSE, PATH_HOME, PATH_MY_LIST } from '@/router/path';
+import { PATH_BROWSE, PATH_MY_LIST } from '@/router/path';
 
-export const NAVIGATION_LIST = [
-  { label: 'Home', to: PATH_HOME },
-  { label: 'My List', to: PATH_MY_LIST },
-  { label: 'Browse', to: PATH_BROWSE },
-];
+export const PUBLIC_NAVIGATION = [{ label: 'Search', to: PATH_BROWSE }];
+
+export const PRIVATE_NAVIGATION = [{ label: 'My List', to: PATH_MY_LIST }];
