@@ -1,5 +1,4 @@
 import { saveTokens } from '@/auth/tokenStorage';
-import { GoHomeButton } from '@/components/shared/GoHomeButton';
 import { Button } from '@/components/ui/button.tsx';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card.tsx';
 import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui/field.tsx';
@@ -70,7 +69,6 @@ export const SignInForm = ({ className, ...props }: React.ComponentProps<'div'>)
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <GoHomeButton />
           <CardTitle className="text-xl">Log in to Series Tracker</CardTitle>
         </CardHeader>
         <CardContent>
