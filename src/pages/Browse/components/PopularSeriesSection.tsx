@@ -39,7 +39,7 @@ export const PopularSeriesSection = ({ addedSeriesIds, onAddClick }: PopularSeri
   return (
     <div>
       <h3 className="text-lg font-semibold pt-4 pb-4">Popular series</h3>
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-4 ld:grid-cols-5 gap-6">
         {seriesList.map(series => (
           <MediaCard
             key={series.id}
