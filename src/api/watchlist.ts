@@ -38,3 +38,16 @@ export const getMyList = async () => {
 
   return tmdmIds;
 };
+
+export const deleteUserSeries = async (tmdbId: number) => {
+  const token = getAccessToken();
+
+  const response = await axios.delete(
+    `${import.meta.env.VITE_API_URL}/user/series/${tmdbId}`, 
+    { 
+      headers: { Authorization: `Bearer ${token}` },
+    },
+  );
+
+  return response;
+}
