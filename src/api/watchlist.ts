@@ -25,3 +25,16 @@ export const getUserSeries = async () => {
 
   return tmdmIds;
 };
+
+export const getMyList = async () => {
+  const token = getAccessToken();
+
+  const tmdmIds = await axios.get(
+    `${import.meta.env.VITE_API_URL}/user/series-data`, 
+    { 
+      headers: { Authorization: `Bearer ${token}` },
+    },
+  );
+
+  return tmdmIds;
+};
