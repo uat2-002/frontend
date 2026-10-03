@@ -1,18 +1,26 @@
 import { ErrorMessage } from "@/components/shared/ErrorMessage";
 import { MediaCard } from "@/components/shared/MediaCard";
 import { PATH_BROWSE } from "@/router/path";
-import type { SeriesItem } from "@/types/seriesType";
 import { Button } from "@base-ui/react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import noPosterPlaceholder from '@/assets/noPosterPlaceholder.png';
-import { getMyList } from "@/api/watchlist";
+import { deleteUserSeries, getMyList } from "@/api/watchlist";
 import { useUserSeries } from "@/context/UserSeriesContext";
+import { showToast } from "@/lib/toast";
+
+type MySeriesItem = {
+  tmdbId: number;
+  title: string;
+  poster: string | null;
+  overview: string | null;
+  userStatus: 'plan_to_watch' | 'watching' | 'watched' | 'not_worth_it';
+};
 
 export const SeriesList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [mySeriesList, setMySeriesList] = useState<SeriesItem[]>([]);
+  const [mySeriesList, setMySeriesList] = useState<MySeriesItem[]>([]);
   const navigate = useNavigate();
   const { setAddedSeriesIds } = useUserSeries();
 
@@ -33,6 +41,22 @@ export const SeriesList = () => {
     
   }, []);
 
+  const handleDeleteSeries = async (tmdbId: number) => {
+  try {
+    await deleteUserSeries(tmdbId);
+
+    setMySeriesList(previousList =>
+      previousList.filter(series => series.tmdbId !== tmdbId)
+    );
+
+    setAddedSeriesIds(previousIds =>
+      previousIds.filter(id => id !== tmdbId)
+    );
+  } catch {
+    showToast("Couldn't delete series", 'error');
+  }
+};
+
   if (loading) return <p>Loading...</p>;
   if (error) return <ErrorMessage title="Failed to load your list" message={error} />;
   if (mySeriesList.length === 0) return <Button onClick={ () => navigate(PATH_BROWSE) }>Choose your favourite series</Button>;
@@ -43,18 +67,16 @@ export const SeriesList = () => {
       <div className="grid grid-cols-5 gap-6">
         {mySeriesList.map(series => (
           <MediaCard
-            key={series.id}
+            key={series.tmdbId}
             title={series.title}
-            description={series.description}
+            description={series.overview ?? undefined}
             imageUrl={
               series.poster
                 ? `https://image.tmdb.org/t/p/w500${series.poster}`
                 : noPosterPlaceholder
             }
-            rating={series.rating}
-            releaseYear={series.releaseDate ? series.releaseDate.split('-')[0] : ''}
             actionState='delete'
-            // onAddClick={ () => handleAddSeriesToMyList(+series.id) }     
+            onDeleteClick={ () => handleDeleteSeries(series.tmdbId) }
           />
         ))}
       </div>
