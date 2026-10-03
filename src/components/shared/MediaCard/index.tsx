@@ -111,7 +111,7 @@ export const MediaCard = ({
             <Button
               variant="outline"
               aria-label={`Add ${title} to your list`}
-              className="w-full bg-white text-black hover:bg-white/90 font-medium h-9 dark:text-white"
+              className="w-full bg-white text-black hover:bg-white/90 font-medium h-9 dark:text-white cursor-pointer"
               onClick={onAddClick}
             >
               <Plus className="w-4 h-4 mr-2" aria-hidden="true" />
@@ -132,7 +132,7 @@ export const MediaCard = ({
               type="button"
               variant="destructive"
               aria-label={`Remove ${title} from your list`}
-              className="w-full font-medium h-9"
+              className="w-full font-medium h-9 cursor-pointer"
               onClick={onDeleteClick}
             >
               Delete
