@@ -6,7 +6,7 @@ import { Progress, ProgressTrack, ProgressIndicator } from '@/components/ui/prog
 import { cn } from '@/lib/utils';
 
 export type UserStatus = 'watching' | 'plan_to_watch' | 'watched' | 'not_worth_it' | 'none';
-export type ActionState = 'add' | 'added' | 'none';
+export type ActionState = 'add' | 'added' | 'delete' | 'none';
 
 type MediaCardProps = {
   title: string;
@@ -16,6 +16,7 @@ type MediaCardProps = {
   actionState?: ActionState;
   progressValue?: number;
   onAddClick?: () => void;
+  onDeleteClick?: () => void;
   rating?: number;
   releaseYear?: string;
 };
@@ -28,6 +29,7 @@ export const MediaCard = ({
   actionState = 'none',
   progressValue = 0,
   onAddClick,
+  onDeleteClick,
   rating,
   releaseYear,
 }: MediaCardProps) => {
@@ -125,7 +127,16 @@ export const MediaCard = ({
               <Check className="w-4 h-4 mr-2" aria-hidden="true" />
               Added
             </Button>
-          ) : currentBadge ? (
+          ) : actionState === 'delete' ? (
+            <Button
+              type="button"
+              variant="destructive"
+              aria-label={`Remove ${title} from your list`}
+              className="w-full font-medium h-9"
+              onClick={onDeleteClick}
+            >
+              Delete
+            </Button> ) : currentBadge ? (
             <Badge
               variant={currentBadge.variant}
               className="text-xs rounded-md"

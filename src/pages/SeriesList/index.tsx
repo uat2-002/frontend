@@ -7,12 +7,14 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import noPosterPlaceholder from '@/assets/noPosterPlaceholder.png';
 import { getMyList } from "@/api/watchlist";
+import { useUserSeries } from "@/context/UserSeriesContext";
 
 export const SeriesList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [mySeriesList, setMySeriesList] = useState<SeriesItem[]>([]);
   const navigate = useNavigate();
+  const { setAddedSeriesIds } = useUserSeries();
 
   useEffect(() => {
     async function fetchMySeriesList() {
@@ -51,7 +53,7 @@ export const SeriesList = () => {
             }
             rating={series.rating}
             releaseYear={series.releaseDate ? series.releaseDate.split('-')[0] : ''}
-            // actionState={addedSeriesIds.includes(+series.id) ? 'added' : 'add'}
+            actionState='delete'
             // onAddClick={ () => handleAddSeriesToMyList(+series.id) }     
           />
         ))}
