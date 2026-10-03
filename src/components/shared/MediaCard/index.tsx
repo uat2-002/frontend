@@ -3,6 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Check, Plus, Star } from 'lucide-react';
 import { Progress, ProgressTrack, ProgressIndicator } from '@/components/ui/progress';
+import { cn } from '@/lib/utils';
 
 export type UserStatus = 'watching' | 'plan_to_watch' | 'watched' | 'not_worth_it' | 'none';
 export type ActionState = 'add' | 'added' | 'none';
@@ -49,10 +50,13 @@ export const MediaCard = ({
     <Card
       role="article"
       aria-label={title}
-      className={`flex flex-col h-full bg-card border w-full max-w-[280px] overflow-hidden cursor-pointer ${
-        isNotWorthIt ? 'opacity-50 grayscale-[50%]' : ''
-      }`}
-    >
+      className={cn(
+    'flex flex-col h-full bg-card border w-full max-w-[280px]',
+    'overflow-hidden animate-in fade-in-0 zoom-in-95',
+    'transition-all duration-300 hover:-translate-y-1 hover:shadow-lg',
+    isNotWorthIt ? 'opacity-50 grayscale-[50%]' : ''
+  )}
+>
       <div
         className={`w-full aspect-[2/3] ${bgFallbackColor} relative shrink-0 overflow-hidden`}
         aria-hidden={!imageUrl}

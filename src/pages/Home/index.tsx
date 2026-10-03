@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-// import { HealthCheck } from '@/components/HealthCheck';
 import type { SeriesItem } from '@/types/seriesType';
 import { MediaCard } from '@/components/shared/MediaCard';
 import noPosterPlaceholder from '@/assets/noPosterPlaceholder.png';
@@ -35,6 +34,11 @@ export const Home = () => {
 
   return (
     <>
+  <div className="p-5 pb-0">
+  <h1 className="text-lg font-medium tracking-tight text-zinc-500 sm:text-xl">
+    20 more Popular Series
+  </h1>
+</div>
       <div className="p-5 grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {Array.isArray(seriesList) &&
           seriesList.map(series => (
