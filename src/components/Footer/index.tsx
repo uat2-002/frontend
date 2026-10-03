@@ -1,8 +1,11 @@
 import { Separator } from '@/components/ui/separator';
-
 import { PATH_PRIVACY } from '@/router/path';
+import { useNavigate } from 'react-router';
+import { Button } from '../ui/button';
 
 export const Footer = () => {
+  const navigate = useNavigate();
+
   return (
     <footer>
       <Separator />
@@ -11,9 +14,9 @@ export const Footer = () => {
         <p className="text-center font-medium text-balance">
           Series Tracker
           {` ©${new Date().getFullYear()}`}{' '}
-          <a href={PATH_PRIVACY} className="underline">
+          <Button variant="link" className="underline cursor-pointer" size="lg" onClick={ () => navigate(PATH_PRIVACY) }>
             Privacy policy
-          </a>
+          </Button>
         </p>
       </div>
     </footer>
