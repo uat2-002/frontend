@@ -1,7 +1,7 @@
 import { PATH_HOME } from '@/router/path';
 import { useNavigate } from 'react-router';
 import { getAccessToken } from '@/auth/tokenStorage';
-import { useAuth } from '@/auth/AuthContext';
+import { useAuth } from '@/context/AuthContext';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
