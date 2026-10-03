@@ -108,9 +108,9 @@ export const BrowsePage = () => {
     renderedContent = <ErrorMessage title="Failed to load search results" message={error} />;
   } else if (data.results.length > 0) {
     renderedContent = (
-      <div>
+      <div className="w-full">
         <h3 className="text-lg font-semibold pt-4 pb-4">{data.total_results} series found</h3>
-        <div className="grid grid-cols-5 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 ld:grid-cols-5 gap-6">
           {data.results.map(series => (
             <MediaCard
               key={series.id}
@@ -140,8 +140,8 @@ export const BrowsePage = () => {
   }
 
   return (
-    <div className="flex items-center w-full max-w-9/10 flex-col gap-6">
-      <div className="w-full max-w-6/10">
+    <div className="flex items-center w-full flex-col gap-6">
+      <div className="w-full max-w-8/10 md:max-w-6/10">
         <SearchBar />
       </div>
 
