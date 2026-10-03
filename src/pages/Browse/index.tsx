@@ -72,7 +72,7 @@ export const BrowsePage = () => {
   let renderedContent;
 
   if (!query) {
-    renderedContent = <PopularSeriesSection addedSeriesIds={addedSeriesIds} onAddClick={handleAddSeriesToMyList} />;
+    renderedContent = <PopularSeriesSection/>;
   } else if (loading) {
     renderedContent = <p>Loading...</p>;
   } else if (error) {

@@ -1,12 +1,11 @@
 import { addSeries, getUserSeries } from '@/api/watchlist';
 import { showToast } from '@/lib/toast';
 import axios from 'axios';
-import { createContext, useContext, useEffect, useState, type Dispatch, type ReactNode, type SetStateAction } from 'react';
+import { createContext, useContext, useEffect, useState, type ReactNode} from 'react';
 import { useAuth } from './AuthContext';
 
 type UserSeriesContextType = {
   addedSeriesIds: number[],
-  setAddedSeriesIds: Dispatch<SetStateAction<number[]>>,
   handleAddSeriesToMyList: (tmdbId: number) => Promise<void>,
 }
 
@@ -14,8 +13,8 @@ const UserSeriesContext = createContext<UserSeriesContextType | null>(null);
 
 export const UserSeriesProvider = ({ children }: { children: ReactNode }) => {
   const { isAuth } = useAuth();
-
   const [addedSeriesIds, setAddedSeriesIds] = useState<number[]>([]);
+
   const handleAddSeriesToMyList = async (tmdbId: number) => {
     try {
       await axios(`${import.meta.env.VITE_API_URL}/api/series/${tmdbId}`);
@@ -49,7 +48,7 @@ export const UserSeriesProvider = ({ children }: { children: ReactNode }) => {
     fetchUserSeries();
   }, [isAuth]);
 
-  return <UserSeriesContext.Provider value={{ addedSeriesIds, setAddedSeriesIds, handleAddSeriesToMyList }}>{children}</UserSeriesContext.Provider>
+  return <UserSeriesContext.Provider value={{ addedSeriesIds, handleAddSeriesToMyList }}>{children}</UserSeriesContext.Provider>
 }
 
 export const useUserSeries = () => {
