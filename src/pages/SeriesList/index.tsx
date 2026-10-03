@@ -1,13 +1,11 @@
-import { ErrorMessage } from "@/components/shared/ErrorMessage";
-import { MediaCard } from "@/components/shared/MediaCard";
-import { PATH_BROWSE } from "@/router/path";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { ErrorMessage } from '@/components/shared/ErrorMessage';
+import { MediaCard } from '@/components/shared/MediaCard';
+import { useEffect, useState } from 'react';
 import noPosterPlaceholder from '@/assets/noPosterPlaceholder.png';
-import { deleteUserSeries, getMyList } from "@/api/watchlist";
-import { useUserSeries } from "@/context/UserSeriesContext";
-import { showToast } from "@/lib/toast";
-import { Button } from "@/components/ui/button";
+import { deleteUserSeries, getMyList } from '@/api/watchlist';
+import { useUserSeries } from '@/context/UserSeriesContext';
+import { showToast } from '@/lib/toast';
+import { EmptyMyList } from '@/pages/SeriesList/components/EmptyMyList';
 
 type MySeriesItem = {
   tmdbId: number;
@@ -21,7 +19,7 @@ export const SeriesList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [mySeriesList, setMySeriesList] = useState<MySeriesItem[]>([]);
-  const navigate = useNavigate();
+  
   const { setAddedSeriesIds } = useUserSeries();
 
   useEffect(() => {
@@ -31,7 +29,7 @@ export const SeriesList = () => {
         const data = Array.isArray(response) ? response : response.data.series || [];
         setMySeriesList(data);
       } catch {
-        setError("Couldn't recive your list");
+        setError('Couldn\'t recive your list');
       } finally {
         setLoading(false);
       }
@@ -59,23 +57,7 @@ export const SeriesList = () => {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <ErrorMessage title="Failed to load your list" message={error} />;
-  if (mySeriesList.length === 0) {
-    return (
-      <div className="flex flex-col items-center gap-4 p-8 text-center">
-        <h2 className="text-xl font-semibold">
-          Your list is empty
-        </h2>
-
-        <p className="text-muted-foreground">
-          Find a series you'd like to watch and add it to your list
-        </p>
-
-        <Button className="cursor-pointer" onClick={() => navigate(PATH_BROWSE) }>
-          Click here to search your first series
-        </Button>
-      </div>
-    );
-  }
+  if (mySeriesList.length === 0) return <EmptyMyList />;
     
   return (
     <div>
@@ -98,5 +80,4 @@ export const SeriesList = () => {
       </div>
     </div>
   );
-
-}
+};

@@ -50,4 +50,4 @@ export const deleteUserSeries = async (tmdbId: number) => {
   );
 
   return response;
-}
+};

@@ -1,8 +1,16 @@
 import { addSeries, getUserSeries } from '@/api/watchlist';
 import { showToast } from '@/lib/toast';
 import axios from 'axios';
-import { createContext, useContext, useEffect, useState, type Dispatch, type ReactNode, type SetStateAction} from 'react';
-import { useAuth } from './AuthContext';
+import { 
+  createContext, 
+  useContext, 
+  useEffect, 
+  useState, 
+  type Dispatch, 
+  type ReactNode, 
+  type SetStateAction,
+} from 'react';
+import { useAuth } from '@/context/AuthContext';
 
 type UserSeriesContextType = {
   addedSeriesIds: number[],
@@ -15,6 +23,12 @@ const UserSeriesContext = createContext<UserSeriesContextType | null>(null);
 export const UserSeriesProvider = ({ children }: { children: ReactNode }) => {
   const { isAuth } = useAuth();
   const [addedSeriesIds, setAddedSeriesIds] = useState<number[]>([]);
+  const [previousIsAuth, setPreviousIsAuth] = useState(isAuth);
+
+  if (previousIsAuth !== isAuth) {
+    setPreviousIsAuth(isAuth);
+    setAddedSeriesIds([]);
+  }
 
   const handleAddSeriesToMyList = async (tmdbId: number) => {
     try {
@@ -31,33 +45,44 @@ export const UserSeriesProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
-    if (!isAuth) {
-      setAddedSeriesIds([]);
-      return;
-    }
+    if (!isAuth) return;
+
+    let ignore = false;
 
     const fetchUserSeries = async () => {
       try {
         const response = await getUserSeries();
-        const data = response.data.tmdbIds;
-        setAddedSeriesIds(data);
+
+        if (!ignore) {
+          setAddedSeriesIds(response.data.tmdbIds);
+        }
       } catch (error) {
-        showToast(`${error}`);
+        if (!ignore) {
+          showToast(`${error}`);
+        }
       }
     };
 
     fetchUserSeries();
+
+    return () => {
+      ignore = true;
+    };
   }, [isAuth]);
 
-  return <UserSeriesContext.Provider value={{ addedSeriesIds, setAddedSeriesIds, handleAddSeriesToMyList }}>{children}</UserSeriesContext.Provider>
-}
+  return (
+    <UserSeriesContext.Provider 
+      value={{ addedSeriesIds, setAddedSeriesIds, handleAddSeriesToMyList }}
+    >
+      {children}
+    </UserSeriesContext.Provider>
+  );
+};
 
 export const useUserSeries = () => {
   const context = useContext(UserSeriesContext);
 
-  if (context === null) {
-    throw new Error('useUserSeries must be used within UserSeriesProvider');
-  }
+  if (context === null) throw new Error('useUserSeries must be used within UserSeriesProvider');
 
   return context;
 };
