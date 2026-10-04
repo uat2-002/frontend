@@ -98,7 +98,7 @@ export const MediaCard = ({
 
       <div className="flex-1 flex flex-col p-4 pt-1">
         {currentBadge && (
-          <div className="flex justify-end mb-5">
+          <div className="flex justify-end mb-2 mt-2">
             <Badge
               variant={currentBadge.variant}
               className="text-xs rounded-md"
