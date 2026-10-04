@@ -28,7 +28,7 @@ export const SeriesBackdrop = ({ series }: SeriesBackdropProps) => {
       <div className="absolute inset-0 bg-linear-to-t from-background via-background/60 to-transparent" />
 
       <div className="absolute inset-x-0 bottom-0 px-6 pb-6 sm:px-8 sm:pb-8 md:px-12 md:pb-10">
-        <h1 className="text-3xl font-bold tracking-tight">{series.title}</h1>
+        <h1 className="text-2xl md:text-3xl font-bold tracking-tight">{series.title}</h1>
 
         <div className="mt-2 flex items-center gap-2 text-sm text-foreground/70">
           {yearRange && <span>{yearRange}</span>}
@@ -42,7 +42,7 @@ export const SeriesBackdrop = ({ series }: SeriesBackdropProps) => {
         </div>
 
         {series.overview && (
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-foreground/80">
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-foreground/80 line-clamp-3">
             {series.overview}
           </p>
         )}
