@@ -41,7 +41,7 @@ export const PopularSeriesSection = () => {
   return (
     <div className="w-full">
       <h3 className="text-lg font-semibold pt-4 pb-4">Popular series</h3>
-      <div className="grid grid-cols-5 gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
         {loading
           ? Array.from({ length: 10 }).map((_, index) => <SkeletonCard key={index} />)
           : seriesList.map(series => (
