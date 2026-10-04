@@ -7,7 +7,7 @@ import { cn } from 'cn';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { showToast } from '@/lib/toast';
-import { useAuth } from '@/auth/AuthContext';
+import { useAuth } from '@/context/AuthContext';
 import { Eye, EyeOff } from 'lucide-react';
 
 const API_URL = import.meta.env.VITE_API_URL;

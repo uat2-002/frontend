@@ -9,7 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu.tsx';
-import { useAuth } from '@/auth/AuthContext';
+import { useAuth } from '@/context/AuthContext';
 
 export const HeaderRight = () => {
   const { isAuth } = useAuth();

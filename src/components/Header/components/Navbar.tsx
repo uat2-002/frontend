@@ -1,5 +1,5 @@
 import { PUBLIC_NAVIGATION, PRIVATE_NAVIGATION } from '@/components/Header/constants';
-import { useAuth } from '@/auth/AuthContext';
+import { useAuth } from '@/context/AuthContext';
 import { NavLink } from 'react-router';
 
 export const Navbar = () => {
