@@ -4,17 +4,20 @@ import type { SeriesItem } from '@/types/seriesType';
 import noPosterPlaceholder from '@/assets/noPosterPlaceholder.png';
 import { ErrorMessage } from '@/components/shared/ErrorMessage';
 import { useUserSeries } from '@/context/UserSeriesContext';
+import { SkeletonCard } from '@/components/shared/skeletons/SkeletonCard';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 export const PopularSeriesSection = () => {
   const { addedSeriesIds, handleAddSeriesToMyList } = useUserSeries();
   const [seriesList, setSeriesList] = useState<SeriesItem[]>([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchPopularSeries() {
       try {
+        setLoading(true);
         const response = await fetch(`${API_URL}/api/series`);
         const result = await response.json();
 
@@ -23,6 +26,8 @@ export const PopularSeriesSection = () => {
         setSeriesList(data);
       } catch {
         setError('Could not reach the API');
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -34,25 +39,27 @@ export const PopularSeriesSection = () => {
   }
 
   return (
-    <div>
+    <div className="w-full">
       <h3 className="text-lg font-semibold pt-4 pb-4">Popular series</h3>
       <div className="grid grid-cols-5 gap-6">
-        {seriesList.map(series => (
-          <MediaCard
-            key={series.id}
-            title={series.title}
-            description={series.description}
-            imageUrl={
-              series.poster
-                ? `https://image.tmdb.org/t/p/w500${series.poster}`
-                : noPosterPlaceholder
-            }
-            rating={series.rating}
-            releaseYear={series.releaseDate ? series.releaseDate.split('-')[0] : ''}
-            actionState={addedSeriesIds.includes(+series.id) ? 'added' : 'add'}
-            onAddClick={ () => handleAddSeriesToMyList(+series.id) }     
-          />
-        ))}
+        {loading
+          ? Array.from({ length: 10 }).map((_, index) => <SkeletonCard key={index} />)
+          : seriesList.map(series => (
+              <MediaCard
+                key={series.id}
+                title={series.title}
+                description={series.description}
+                imageUrl={
+                  series.poster
+                    ? `https://image.tmdb.org/t/p/w500${series.poster}`
+                    : noPosterPlaceholder
+                }
+                rating={series.rating}
+                releaseYear={series.releaseDate ? series.releaseDate.split('-')[0] : ''}
+                actionState={addedSeriesIds.includes(+series.id) ? 'added' : 'add'}
+                onAddClick={ () => handleAddSeriesToMyList(+series.id) }
+              />
+            ))}
       </div>
     </div>
   );
