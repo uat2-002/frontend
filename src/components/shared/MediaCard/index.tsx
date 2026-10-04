@@ -57,6 +57,7 @@ export const MediaCard = ({
       role="article"
       aria-label={title}
       className={cn(
+        '[--card-spacing:0px]',
         'flex flex-col h-full bg-card border w-full max-w-[280px]',
         'overflow-hidden animate-in fade-in-0 zoom-in-95',
         'transition-all duration-300 hover:-translate-y-1 hover:shadow-lg',
