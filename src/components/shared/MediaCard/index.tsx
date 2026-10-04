@@ -35,13 +35,17 @@ export const MediaCard = ({
 }: MediaCardProps) => {
   const isWatching = status === 'watching';
   const isNotWorthIt = status === 'not_worth_it';
+  const isWatched = status === 'watched';
 
   const bgFallbackColor = status === 'plan_to_watch' ? 'bg-purple-950/80' : 'bg-blue-950/80';
 
   const badgeConfig = {
     watching: { label: 'Watching', variant: 'destructive' as const },
     plan_to_watch: { label: 'Plan to Watch', variant: 'secondary' as const },
-    watched: { label: 'Watched', variant: 'default' as const },
+    watched: {
+      label: 'Watched',
+      variant: 'success' as const,
+    },
     not_worth_it: { label: 'Not Worth It', variant: 'secondary' as const },
     none: null,
   };
@@ -65,6 +69,15 @@ export const MediaCard = ({
       >
         {imageUrl && (
           <img src={imageUrl} alt={title} className="absolute inset-0 w-full h-full object-cover" />
+        )}
+        {isWatched && (
+          <div
+            className="absolute top-1 right-1 z-20 flex h-8 w-8 items-center
+             justify-center rounded-full bg-black/30 backdrop-blur-sm shadow-md"
+            aria-label="Watched"
+          >
+            <Check className="h-4 w-4 text-green-400" strokeWidth={3} aria-hidden="true" />
+          </div>
         )}
 
         {isWatching && (
