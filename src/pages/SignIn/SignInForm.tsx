@@ -9,12 +9,15 @@ import { useNavigate } from 'react-router';
 import { showToast } from '@/lib/toast';
 import { useAuth } from '@/context/AuthContext';
 import { Eye, EyeOff } from 'lucide-react';
+import { useUserSeries } from '@/context/UserSeriesContext';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 export const SignInForm = ({ className, ...props }: React.ComponentProps<'div'>) => {
   const navigate = useNavigate();
   const { login } = useAuth();
+
+  const { handleAddSeriesToMyList } = useUserSeries();
 
   const [email, setEmail] = useState(() => {
     const savedEmail = localStorage.getItem('registered_email');
@@ -64,6 +67,19 @@ export const SignInForm = ({ className, ...props }: React.ComponentProps<'div'>)
         },
         email
       );
+
+      const pendingAction = sessionStorage.getItem('pendingAddSeries');
+
+      if (pendingAction) {
+        try {
+          const { seriesId } = JSON.parse(pendingAction);
+          await handleAddSeriesToMyList(seriesId);
+          sessionStorage.removeItem('pendingAddSeries');
+          showToast('Series automatically added to your list!', 'success');
+        } catch (err) {
+          console.error('Failed to process pending action', err);
+        }
+      }
 
       navigate(PATH_MY_LIST);
     } catch {

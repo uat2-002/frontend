@@ -5,6 +5,9 @@ import noPosterPlaceholder from '@/assets/noPosterPlaceholder.png';
 import { ErrorMessage } from '@/components/shared/ErrorMessage';
 import { useUserSeries } from '@/context/UserSeriesContext';
 import { SkeletonCard } from '@/components/shared/skeletons/SkeletonCard';
+import { useAuth } from '@/context/AuthContext';
+import { useNavigate } from 'react-router';
+import { PATH_SIGN_IN } from '@/router/path';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -13,6 +16,19 @@ export const PopularSeriesSection = () => {
   const [seriesList, setSeriesList] = useState<SeriesItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const { isAuth } = useAuth();
+  const navigate = useNavigate();
+
+  const handleProtectedAddSeries = (seriesId: number) => {
+    if (!isAuth) {
+      sessionStorage.setItem('pendingAddSeries', JSON.stringify({ seriesId }));
+      navigate(PATH_SIGN_IN);
+      return;
+    }
+
+    handleAddSeriesToMyList(seriesId);
+  };
 
   useEffect(() => {
     async function fetchPopularSeries() {
@@ -57,7 +73,7 @@ export const PopularSeriesSection = () => {
                 rating={series.rating}
                 releaseYear={series.releaseDate ? series.releaseDate.split('-')[0] : ''}
                 actionState={addedSeriesIds.includes(+series.id) ? 'added' : 'add'}
-                onAddClick={ () => handleAddSeriesToMyList(+series.id) }
+                onAddClick={() => handleProtectedAddSeries(+series.id)}
               />
             ))}
       </div>
