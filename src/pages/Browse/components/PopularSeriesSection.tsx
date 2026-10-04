@@ -3,15 +3,12 @@ import { MediaCard } from '@/components/shared/MediaCard';
 import type { SeriesItem } from '@/types/seriesType';
 import noPosterPlaceholder from '@/assets/noPosterPlaceholder.png';
 import { ErrorMessage } from '@/components/shared/ErrorMessage';
+import { useUserSeries } from '@/context/UserSeriesContext';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-type PopularSeriesSectionProps = {
-  addedSeriesIds: number[];
-  onAddClick: (tmdbId: number) => void;
-}
-
-export const PopularSeriesSection = ({ addedSeriesIds, onAddClick }: PopularSeriesSectionProps) => {
+export const PopularSeriesSection = () => {
+  const { addedSeriesIds, handleAddSeriesToMyList } = useUserSeries();
   const [seriesList, setSeriesList] = useState<SeriesItem[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -53,7 +50,7 @@ export const PopularSeriesSection = ({ addedSeriesIds, onAddClick }: PopularSeri
             rating={series.rating}
             releaseYear={series.releaseDate ? series.releaseDate.split('-')[0] : ''}
             actionState={addedSeriesIds.includes(+series.id) ? 'added' : 'add'}
-            onAddClick={() => onAddClick(+series.id)}     
+            onAddClick={ () => handleAddSeriesToMyList(+series.id) }     
           />
         ))}
       </div>
