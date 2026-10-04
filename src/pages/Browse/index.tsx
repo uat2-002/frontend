@@ -7,7 +7,6 @@ import type { SeriesItem } from '@/types/seriesType';
 import noPosterPlaceholder from '@/assets/noPosterPlaceholder.png';
 import { Pagination } from '@/components/shared/Pagination';
 import { ErrorMessage } from '@/components/shared/ErrorMessage';
-import { SkeletonCard } from '@/components/shared/skeletons/SkeletonCard';
 import axios from 'axios';
 import { addSeries, getUserSeries } from '@/api/watchlist';
 import { showToast } from '@/lib/toast';
@@ -22,6 +21,8 @@ type SearchResponse = {
 
 export const BrowsePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { addedSeriesIds, handleAddSeriesToMyList } = useUserSeries();
+
   const [data, setData] = useState<SearchResponse>({
     results: [],
     total_results: 0,
@@ -29,7 +30,6 @@ export const BrowsePage = () => {
   });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [addedSeriesIds, setAddedSeriesIds] = useState<number[]>([]);
 
   const query = searchParams.get('query');
   const page = searchParams.get('page') || '1';
@@ -65,46 +65,16 @@ export const BrowsePage = () => {
     fetchSearchResults();
   }, [query, currentPage]);
 
-  useEffect(() => {
-    const fetchUserSeries = async () => {
-      try {
-        const response = await getUserSeries();
-        const data = response.data.tmdbIds;
-        setAddedSeriesIds(data);
-      } catch (error) {
-        showToast(`${error}`);
-      }
-    };
-
-    fetchUserSeries();
-  }, []);
-
   const handlePageChange = (newPage: number) => {
     searchParams.set('page', newPage.toString());
     setSearchParams(searchParams);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleAddSeriesToMyList = async (tmdbId: number) => {
-    try {
-      await axios(`${import.meta.env.VITE_API_URL}/api/series/${tmdbId}`);
-      await addSeries(tmdbId);
-      setAddedSeriesIds(previousSeriesIds => [...previousSeriesIds, tmdbId]);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        showToast(`Error: ${error.response?.data?.error}`);
-      } else {
-        showToast(`Couldn't add series: ${error}`);
-      }
-    }
-  };
-
   let renderedContent;
 
   if (!query) {
-    renderedContent = (
-      <PopularSeriesSection addedSeriesIds={addedSeriesIds} onAddClick={handleAddSeriesToMyList} />
-    );
+    renderedContent = <PopularSeriesSection addedSeriesIds={addedSeriesIds} onAddClick={handleAddSeriesToMyList} />;
   } else if (loading) {
     renderedContent = (
       <div className="w-full">

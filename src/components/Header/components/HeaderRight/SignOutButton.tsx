@@ -1,18 +1,15 @@
 import { PATH_HOME } from '@/router/path';
 import { useNavigate } from 'react-router';
-import { Button } from '@/components/ui/button';
-import { getAccessToken, clearTokens } from '@/auth/tokenStorage';
+import { getAccessToken } from '@/auth/tokenStorage';
+import { useAuth } from '@/context/AuthContext';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-type SignOutButtonProps = {
-  onSignedOut: () => void;
-};
-
-export const SignOutButton = ({ onSignedOut }: SignOutButtonProps) => {
+export const SignOutButton = () => {
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
-  async function hendleLogOut() {
+  async function handleLogOut() {
     const accessToken = getAccessToken();
 
     try {
@@ -30,11 +27,14 @@ export const SignOutButton = ({ onSignedOut }: SignOutButtonProps) => {
     } catch (error) {
       console.error('Server logout failed', error);
     } finally {
-      clearTokens();
-      onSignedOut();
+      logout();
       navigate(PATH_HOME);
     }
   }
 
-  return <Button size="lg" onClick={hendleLogOut}>Sign Out</Button>;
+  return (
+    <span onClick={handleLogOut} className="w-full cursor-pointer text-red-500">
+      Sign Out
+    </span>
+  );
 };
