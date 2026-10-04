@@ -9,6 +9,9 @@ import { Pagination } from '@/components/shared/Pagination';
 import { ErrorMessage } from '@/components/shared/ErrorMessage';
 import { SkeletonCard } from '@/components/shared/skeletons/SkeletonCard';
 import { useUserSeries } from '@/context/UserSeriesContext';
+import { useAuth } from '@/context/AuthContext';
+import { useNavigate } from 'react-router';
+import { PATH_SIGN_IN } from '@/router/path';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -22,6 +25,9 @@ export const BrowsePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { addedSeriesIds, handleAddSeriesToMyList } = useUserSeries();
 
+  const { isAuth } = useAuth();
+  const navigate = useNavigate();
+
   const [data, setData] = useState<SearchResponse>({
     results: [],
     total_results: 0,
@@ -33,6 +39,16 @@ export const BrowsePage = () => {
   const query = searchParams.get('query');
   const page = searchParams.get('page') || '1';
   const currentPage = parseInt(page, 10);
+
+  const handleProtectedAddSeries = (seriesId: number) => {
+    if (!isAuth) {
+      sessionStorage.setItem('pendingAddSeries', JSON.stringify({ seriesId }));
+      navigate(PATH_SIGN_IN);
+      return;
+    }
+
+    handleAddSeriesToMyList(seriesId);
+  };
 
   useEffect(() => {
     if (!query) {
@@ -104,7 +120,7 @@ export const BrowsePage = () => {
               rating={series.vote_average}
               releaseYear={series.first_air_date ? series.first_air_date.split('-')[0] : ''}
               actionState={addedSeriesIds.includes(+series.id) ? 'added' : 'add'}
-              onAddClick={() => handleAddSeriesToMyList(+series.id)}
+              onAddClick={() => handleProtectedAddSeries(+series.id)}
             />
           ))}
         </div>
