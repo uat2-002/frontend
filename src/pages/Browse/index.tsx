@@ -7,9 +7,8 @@ import type { SeriesItem } from '@/types/seriesType';
 import noPosterPlaceholder from '@/assets/noPosterPlaceholder.png';
 import { Pagination } from '@/components/shared/Pagination';
 import { ErrorMessage } from '@/components/shared/ErrorMessage';
-import axios from 'axios';
-import { addSeries, getUserSeries } from '@/api/watchlist';
-import { showToast } from '@/lib/toast';
+import { SkeletonCard } from '@/components/shared/skeletons/SkeletonCard';
+import { useUserSeries } from '@/context/UserSeriesContext';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -74,7 +73,7 @@ export const BrowsePage = () => {
   let renderedContent;
 
   if (!query) {
-    renderedContent = <PopularSeriesSection addedSeriesIds={addedSeriesIds} onAddClick={handleAddSeriesToMyList} />;
+    renderedContent = <PopularSeriesSection />;
   } else if (loading) {
     renderedContent = (
       <div className="w-full">
