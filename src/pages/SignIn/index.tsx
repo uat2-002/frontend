@@ -1,7 +1,7 @@
 import { SignInForm } from '@/pages/SignIn/SignInForm';
 
 export const SignIn = () => (
-  <div className="flex md:min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
+  <div className="flex min-h-160 md:min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
     <div className="flex w-full max-w-sm flex-col gap-6">
       <SignInForm />
     </div>
