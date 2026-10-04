@@ -17,7 +17,7 @@ type StatusSelectorProps = {
 const badgeConfig = {
   plan_to_watch: { label: 'Plan to Watch', variant: 'secondary' as const },
   watching: { label: 'Watching', variant: 'destructive' as const },
-  watched: { label: 'Watched', variant: 'default' as const },
+  watched: { label: 'Watched', variant: 'success' as const },
   not_worth_it: { label: 'Not Worth It', variant: 'secondary' as const },
 };
 
