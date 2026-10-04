@@ -7,7 +7,7 @@ type LogotypeProps = {
 };
 
 export const Logotype = ({ children }: LogotypeProps) => (
-  <NavLink to={PATH_HOME} className="text-lg font-semibold">
+  <NavLink to={PATH_HOME} className="text-md md:text-lg font-semibold">
     {children}
   </NavLink>
 );
