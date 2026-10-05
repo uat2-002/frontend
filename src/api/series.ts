@@ -101,7 +101,7 @@ export const updateUserEpisodeStatus = async (episodeId: number): Promise<void> 
   const token = getAccessToken();
 
   await apiClient.post(
-    `/user/episodes/${episodeId}/status`,
+    `api/user/episodes/${episodeId}/status`,
     {},
     {
       headers: {
@@ -110,13 +110,16 @@ export const updateUserEpisodeStatus = async (episodeId: number): Promise<void> 
     }
   );
 };
-export const fetchUserWatchedEpisodes = async (seriesId: number): Promise<number[]> => {
+export const fetchUserWatchedEpisodes = async (seriesId: number | string): Promise<number[]> => {
   const token = getAccessToken();
 
-  const { data } = await apiClient.get<number[]>(`/api/series/${seriesId}/watched`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  return data;
+  const { data } = await apiClient.get<{ watchedEpisodesCount: number[] }>(
+    `/api/series/${seriesId}/watched`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return data.watchedEpisodesCount;
 };

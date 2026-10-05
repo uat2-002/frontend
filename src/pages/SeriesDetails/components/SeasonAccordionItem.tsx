@@ -4,7 +4,13 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Empty, EmptyDescription } from '@/components/ui/empty';
 import { ErrorMessage } from '@/components/shared/ErrorMessage';
 import { EpisodeItem } from '@/pages/SeriesDetails/components/EpisodeItem';
-import { fetchSeasonEpisodes, type Episode, type SeriesSeasonSummary } from '@/api/series';
+import {
+  fetchSeasonEpisodes,
+  fetchUserWatchedEpisodes,
+  updateUserEpisodeStatus,
+  type Episode,
+  type SeriesSeasonSummary,
+} from '@/api/series';
 
 type SeasonAccordionItemProps = {
   seriesId: string | number;
@@ -14,6 +20,7 @@ type SeasonAccordionItemProps = {
 
 export const SeasonAccordionItem = ({ seriesId, season, isOpen }: SeasonAccordionItemProps) => {
   const [episodes, setEpisodes] = useState<Episode[] | null>(null);
+  const [watchedEpisodes, setWatchedEpisodes] = useState<number[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -24,8 +31,12 @@ export const SeasonAccordionItem = ({ seriesId, season, isOpen }: SeasonAccordio
       setLoading(true);
       setError(null);
       try {
-        const data = await fetchSeasonEpisodes(seriesId, season.seasonNumber);
-        setEpisodes(data.episodes);
+        const [seasonData, userWatchedIds] = await Promise.all([
+          fetchSeasonEpisodes(seriesId, season.seasonNumber),
+          fetchUserWatchedEpisodes(seriesId),
+        ]);
+        setEpisodes(seasonData.episodes);
+        setWatchedEpisodes(userWatchedIds);
       } catch {
         setError('Failed to load episodes for this season.');
       } finally {
@@ -35,6 +46,21 @@ export const SeasonAccordionItem = ({ seriesId, season, isOpen }: SeasonAccordio
 
     load();
   }, [isOpen, episodes, seriesId, season.seasonNumber]);
+
+  const handleToggleWatched = async (episodeId: number, currentlyWatched: boolean) => {
+    setWatchedEpisodes(prev =>
+      currentlyWatched ? prev.filter(id => id !== episodeId) : [...prev, episodeId]
+    );
+
+    try {
+      await updateUserEpisodeStatus(episodeId);
+    } catch (err) {
+      console.error('Failed to toggle status:', err);
+      setWatchedEpisodes(prev =>
+        currentlyWatched ? [...prev, episodeId] : prev.filter(id => id !== episodeId)
+      );
+    }
+  };
 
   return (
     <AccordionItem value={String(season.seasonNumber)} className="border-none">
@@ -68,7 +94,12 @@ export const SeasonAccordionItem = ({ seriesId, season, isOpen }: SeasonAccordio
             ) : (
               <div className="flex flex-col gap-2">
                 {episodes.map(episode => (
-                  <EpisodeItem key={episode.tmdbId} episode={episode} />
+                  <EpisodeItem
+                    key={episode.tmdbId}
+                    episode={episode}
+                    isWatched={watchedEpisodes.includes(episode.tmdbId)}
+                    onToggle={handleToggleWatched}
+                  />
                 ))}
               </div>
             )}
