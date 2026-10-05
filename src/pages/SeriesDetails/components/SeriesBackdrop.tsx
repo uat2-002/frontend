@@ -8,7 +8,7 @@ type SeriesBackdropProps = {
   watchedEpisodes: WatchedEpisode[];
 };
 
-export const SeriesBackdrop = ({ series, watchedEpisodes }: SeriesBackdropProps) => {
+export const SeriesBackdrop = ({ series }: SeriesBackdropProps) => {
   const startYear = series.firstAirDate ? series.firstAirDate.split('-')[0] : '';
   const yearRange = startYear
     ? series.status === 'ongoing'
