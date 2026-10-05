@@ -2,14 +2,21 @@ import { useState } from 'react';
 import { Accordion } from '@/components/ui/accordion';
 import { Empty, EmptyDescription } from '@/components/ui/empty';
 import { SeasonAccordionItem } from '@/pages/SeriesDetails/components/SeasonAccordionItem';
-import type { SeriesSeasonSummary } from '@/api/series';
+import type { SeriesSeasonSummary, WatchedEpisode } from '@/api/series';
 
 type SeriesSeasonsProps = {
   seriesId: string | number;
   seasons: SeriesSeasonSummary[];
+  watchedEpisodes: WatchedEpisode[];
+  onToggleWatched: (episodeId: number, seasonNumber: number, currentlyWatched: boolean) => void;
 };
 
-export const SeriesSeasons = ({ seriesId, seasons }: SeriesSeasonsProps) => {
+export const SeriesSeasons = ({
+  seriesId,
+  seasons,
+  watchedEpisodes,
+  onToggleWatched,
+}: SeriesSeasonsProps) => {
   const [openSeasons, setOpenSeasons] = useState<string[]>([]);
 
   if (!seasons || seasons.length === 0) {
@@ -36,6 +43,8 @@ export const SeriesSeasons = ({ seriesId, seasons }: SeriesSeasonsProps) => {
             seriesId={seriesId}
             season={season}
             isOpen={openSeasons.includes(String(season.seasonNumber))}
+            watchedRecords={watchedEpisodes}
+            onToggleWatched={onToggleWatched}
           />
         ))}
       </Accordion>

@@ -1,13 +1,14 @@
-import type { SeriesDetails } from '@/api/series';
+import type { SeriesDetails, WatchedEpisode } from '@/api/series';
 import { StatusSelector } from '@/pages/SeriesDetails/components/StatusDropdown';
 
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
 type SeriesBackdropProps = {
   series: SeriesDetails;
+  watchedEpisodes: WatchedEpisode[];
 };
 
-export const SeriesBackdrop = ({ series }: SeriesBackdropProps) => {
+export const SeriesBackdrop = ({ series, watchedEpisodes }: SeriesBackdropProps) => {
   const startYear = series.firstAirDate ? series.firstAirDate.split('-')[0] : '';
   const yearRange = startYear
     ? series.status === 'ongoing'

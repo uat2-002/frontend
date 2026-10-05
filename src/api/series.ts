@@ -6,6 +6,7 @@ export type SeriesSeasonSummary = {
   name: string;
   overview: string | null;
   poster: string | null;
+  episodeCount: number;
 };
 
 export type SeriesDetails = {
