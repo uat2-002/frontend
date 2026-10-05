@@ -59,6 +59,10 @@ export type WatchedEpisode = {
   seasonNumber: number;
 };
 
+export type WatchedEpisodeResponse = {
+  watchedEpisodes: WatchedEpisode[];
+};
+
 export const fetchSeriesDetails = async (id: string | number): Promise<SeriesDetails> => {
   const { data } = await apiClient.get<SeriesDetails>(`/api/series/${id}`);
   return data;
@@ -119,10 +123,10 @@ export const fetchUserWatchedEpisodes = async (
 ): Promise<WatchedEpisode[]> => {
   const token = getAccessToken();
 
-  const { data } = await apiClient.get<WatchedEpisode[]>(`/api/series/${seriesId}/watched`, {
+  const { data } = await apiClient.get<WatchedEpisodeResponse>(`/api/series/${seriesId}/watched`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-  return data;
+  return data.watchedEpisodes;
 };

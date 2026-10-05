@@ -52,10 +52,9 @@ export const SeasonAccordionItem = ({
 
   const totalSeasonEpisodes = season?.episodeCount ?? 0;
 
-  const watchedSeasonEpisodes = watchedRecords.filter(
+  const watchedSeasonEpisodes = (watchedRecords || []).filter(
     record => record.seasonNumber === season.seasonNumber
   ).length;
-
   const progressPercentage =
     totalSeasonEpisodes > 0 ? Math.round((watchedSeasonEpisodes / totalSeasonEpisodes) * 100) : 0;
 
@@ -104,7 +103,9 @@ export const SeasonAccordionItem = ({
             ) : (
               <div className="flex flex-col gap-2">
                 {episodes.map(episode => {
-                  const isWatched = watchedRecords.some(r => r.episodeId === episode.tmdbId);
+                  const isWatched = (watchedRecords || []).some(
+                    r => r.episodeId === episode.tmdbId
+                  );
 
                   return (
                     <EpisodeItem
