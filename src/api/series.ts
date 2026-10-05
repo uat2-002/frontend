@@ -95,3 +95,16 @@ export const updateUserStatus = async (seriesId: number | string, userStatus: st
 
   return data;
 };
+export const updateUserEpisodeStatus = async (episodeId: number) => {
+  const token = getAccessToken();
+
+  const { data } = await apiClient.post(
+    `/user/episodes/${episodeId}/status`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};
