@@ -8,7 +8,7 @@ export const TopSeriesCards = (): ReactNode => {
   const { loading, topSeriesList } = useTopSeries();
 
   return (
-    <div className="p-5 grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <div className="p-5 grid gap-5 grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
       {loading
         ? Array.from({ length: 20 }).map((_, index) => <SkeletonCard key={index} />)
         : Array.isArray(topSeriesList) &&
