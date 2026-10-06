@@ -5,7 +5,7 @@ export default {
   injectGlobals: true,
   extensionsToTreatAsEsm: ['.ts', '.tsx'],
   testEnvironment: 'jsdom',
-  setupFiles: ['<rootDir>/src/__test__/setup.ts'],
+  setupFilesAfterEnv: ['<rootDir>/src/__test__/setup.ts'],
   moduleNameMapper: {
     '\\.(png|jpg|jpeg|gif|webp|svg|ico)$': '<rootDir>/src/__mock__/fileMock.ts',
     '^@/(.*)$': '<rootDir>/src/$1',
