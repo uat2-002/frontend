@@ -1,5 +1,6 @@
 import { jest } from '@jest/globals';
 import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router';
 
 jest.unstable_mockModule('axios', () => ({
   __esModule: true,
@@ -19,7 +20,11 @@ describe('Home', () => {
   it('renders the home page with error', async () => {
     const { default: Home } = await import('@/pages/Home');
 
-    render(<Home />);
+    render(
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>
+    );
 
     expect(await screen.findByText(/error loading series/i)).toBeTruthy();
   });
