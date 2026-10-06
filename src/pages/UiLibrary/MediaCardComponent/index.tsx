@@ -135,6 +135,7 @@ export default function MediaCardComponent() {
               onAddClick={() => {}}
               rating={item.rating}
               releaseYear={item.releaseYear}
+              href="#"
             />
           ))}
         </div>
