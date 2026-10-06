@@ -2,10 +2,8 @@ import { ErrorMessage } from '@/components/shared/ErrorMessage';
 import { useTopSeries } from '@/context/TopSeriesContext';
 import { HomeContent } from '@/pages/Home/HomeContent';
 
-const Home = () => {
+export const Home = () => {
   const { error } = useTopSeries();
 
   return (error && <ErrorMessage title="Failed to load popular series" message={error} />) || <HomeContent />;
 };
-
-export default Home;
