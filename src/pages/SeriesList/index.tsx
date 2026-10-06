@@ -75,6 +75,7 @@ export const SeriesList = () => {
             }
             actionState='delete'
             onDeleteClick={ () => handleDeleteSeries(series.tmdbId) }
+            href={`/series/${series.tmdbId}`}
           />
         ))}
       </div>

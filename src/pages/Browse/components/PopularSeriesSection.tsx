@@ -74,6 +74,7 @@ export const PopularSeriesSection = () => {
                 releaseYear={series.releaseDate ? series.releaseDate.split('-')[0] : ''}
                 actionState={addedSeriesIds.includes(+series.id) ? 'added' : 'add'}
                 onAddClick={() => handleProtectedAddSeries(+series.id)}
+                href={`/series/${series.id}`}
               />
             ))}
       </div>

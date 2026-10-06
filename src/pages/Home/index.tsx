@@ -55,6 +55,7 @@ export const Home = () => {
                 }
                 rating={series.rating}
                 releaseYear={series.releaseDate ? series.releaseDate.split('-')[0] : ''}
+                href={`/series/${series.id}`}
               />
             ))}
       </div>
