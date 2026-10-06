@@ -3,7 +3,7 @@ import { ModeToggle } from '@/components/Header/components/ColorThemeSwitch/Mode
 
 export const ColorThemeSwitch = () => {
   return (
-    <ThemeProvider defaultMode="light" storageKeyMode="vite-ui-theme">
+    <ThemeProvider defaultMode="system" storageKeyMode="vite-ui-theme">
       <ModeToggle />
     </ThemeProvider>
   );
