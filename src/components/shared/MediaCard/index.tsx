@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -19,6 +20,7 @@ type MediaCardProps = {
   onDeleteClick?: () => void;
   rating?: number;
   releaseYear?: string;
+  href: string;
 };
 
 export const MediaCard = ({
@@ -32,6 +34,7 @@ export const MediaCard = ({
   onDeleteClick,
   rating,
   releaseYear,
+  href,
 }: MediaCardProps) => {
   const isWatching = status === 'watching';
   const isNotWorthIt = status === 'not_worth_it';
@@ -57,13 +60,21 @@ export const MediaCard = ({
       role="article"
       aria-label={title}
       className={cn(
-        '[--card-spacing:0px]',
-        'flex flex-col h-full bg-card border w-full max-w-[280px]',
-        'overflow-hidden animate-in fade-in-0 zoom-in-95',
-        'transition-all duration-300 hover:-translate-y-1 hover:shadow-lg',
-        isNotWorthIt ? 'opacity-50 grayscale-[50%]' : ''
-      )}
-    >
+    'relative flex flex-col h-full bg-card border w-full max-w-[280px]',
+    'overflow-hidden animate-in fade-in-0 zoom-in-95',
+    'transition-all duration-300 hover:-translate-y-1 hover:shadow-lg',
+    isNotWorthIt ? 'opacity-50 grayscale-[50%]' : ''
+  )}
+>
+{href && (
+        <Link 
+          to={href} 
+          className="absolute inset-0 z-10" 
+          aria-label={`View details for ${title}`}
+        >
+          <span className="sr-only">View Details</span>
+        </Link>      
+        )}
       <div
         className={`w-full aspect-[2/3] ${bgFallbackColor} relative shrink-0 overflow-hidden`}
         aria-hidden={!imageUrl}
@@ -132,7 +143,7 @@ export const MediaCard = ({
           </div>
         )}
 
-        <div className="mt-3 shrink-0 flex items-end">
+        <div className="mt-3 shrink-0 flex items-end relative z-20">
           {actionState === 'add' ? (
             <Button
               variant="outline"

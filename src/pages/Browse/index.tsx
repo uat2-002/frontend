@@ -121,6 +121,7 @@ export const BrowsePage = () => {
               releaseYear={series.first_air_date ? series.first_air_date.split('-')[0] : ''}
               actionState={addedSeriesIds.includes(+series.id) ? 'added' : 'add'}
               onAddClick={() => handleProtectedAddSeries(+series.id)}
+              href={`/series/${series.id}`}
             />
           ))}
         </div>

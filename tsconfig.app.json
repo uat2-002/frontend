@@ -10,7 +10,8 @@
     "module": "esnext",
     "types": [
       "vite/client",
-      "jest"
+      "jest",
+      "node"
     ],
     "allowArbitraryExtensions": true,
     "skipLibCheck": true,
