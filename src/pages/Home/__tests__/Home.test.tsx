@@ -17,10 +17,19 @@ jest.unstable_mockModule('@/api/checkHealth', () => ({
 
 describe('Home', () => {
   it('renders the home page with error', async () => {
-    const { default: Home } = await import('@/pages/Home');
+    const { Home } = await import('@/pages/Home');
+    const { TopSeriesProvider } = await import(
+      '@/context/TopSeriesContext'
+    );
 
-    render(<Home />);
+    render(
+      <TopSeriesProvider>
+        <Home />
+      </TopSeriesProvider>
+    );
 
-    expect(await screen.findByText(/error loading series/i)).toBeTruthy();
+    expect(
+      await screen.findByText(/error loading series/i)
+    ).toBeTruthy();
   });
 });

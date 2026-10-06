@@ -1,6 +1,5 @@
 import { AppLayout } from '@/components/AppLayout';
 import { ProtectedRoutes } from '@/components/ProtectedRoutes/ProtectedRoutes';
-import { Home } from '@/pages/Home';
 import { NotFound } from '@/pages/NotFound';
 import { SeriesList } from '@/pages/SeriesList';
 import { SignIn } from '@/pages/SignIn';
@@ -21,6 +20,7 @@ import {
   PATH_SERIES_DETAILS,
 } from '@/router/path';
 import { createBrowserRouter } from 'react-router';
+import { Home } from '@/pages/Home';
 
 export const router = createBrowserRouter([
   {
