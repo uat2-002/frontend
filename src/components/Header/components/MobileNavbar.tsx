@@ -9,11 +9,18 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu.tsx';
 import { Button } from '@/components/ui/button';
+import { PATH_SIGN_IN, PATH_SIGN_UP } from '@/router/path';
 
 export const MobileNavbar = () => {
   const { isAuth } = useAuth();
 
-  const navigationList = isAuth ? [...PRIVATE_NAVIGATION, ...PUBLIC_NAVIGATION] : PUBLIC_NAVIGATION;
+  const navigationList = isAuth
+    ? [...PRIVATE_NAVIGATION, ...PUBLIC_NAVIGATION]
+    : [
+        ...PUBLIC_NAVIGATION,
+        { label: 'Sign In', to: PATH_SIGN_IN },
+        { label: 'Sign Up', to: PATH_SIGN_UP },
+      ];
 
   return (
     <nav className="flex md:hidden items-center justify-end w-full gap-7 pr-2">
@@ -38,7 +45,7 @@ export const MobileNavbar = () => {
                 end={item.to === '/'}
                 className={({ isActive }) =>
                   isActive
-                    ? 'text-sm font-medium hover:text-foreground'
+                    ? 'text-sm font-medium hover:text-foreground pointer-events-none'
                     : 'text-sm transition-colors hover:text-foreground'
                 }
               >

@@ -18,7 +18,9 @@ export const HeaderRight = () => {
 
   return (
     <div className="ml-auto flex items-center gap-1">
-      <ColorThemeSwitch />
+      <div className="mr-2">
+        <ColorThemeSwitch />
+      </div>
       {isAuth ? (
         <DropdownMenu>
           <DropdownMenuTrigger
@@ -38,13 +40,15 @@ export const HeaderRight = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
-        <>
+          <>
+            <div className="hidden md:flex items-center gap-2">
           <AuthButton variant="outline" path={PATH_SIGN_IN}>
             Sign In
           </AuthButton>
           <AuthButton variant="default" path={PATH_SIGN_UP}>
             Sign Up
-          </AuthButton>
+              </AuthButton>
+              </div>
         </>
       )}
     </div>
