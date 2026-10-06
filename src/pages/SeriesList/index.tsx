@@ -19,7 +19,7 @@ export const SeriesList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [mySeriesList, setMySeriesList] = useState<MySeriesItem[]>([]);
-  
+
   const { setAddedSeriesIds } = useUserSeries();
 
   useEffect(() => {
@@ -29,27 +29,22 @@ export const SeriesList = () => {
         const data = Array.isArray(response) ? response : response.data.series || [];
         setMySeriesList(data);
       } catch {
-        setError('Couldn\'t recive your list');
+        setError('Could not receive your list');
       } finally {
         setLoading(false);
       }
     }
 
     fetchMySeriesList();
-    
   }, []);
 
   const handleDeleteSeries = async (tmdbId: number) => {
     try {
       await deleteUserSeries(tmdbId);
 
-      setMySeriesList(previousList =>
-        previousList.filter(series => series.tmdbId !== tmdbId)
-      );
+      setMySeriesList(previousList => previousList.filter(series => series.tmdbId !== tmdbId));
 
-      setAddedSeriesIds(previousIds =>
-        previousIds.filter(id => id !== tmdbId)
-      );
+      setAddedSeriesIds(previousIds => previousIds.filter(id => id !== tmdbId));
     } catch (error) {
       showToast(`Couldn't delete series: ${error}`);
     }
@@ -58,7 +53,7 @@ export const SeriesList = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <ErrorMessage title="Failed to load your list" message={error} />;
   if (mySeriesList.length === 0) return <EmptyMyList />;
-    
+
   return (
     <div>
       <h3 className="text-lg font-semibold pt-4 pb-4">Your Series List</h3>
@@ -73,8 +68,9 @@ export const SeriesList = () => {
                 ? `https://image.tmdb.org/t/p/w500${series.poster}`
                 : noPosterPlaceholder
             }
-            actionState='delete'
-            onDeleteClick={ () => handleDeleteSeries(series.tmdbId) }
+            actionState="delete"
+            status={series.userStatus}
+            onDeleteClick={() => handleDeleteSeries(series.tmdbId)}
           />
         ))}
       </div>

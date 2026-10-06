@@ -35,13 +35,17 @@ export const MediaCard = ({
 }: MediaCardProps) => {
   const isWatching = status === 'watching';
   const isNotWorthIt = status === 'not_worth_it';
+  const isWatched = status === 'watched';
 
   const bgFallbackColor = status === 'plan_to_watch' ? 'bg-purple-950/80' : 'bg-blue-950/80';
 
   const badgeConfig = {
     watching: { label: 'Watching', variant: 'destructive' as const },
     plan_to_watch: { label: 'Plan to Watch', variant: 'secondary' as const },
-    watched: { label: 'Watched', variant: 'default' as const },
+    watched: {
+      label: 'Watched',
+      variant: 'success' as const,
+    },
     not_worth_it: { label: 'Not Worth It', variant: 'secondary' as const },
     none: null,
   };
@@ -53,18 +57,28 @@ export const MediaCard = ({
       role="article"
       aria-label={title}
       className={cn(
-    'flex flex-col h-full bg-card border w-full max-w-[280px]',
-    'overflow-hidden animate-in fade-in-0 zoom-in-95',
-    'transition-all duration-300 hover:-translate-y-1 hover:shadow-lg',
-    isNotWorthIt ? 'opacity-50 grayscale-[50%]' : ''
-  )}
->
+        '[--card-spacing:0px]',
+        'flex flex-col h-full bg-card border w-full max-w-[280px]',
+        'overflow-hidden animate-in fade-in-0 zoom-in-95',
+        'transition-all duration-300 hover:-translate-y-1 hover:shadow-lg',
+        isNotWorthIt ? 'opacity-50 grayscale-[50%]' : ''
+      )}
+    >
       <div
         className={`w-full aspect-[2/3] ${bgFallbackColor} relative shrink-0 overflow-hidden`}
         aria-hidden={!imageUrl}
       >
         {imageUrl && (
           <img src={imageUrl} alt={title} className="absolute inset-0 w-full h-full object-cover" />
+        )}
+        {isWatched && (
+          <div
+            className="absolute top-1 right-1 z-20 flex h-8 w-8 items-center
+             justify-center rounded-full bg-black/30 backdrop-blur-sm shadow-md"
+            aria-label="Watched"
+          >
+            <Check className="h-4 w-4 text-green-400" strokeWidth={3} aria-hidden="true" />
+          </div>
         )}
 
         {isWatching && (
@@ -82,7 +96,19 @@ export const MediaCard = ({
         )}
       </div>
 
-      <div className="flex-1 flex flex-col p-4 pt-3">
+      <div className="flex-1 flex flex-col p-4 pt-1">
+        {currentBadge && (
+          <div className="flex justify-end mb-2 mt-2">
+            <Badge
+              variant={currentBadge.variant}
+              className="text-xs rounded-md"
+              aria-label={`Status: ${currentBadge.label}`}
+            >
+              {currentBadge.label}
+            </Badge>
+          </div>
+        )}
+
         <div className="flex-1 space-y-1">
           <h4 className="font-semibold text-foreground text-base line-clamp-1" title={title}>
             {title}
@@ -136,14 +162,7 @@ export const MediaCard = ({
               onClick={onDeleteClick}
             >
               Delete
-            </Button> ) : currentBadge ? (
-            <Badge
-              variant={currentBadge.variant}
-              className="text-xs rounded-md"
-              aria-label={`Status: ${currentBadge.label}`}
-            >
-              {currentBadge.label}
-            </Badge>
+            </Button>
           ) : null}
         </div>
       </div>
