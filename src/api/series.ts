@@ -53,6 +53,8 @@ interface UpdateUserStatusResponse {
   message: string;
 }
 
+export type WatchedEpisodes = number[];
+
 export const fetchSeriesDetails = async (id: string | number): Promise<SeriesDetails> => {
   const { data } = await apiClient.get<SeriesDetails>(`/api/series/${id}`);
   return data;
@@ -94,4 +96,30 @@ export const updateUserStatus = async (seriesId: number | string, userStatus: st
   );
 
   return data;
+};
+export const updateUserEpisodeStatus = async (episodeId: number): Promise<void> => {
+  const token = getAccessToken();
+
+  await apiClient.post(
+    `api/user/episodes/${episodeId}/status`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};
+export const fetchUserWatchedEpisodes = async (seriesId: number | string): Promise<number[]> => {
+  const token = getAccessToken();
+
+  const { data } = await apiClient.get<{ watchedEpisodesCount: number[] }>(
+    `/api/series/${seriesId}/watched`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return data.watchedEpisodesCount;
 };
