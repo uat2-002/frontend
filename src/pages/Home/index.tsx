@@ -1,6 +1,6 @@
 import { ErrorMessage } from '@/components/shared/ErrorMessage';
 import { useTopSeries } from '@/context/TopSeriesContext';
-import { HomeContent } from './HomeContent';
+import { HomeContent } from '@/pages/Home/HomeContent';
 
 export const Home = () => {
   const { error } = useTopSeries();

@@ -1,4 +1,3 @@
-import { showToast } from '@/lib/toast';
 import type { SeriesItem } from '@/types/seriesType';
 import axios from 'axios';
 import { 
@@ -6,20 +5,16 @@ import {
   useContext, 
   useEffect, 
   useState,
-  type Dispatch,
   type ReactNode,
-  type SetStateAction,
 } from 'react';
 
 
 type TopSeriesType = {
   error: string | null,
   loading: boolean,
-  // setError: Dispatch<SetStateAction<string | null>>,
-  // setLoading: Dispatch<SetStateAction<boolean>>,
   topSeriesList: SeriesItem[],
-  
-}
+
+};
 
 const TopSeriesContext = createContext<TopSeriesType | null>(null);
 
