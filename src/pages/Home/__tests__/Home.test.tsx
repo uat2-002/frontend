@@ -17,7 +17,7 @@ jest.unstable_mockModule('@/api/checkHealth', () => ({
 
 describe('Home', () => {
   it('renders the home page with error', async () => {
-    const { default: Home } = await import('@/pages/Home');
+    const { Home } = await import('@/pages/Home');
 
     render(<Home />);
 
