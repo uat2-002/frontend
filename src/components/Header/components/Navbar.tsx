@@ -8,7 +8,7 @@ export const Navbar = () => {
   const navigationList = isAuth ? [...PRIVATE_NAVIGATION, ...PUBLIC_NAVIGATION] : PUBLIC_NAVIGATION;
 
   return (
-    <nav className="ml-10 flex items-center gap-7">
+    <nav className="ml-10 hidden md:flex items-center gap-7">
       {navigationList.map(item => (
         <NavLink
           key={item.to}
