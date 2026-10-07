@@ -1,31 +1,36 @@
-import { UserAvatar } from '@/components/Header/components/HeaderRight/UserAvatar';
-import { SignOutButton } from '@/components/Header/components/HeaderRight/SignOutButton';
-import { PATH_SIGN_IN, PATH_SIGN_UP } from '@/router/path';
 import { AuthButton } from '@/components/Header/components/HeaderRight/AuthButton';
 import { ColorThemeSwitch } from '@/components/Header/components/ColorThemeSwitch/ColorThemeSwitch.tsx';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu.tsx';
+import { LanguageToggle } from '@/components/Header/components/LanguageSwitch/LanguageToggle';
+import { SignOutButton } from '@/components/Header/components/HeaderRight/SignOutButton';
+import { UserAvatar } from '@/components/Header/components/HeaderRight/UserAvatar';
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuTrigger } from '@/components/ui/dropdown-menu.tsx';
 import { useAuth } from '@/context/AuthContext';
+import { PATH_SIGN_IN, PATH_SIGN_UP } from '@/router/path';
+import { useTranslation } from 'react-i18next';
 
 export const HeaderRight = () => {
   const { isAuth } = useAuth();
+  const { t } = useTranslation();
+
   const userEmail = localStorage.getItem('userEmail') || 'User';
   const avatarLetter = userEmail.charAt(0).toUpperCase();
 
   return (
     <div className="ml-auto flex items-center gap-1">
       <ColorThemeSwitch />
+      <LanguageToggle />
+
       {isAuth ? (
         <DropdownMenu>
           <DropdownMenuTrigger
             render={
               <button
-                className="flex items-center rounded-full 
-              outline-none cursor-pointer focus-visible:ring-2 focus-visible:ring-ring"
+                className="flex cursor-pointer items-center rounded-full 
+                outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <UserAvatar>{avatarLetter}</UserAvatar>
               </button>
@@ -40,10 +45,11 @@ export const HeaderRight = () => {
       ) : (
         <>
           <AuthButton variant="outline" path={PATH_SIGN_IN}>
-            Sign In
+            {t('signIn')}
           </AuthButton>
+
           <AuthButton variant="default" path={PATH_SIGN_UP}>
-            Sign Up
+            {t('signUp')}
           </AuthButton>
         </>
       )}

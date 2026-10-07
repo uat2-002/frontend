@@ -1,23 +1,22 @@
 import { Button } from '@/components/ui/button.tsx';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card.tsx';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.tsx';
 import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui/field.tsx';
 import { Input } from '@/components/ui/input.tsx';
 import { PATH_SIGN_IN } from '@/router/path';
 import { cn } from 'cn';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { showToast } from '@/lib/toast';
 import { Eye, EyeOff } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-export const SignUpForm = ({ className, ...props }: React.ComponentProps<'div'>) => {
+export const SignUpForm = ({
+  className,
+  ...props
+}: React.ComponentProps<'div'>) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
@@ -50,16 +49,17 @@ export const SignUpForm = ({ className, ...props }: React.ComponentProps<'div'>)
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.error || 'Registration failed');
+        setError(data.error || t('registrationFailed'));
         return;
       }
 
       localStorage.setItem('registered_email', data.email || email);
-      showToast('Registration successful! Please log in', 'success');
+
+      showToast(t('registrationSuccessful'), 'success');
 
       navigate(PATH_SIGN_IN);
     } catch {
-      setError('Could not connect to the server');
+      setError(t('couldNotConnectToServer'));
     }
   }
 
@@ -67,14 +67,21 @@ export const SignUpForm = ({ className, ...props }: React.ComponentProps<'div'>)
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">Create your account</CardTitle>
-          <CardDescription>Enter your information below to create your account</CardDescription>
+          <CardTitle className="text-xl">
+            {t('createYourAccount')}
+          </CardTitle>
+
+          <CardDescription>
+            {t('enterYourInformationBelowToCreateYourAccount')}
+          </CardDescription>
         </CardHeader>
+
         <CardContent>
           <form onSubmit={handleSubmit}>
             <FieldGroup>
               <Field>
-                <FieldLabel htmlFor="email">Email</FieldLabel>
+                <FieldLabel htmlFor="email">{t('email')}</FieldLabel>
+
                 <Input
                   id="email"
                   type="email"
@@ -83,9 +90,13 @@ export const SignUpForm = ({ className, ...props }: React.ComponentProps<'div'>)
                   onChange={e => setEmail(e.target.value)}
                 />
               </Field>
+
               <Field>
                 <Field>
-                  <FieldLabel htmlFor="password">Password</FieldLabel>
+                  <FieldLabel htmlFor="password">
+                    {t('password')}
+                  </FieldLabel>
+
                   <div className="relative">
                     <Input
                       id="password"
@@ -94,26 +105,47 @@ export const SignUpForm = ({ className, ...props }: React.ComponentProps<'div'>)
                       onChange={e => setPassword(e.target.value)}
                       className="pr-10"
                     />
+
                     <button
                       type="button"
                       onClick={() => setShowPassword(prev => !prev)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground 
-                                        hover:text-foreground focus:outline-none cursor-pointer"
+                      className="absolute top-1/2 right-3 -translate-y-1/2 
+                      cursor-pointer text-muted-foreground hover:text-foreground focus:outline-none"
                       tabIndex={-1}
-                      aria-label={showPassword ? 'Hide password' : 'Show password'}
+                      aria-label={
+                        showPassword
+                          ? t('hidePassword')
+                          : t('showPassword')
+                      }
                     >
-                      {showPassword ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
+                      {showPassword ? (
+                        <Eye className="h-4 w-4" aria-hidden="true" />
+                      ) : (
+                        <EyeOff className="h-4 w-4" aria-hidden="true" />
+                      )}
                     </button>
                   </div>
-                  <FieldDescription>Must be at least 8 characters long.</FieldDescription>
+
+                  <FieldDescription>
+                    {t('mustBeAtLeast8CharactersLong')}
+                  </FieldDescription>
                 </Field>
               </Field>
+
               <Field>
-                <Button type="submit">Create Account</Button>
+                <Button type="submit">
+                  {t('createAccount')}
+                </Button>
+
                 <FieldDescription className="text-center">
-                  Already have an account?
-                  <Button variant="link" onClick={() => navigate(PATH_SIGN_IN)}>
-                    Sign In
+                  {t('alreadyHaveAnAccount')}
+
+                  <Button
+                    type="button"
+                    variant="link"
+                    onClick={() => navigate(PATH_SIGN_IN)}
+                  >
+                    {t('signIn')}
                   </Button>
                 </FieldDescription>
               </Field>

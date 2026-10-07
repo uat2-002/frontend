@@ -1,32 +1,39 @@
+import React, { useEffect, useState } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
+import { useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button.tsx';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card.tsx';
 import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui/field.tsx';
 import { Input } from '@/components/ui/input.tsx';
 import { PATH_MY_LIST, PATH_SIGN_UP } from '@/router/path';
 import { cn } from 'cn';
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router';
 import { showToast } from '@/lib/toast';
 import { useAuth } from '@/context/AuthContext';
-import { Eye, EyeOff } from 'lucide-react';
 import { useUserSeries } from '@/context/UserSeriesContext';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-export const SignInForm = ({ className, ...props }: React.ComponentProps<'div'>) => {
+export const SignInForm = ({
+  className,
+  ...props
+}: React.ComponentProps<'div'>) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { login } = useAuth();
-
   const { handleAddSeriesToMyList } = useUserSeries();
 
   const [email, setEmail] = useState(() => {
     const savedEmail = localStorage.getItem('registered_email');
+
     if (savedEmail) {
       localStorage.removeItem('registered_email');
       return savedEmail;
     }
+
     return '';
   });
+
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -56,7 +63,7 @@ export const SignInForm = ({ className, ...props }: React.ComponentProps<'div'>)
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.error || 'Log In failed');
+        setError(data.error || t('logInFailed'));
         return;
       }
 
@@ -65,7 +72,7 @@ export const SignInForm = ({ className, ...props }: React.ComponentProps<'div'>)
           accessToken: data.accessToken,
           refreshToken: data.refreshToken,
         },
-        email
+        email,
       );
 
       const pendingAction = sessionStorage.getItem('pendingAddSeries');
@@ -73,9 +80,11 @@ export const SignInForm = ({ className, ...props }: React.ComponentProps<'div'>)
       if (pendingAction) {
         try {
           const { seriesId } = JSON.parse(pendingAction);
+
           await handleAddSeriesToMyList(seriesId);
           sessionStorage.removeItem('pendingAddSeries');
-          showToast('Series automatically added to your list!', 'success');
+
+          showToast(t('seriesAutomaticallyAdded'), 'success');
         } catch (err) {
           console.error('Failed to process pending action', err);
         }
@@ -83,7 +92,7 @@ export const SignInForm = ({ className, ...props }: React.ComponentProps<'div'>)
 
       navigate(PATH_MY_LIST);
     } catch {
-      setError('Could not connect to the server');
+      setError(t('couldNotConnectToServer'));
     }
   }
 
@@ -91,13 +100,17 @@ export const SignInForm = ({ className, ...props }: React.ComponentProps<'div'>)
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">Log in to Series Tracker</CardTitle>
+          <CardTitle className="text-xl">
+            {t('logInToSeriesTracker')}
+          </CardTitle>
         </CardHeader>
+
         <CardContent>
           <form onSubmit={handleSubmit}>
             <FieldGroup>
               <Field>
-                <FieldLabel htmlFor="email">Email</FieldLabel>
+                <FieldLabel htmlFor="email">{t('email')}</FieldLabel>
+
                 <Input
                   id="email"
                   type="email"
@@ -107,9 +120,13 @@ export const SignInForm = ({ className, ...props }: React.ComponentProps<'div'>)
                   onChange={e => setEmail(e.target.value)}
                 />
               </Field>
+
               <Field>
                 <Field>
-                  <FieldLabel htmlFor="password">Password</FieldLabel>
+                  <FieldLabel htmlFor="password">
+                    {t('password')}
+                  </FieldLabel>
+
                   <div className="relative">
                     <Input
                       id="password"
@@ -118,25 +135,41 @@ export const SignInForm = ({ className, ...props }: React.ComponentProps<'div'>)
                       onChange={e => setPassword(e.target.value)}
                       className="pr-10"
                     />
+
                     <button
                       type="button"
                       onClick={() => setShowPassword(prev => !prev)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground 
-                      hover:text-foreground focus:outline-none cursor-pointer"
+                      className="absolute top-1/2 right-3 -translate-y-1/2 
+                      cursor-pointer text-muted-foreground hover:text-foreground focus:outline-none"
                       tabIndex={-1}
-                      aria-label={showPassword ? 'Hide password' : 'Show password'}
+                      aria-label={
+                        showPassword
+                          ? t('hidePassword')
+                          : t('showPassword')
+                      }
                     >
-                      {showPassword ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
+                      {showPassword ? (
+                        <Eye className="h-4 w-4" aria-hidden="true" />
+                      ) : (
+                        <EyeOff className="h-4 w-4" aria-hidden="true" />
+                      )}
                     </button>
                   </div>
                 </Field>
               </Field>
+
               <Field>
-                <Button type="submit">Log In</Button>
+                <Button type="submit">{t('logIn')}</Button>
+
                 <FieldDescription className="text-center">
-                  New to Series Tracker?
-                  <Button variant="link" onClick={() => navigate(PATH_SIGN_UP)}>
-                    Sign Up
+                  {t('newToSeriesTracker')}
+
+                  <Button
+                    type="button"
+                    variant="link"
+                    onClick={() => navigate(PATH_SIGN_UP)}
+                  >
+                    {t('signUp')}
                   </Button>
                 </FieldDescription>
               </Field>

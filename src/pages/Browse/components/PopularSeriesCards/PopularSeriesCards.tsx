@@ -7,6 +7,7 @@ import { PATH_SIGN_IN } from '@/router/path';
 import type { ReactNode } from 'react';
 import { useNavigate } from 'react-router';
 import noPosterPlaceholder from '@/assets/noPosterPlaceholder.png';
+import { useTranslation } from 'react-i18next';
 
 export const PopularSeriesCards = (): ReactNode => {
   const { addedSeriesIds, handleAddSeriesToMyList } = useUserSeries();
@@ -23,10 +24,10 @@ export const PopularSeriesCards = (): ReactNode => {
 
     handleAddSeriesToMyList(seriesId);
   };
-
+  const { t } = useTranslation();
   return (
     <div className="w-full">
-      <h3 className="text-lg font-semibold pt-4 pb-4">Popular series</h3>
+      <h3 className="text-lg font-semibold pt-4 pb-4">{t('popularSeries')}</h3>
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
         {loading
           ? Array.from({ length: 10 }).map((_, index) => <SkeletonCard key={index} />)

@@ -1,9 +1,14 @@
 import type { ReactElement } from 'react';
+import { useTranslation } from 'react-i18next';
 
-export const HomeTitle = (): ReactElement => (
-  <div className="p-5 pb-0">
-    <h1 className="text-lg font-medium tracking-tight text-zinc-500 sm:text-xl">
-      20 more Popular Series
-    </h1>
-  </div>
-);
+export const HomeTitle = (): ReactElement => {
+  const { t } = useTranslation();
+
+  return (
+    <div className="p-5 pb-0">
+      <h3 className="pt-4 pb-4 text-lg font-semibold">
+        {t('popularSeries')}
+      </h3>
+    </div>
+  );
+};
