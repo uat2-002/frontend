@@ -21,9 +21,11 @@ export const HeaderRight = () => {
 
   return (
     <div className="ml-auto flex items-center gap-1">
-      <ColorThemeSwitch />
-      <LanguageToggle />
-
+      <div className="mr-2 flex items-center gap-1">
+        <ColorThemeSwitch />
+        <LanguageToggle />
+      </div>
+      
       {isAuth ? (
         <DropdownMenu>
           <DropdownMenuTrigger
@@ -43,15 +45,20 @@ export const HeaderRight = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
-        <>
+          <>
+            <div className="hidden md:flex items-center gap-2">
           <AuthButton variant="outline" path={PATH_SIGN_IN}>
+            {t('signIn')}
+          </AuthButton>
+
+         <AuthButton variant="outline" path={PATH_SIGN_IN}>
             {t('signIn')}
           </AuthButton>
 
           <AuthButton variant="default" path={PATH_SIGN_UP}>
             {t('signUp')}
           </AuthButton>
-        </>
+        </div>
       )}
     </div>
   );

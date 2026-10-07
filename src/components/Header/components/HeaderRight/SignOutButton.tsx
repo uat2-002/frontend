@@ -37,7 +37,7 @@ export const SignOutButton = () => {
   }
 
   return (
-    <Button size="lg" onClick={handleLogOut}>
+    <Button size="lg" onClick={handleLogOut} className="w-full">
       {t('signOut')}
     </Button>
   );
