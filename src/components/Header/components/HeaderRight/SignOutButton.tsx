@@ -33,7 +33,7 @@ export const SignOutButton = () => {
   }
 
   return (
-    <span onClick={handleLogOut} className="w-full cursor-pointer text-red-500">
+    <span onClick={handleLogOut} className="w-full cursor-pointer">
       Sign Out
     </span>
   );
