@@ -93,7 +93,7 @@ export const BrowsePage = () => {
   } else if (loading) {
     renderedContent = (
       <div className="w-full">
-        <div className="grid grid-cols-5 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
           {Array.from({ length: 10 }).map((_, index) => (
             <SkeletonCard key={index} />
           ))}
