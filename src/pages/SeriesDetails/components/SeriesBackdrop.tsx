@@ -1,5 +1,6 @@
 import type { SeriesDetails, WatchedEpisode } from '@/api/series';
 import { StatusSelector } from '@/pages/SeriesDetails/components/StatusDropdown';
+import { Progress } from '@/components/ui/progress';
 
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
@@ -8,7 +9,7 @@ type SeriesBackdropProps = {
   watchedEpisodes: WatchedEpisode[];
 };
 
-export const SeriesBackdrop = ({ series }: SeriesBackdropProps) => {
+export const SeriesBackdrop = ({ series, watchedEpisodes }: SeriesBackdropProps) => {
   const startYear = series.firstAirDate ? series.firstAirDate.split('-')[0] : '';
   const yearRange = startYear
     ? series.status === 'ongoing'
@@ -17,6 +18,11 @@ export const SeriesBackdrop = ({ series }: SeriesBackdropProps) => {
     : '';
 
   const backdropUrl = series.backdrop ? `${TMDB_IMAGE_BASE}/original${series.backdrop}` : null;
+
+  const totalEpisodes = series.numberOfEpisodes ?? 0;
+  const watchedCount = watchedEpisodes.length;
+  const progressPercentage =
+    totalEpisodes > 0 ? Math.round((watchedCount / totalEpisodes) * 100) : 0;
 
   return (
     <div className="relative aspect-video w-full overflow-hidden rounded-xl">
@@ -41,6 +47,22 @@ export const SeriesBackdrop = ({ series }: SeriesBackdropProps) => {
           )}
           <StatusSelector seriesId={series.tmdbId} />
         </div>
+
+        {totalEpisodes > 0 && (
+          <div className="mt-3 max-w-2xl space-y-1.5">
+            <div className="flex items-center justify-between text-xs sm:text-sm text-foreground/80">
+              <span className="font-medium">Progress</span>
+              <span className="tabular-nums">
+                {watchedCount} / {totalEpisodes} episodes ({progressPercentage}%)
+              </span>
+            </div>
+            <Progress
+              value={progressPercentage}
+              aria-label={`Overall progress for ${series.title}`}
+              className="h-2 w-full"
+            />
+          </div>
+        )}
 
         {series.overview && (
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-foreground/80 line-clamp-3">

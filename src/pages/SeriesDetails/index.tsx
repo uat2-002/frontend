@@ -28,7 +28,7 @@ export const SeriesDetails = () => {
         setError(null);
         const [seriesData, watchedData] = await Promise.all([
           fetchSeriesDetails(id),
-          fetchUserWatchedEpisodes(id),
+          fetchUserWatchedEpisodes(id).catch(() => []),
         ]);
         setSeries(seriesData);
         setWatchedEpisodes(watchedData);
