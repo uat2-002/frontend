@@ -78,5 +78,6 @@
   "hidePassword": "Hide password",
   "showPassword": "Show password",
   "changeLanguage": "Change language",
-  "acceptTermsAndConditions": "Accept terms and conditions"
+  "acceptTermsAndConditions": "Accept terms and conditions",
+  "seasonNumber": "Season {{number}}"
 }

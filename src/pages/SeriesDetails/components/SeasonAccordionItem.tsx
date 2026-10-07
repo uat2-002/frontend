@@ -81,7 +81,7 @@ export const SeasonAccordionItem = ({
       <AccordionTrigger className="items-center px-4 py-3 hover:bg-muted/30 hover:no-underline sm:px-6 sm:py-4">
         <div className="flex w-full items-center justify-between gap-4 pr-4">
           <span className="text-base font-semibold text-foreground">
-            {season.name}
+           {t('seasonNumber', { number: season.seasonNumber })}
           </span>
 
           <div className="flex w-1/3 items-center justify-end gap-3">
