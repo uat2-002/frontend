@@ -1,6 +1,5 @@
 import { jest } from '@jest/globals';
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router';
 
 jest.unstable_mockModule('axios', () => ({
   __esModule: true,
