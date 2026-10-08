@@ -28,12 +28,12 @@ export const HeaderRight = () => {
 
       {isAuth ? (
         <DropdownMenu>
-         <DropdownMenuTrigger
+        <DropdownMenuTrigger
             render={
               <button
                 className={
-                  "flex cursor-pointer items-center rounded-full " +
-                  "outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  'flex cursor-pointer items-center rounded-full ' +
+                  'outline-none focus-visible:ring-2 focus-visible:ring-ring'
                 }
               >
                 <UserAvatar>{avatarLetter}</UserAvatar>
