@@ -18,10 +18,25 @@ jest.unstable_mockModule('@/api/checkHealth', () => ({
   ),
 }));
 
+jest.unstable_mockModule('@/context/UserSeriesContext', () => ({
+  useUserSeries: jest.fn(() => ({
+    addedSeriesIds: [],
+    handleAddSeriesToMyList: jest.fn(),
+  })),
+}));
+
+jest.unstable_mockModule('@/context/AuthContext', () => ({
+  useAuth: jest.fn(() => ({
+    isAuth: false,
+  })),
+}));
+
 describe('Home', () => {
   it('renders the home page with error', async () => {
     const { Home } = await import('@/pages/Home');
     const { TopSeriesProvider } = await import('@/context/TopSeriesContext');
+
+    const { MemoryRouter } = await import('react-router');
 
     render(
       <MemoryRouter>
