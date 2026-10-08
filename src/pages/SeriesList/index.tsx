@@ -7,6 +7,7 @@ import { MediaCard } from '@/components/shared/MediaCard';
 import { useUserSeries } from '@/context/UserSeriesContext';
 import { showToast } from '@/lib/toast';
 import { EmptyMyList } from '@/pages/SeriesList/components/EmptyMyList';
+import { SkeletonCard } from '@/components/shared/skeletons/SkeletonCard';
 
 type MySeriesItem = {
   tmdbId: number;
@@ -65,7 +66,16 @@ export const SeriesList = () => {
   };
 
   if (loading) {
-    return <p>{t('loading')}</p>;
+    return (
+      <div>
+        <h3 className="pt-4 pb-4 text-lg font-semibold">{t('yourSeriesList')}</h3>
+        <div className="grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-5">
+          {Array.from({ length: 10 }).map((_, index) => (
+            <SkeletonCard key={index} />
+          ))}
+        </div>
+      </div>
+    );
   }
 
   if (error) {

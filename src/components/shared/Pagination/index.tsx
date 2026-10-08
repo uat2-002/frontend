@@ -44,7 +44,7 @@ export const Pagination = ({
       'flex items-center w-full justify-center gap-1 md:gap-2 mt-6 select-none',
 
     pageLinkClassName:
-      'flex items-center justify-center w-7 h-7 md:w-10 md:h-10 rounded-lg border ' +
+      'flex items-center justify-center min-w-[28px] px-1 h-7 md:w-10 md:h-10 md:px-0 rounded-lg border ' +
       'border-gray-200 text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer',
 
     previousLinkClassName:

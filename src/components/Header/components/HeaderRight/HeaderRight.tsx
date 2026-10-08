@@ -25,14 +25,13 @@ export const HeaderRight = () => {
         <ColorThemeSwitch />
         <LanguageToggle />
       </div>
-      
+
       {isAuth ? (
         <DropdownMenu>
           <DropdownMenuTrigger
             render={
               <button
-                className="flex cursor-pointer items-center rounded-full 
-                outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="flex cursor-pointer items-center rounded-full outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <UserAvatar>{avatarLetter}</UserAvatar>
               </button>
@@ -45,13 +44,8 @@ export const HeaderRight = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
-          <>
-            <div className="hidden md:flex items-center gap-2">
+        <div className="hidden items-center gap-2 md:flex">
           <AuthButton variant="outline" path={PATH_SIGN_IN}>
-            {t('signIn')}
-          </AuthButton>
-
-         <AuthButton variant="outline" path={PATH_SIGN_IN}>
             {t('signIn')}
           </AuthButton>
 

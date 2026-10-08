@@ -79,6 +79,7 @@ export const MediaCard = ({
       role="article"
       aria-label={title}
       className={cn(
+        '[--card-spacing:0px]',
         'relative flex h-full w-full max-w-[280px] flex-col border bg-card',
         'overflow-hidden animate-in fade-in-0 zoom-in-95',
         'transition-all duration-300 hover:-translate-y-1 hover:shadow-lg',
@@ -89,12 +90,11 @@ export const MediaCard = ({
         <Link
           to={href}
           className="absolute inset-0 z-10"
-         aria-label={t('viewDetailsForTitle', { title })}
+          aria-label={t('viewDetailsForTitle', { title })}
         >
-        <span className="sr-only">{t('viewDetails')}</span>
+          <span className="sr-only">{t('viewDetails')}</span>
         </Link>
       )}
-
       <div
         className={`relative aspect-[2/3] w-full shrink-0 overflow-hidden ${bgFallbackColor}`}
         aria-hidden={!imageUrl}
