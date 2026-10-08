@@ -1,5 +1,5 @@
 import { AuthButton } from '@/components/Header/components/HeaderRight/AuthButton';
-import { ColorThemeSwitch } from '@/components/Header/components/ColorThemeSwitch/ColorThemeSwitch.tsx';
+import { ColorThemeSwitch } from '@/components/Header/components/ColorThemeSwitch/ColorThemeSwitch';
 import { LanguageToggle } from '@/components/Header/components/LanguageSwitch/LanguageToggle';
 import { SignOutButton } from '@/components/Header/components/HeaderRight/SignOutButton';
 import { UserAvatar } from '@/components/Header/components/HeaderRight/UserAvatar';
