@@ -18,8 +18,8 @@ type RefreshResponse = {
   refreshToken?: string;
 };
 
-const REFRESH_INTERVAL = 12.5 * 60 * 1000;
-const REFRESH_URL = `${import.meta.env.VITE_API_URL}/api/auth/refresh`;
+const REFRESH_INTERVAL =  1000;
+const REFRESH_URL = `${import.meta.env.VITE_API_URL}/api/refresh`;
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
