@@ -11,8 +11,10 @@ import { ErrorMessage } from '@/components/shared/ErrorMessage';
 import { SkeletonBackdrop } from '@/components/shared/skeletons/SkeletonBackdrop';
 import { SeriesBackdrop } from '@/pages/SeriesDetails/components/SeriesBackdrop';
 import { SeriesSeasons } from '@/pages/SeriesDetails/components/SeriesSeasons';
+import { useTranslation } from 'react-i18next';
 
 export const SeriesDetails = () => {
+  const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const [series, setSeries] = useState<SeriesDetailsType | null>(null);
   const [loading, setLoading] = useState(true);
@@ -70,7 +72,7 @@ export const SeriesDetails = () => {
   }
 
   if (error || !series) {
-    return <ErrorMessage title="Error" message={error ?? 'Series not found'} />;
+    return <ErrorMessage title="Error" message={error ?? t('seriesNotFound')} />;
   }
 
   return (

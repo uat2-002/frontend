@@ -1,12 +1,19 @@
 import { Link } from 'react-router';
+
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Check, Plus, Star } from 'lucide-react';
-import { Progress, ProgressTrack, ProgressIndicator } from '@/components/ui/progress';
+import {
+  Progress,
+  ProgressTrack,
+  ProgressIndicator,
+} from '@/components/ui/progress';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
-export type UserStatus = 'watching' | 'plan_to_watch' | 'watched' | 'not_worth_it' | 'none';
+export type UserStatus = 'watching' | 'plan_to_watch' | 'watched' | 'not_worth_it'  | 'none';
+
 export type ActionState = 'add' | 'added' | 'delete' | 'none';
 
 type MediaCardProps = {
@@ -36,20 +43,32 @@ export const MediaCard = ({
   releaseYear,
   href,
 }: MediaCardProps) => {
+  const { t } = useTranslation();
+
   const isWatching = status === 'watching';
   const isNotWorthIt = status === 'not_worth_it';
   const isWatched = status === 'watched';
 
-  const bgFallbackColor = status === 'plan_to_watch' ? 'bg-purple-950/80' : 'bg-blue-950/80';
+  const bgFallbackColor =
+    status === 'plan_to_watch' ? 'bg-purple-950/80' : 'bg-blue-950/80';
 
   const badgeConfig = {
-    watching: { label: 'Watching', variant: 'destructive' as const },
-    plan_to_watch: { label: 'Plan to Watch', variant: 'secondary' as const },
+    watching: {
+      label: t('watching'),
+      variant: 'destructive' as const,
+    },
+    plan_to_watch: {
+      label: t('planToWatch'),
+      variant: 'secondary' as const,
+    },
     watched: {
-      label: 'Watched',
+      label: t('watched'),
       variant: 'success' as const,
     },
-    not_worth_it: { label: 'Not Worth It', variant: 'secondary' as const },
+    not_worth_it: {
+      label: t('notWorthIt'),
+      variant: 'secondary' as const,
+    },
     none: null,
   };
 
@@ -61,56 +80,71 @@ export const MediaCard = ({
       aria-label={title}
       className={cn(
         '[--card-spacing:0px]',
-        'relative flex flex-col h-full bg-card border w-full max-w-[280px]',
+        'relative flex h-full w-full max-w-[280px] flex-col border bg-card',
         'overflow-hidden animate-in fade-in-0 zoom-in-95',
         'transition-all duration-300 hover:-translate-y-1 hover:shadow-lg',
-        isNotWorthIt ? 'opacity-50 grayscale-[50%]' : ''
+        isNotWorthIt ? 'opacity-50 grayscale-[50%]' : '',
       )}
     >
       {href && (
-        <Link to={href} className="absolute inset-0 z-10" aria-label={`View details for ${title}`}>
-          <span className="sr-only">View Details</span>
+        <Link
+          to={href}
+          className="absolute inset-0 z-10"
+          aria-label={t('viewDetailsForTitle', { title })}
+        >
+          <span className="sr-only">{t('viewDetails')}</span>
         </Link>
       )}
       <div
-        className={`w-full aspect-[2/3] ${bgFallbackColor} relative shrink-0 overflow-hidden`}
+        className={`relative aspect-[2/3] w-full shrink-0 overflow-hidden ${bgFallbackColor}`}
         aria-hidden={!imageUrl}
       >
         {imageUrl && (
-          <img src={imageUrl} alt={title} className="absolute inset-0 w-full h-full object-cover" />
+          <img
+            src={imageUrl}
+            alt={title}
+            className="absolute inset-0 h-full w-full object-cover"
+          />
         )}
+
         {isWatched && (
           <div
-            className="absolute top-1 right-1 z-20 flex h-8 w-8 items-center
-             justify-center rounded-full bg-black/30 backdrop-blur-sm shadow-md"
-            aria-label="Watched"
+            className="absolute top-1 
+            right-1 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-black/30 shadow-md backdrop-blur-sm"
+            aria-label={t('watched')}
           >
-            <Check className="h-4 w-4 text-green-400" strokeWidth={3} aria-hidden="true" />
+            <Check
+              className="h-4 w-4 text-green-400"
+              strokeWidth={3}
+              aria-hidden="true"
+            />
           </div>
         )}
 
         {isWatching && (
-          <div className="absolute bottom-0 left-0 w-full z-20">
+          <div className="absolute bottom-0 left-0 z-20 w-full">
             <Progress
               value={progressValue}
-              aria-label={`Progress for ${title}`}
-              className="h-1 w-full bg-transparent rounded-none"
+              aria-label={t('progressForTitle', { title })}
+              className="h-1 w-full rounded-none bg-transparent"
             >
-              <ProgressTrack className="h-1 bg-muted/40 rounded-none">
-                <ProgressIndicator className="bg-destructive h-full rounded-none" />
+              <ProgressTrack className="h-1 rounded-none bg-muted/40">
+                <ProgressIndicator className="h-full rounded-none bg-destructive" />
               </ProgressTrack>
             </Progress>
           </div>
         )}
       </div>
 
-      <div className="flex-1 flex flex-col p-4 pt-1">
+      <div className="flex flex-1 flex-col p-4 pt-1">
         {currentBadge && (
-          <div className="flex justify-end mb-2 mt-2">
+          <div className="mt-2 mb-2 flex justify-end">
             <Badge
               variant={currentBadge.variant}
-              className="text-xs rounded-md"
-              aria-label={`Status: ${currentBadge.label}`}
+              className="rounded-md text-xs"
+              aria-label={t('statusLabel', {
+                label: currentBadge.label,
+              })}
             >
               {currentBadge.label}
             </Badge>
@@ -118,58 +152,68 @@ export const MediaCard = ({
         )}
 
         <div className="flex-1 space-y-1">
-          <h4 className="font-semibold text-foreground text-base line-clamp-1" title={title}>
+          <h4
+            className="line-clamp-1 text-base font-semibold text-foreground"
+            title={title}
+          >
             {title}
           </h4>
+
           {description && (
-            <p className="text-xs text-muted-foreground line-clamp-2" title={description}>
+            <p
+              className="line-clamp-2 text-xs text-muted-foreground"
+              title={description}
+            >
               {description}
             </p>
           )}
         </div>
 
         {(rating || releaseYear) && (
-          <div className="flex items-center gap-2 text-xs font-medium mt-2 mb-2">
+          <div className="mt-2 mb-2 flex items-center gap-2 text-xs font-medium">
             {rating && (
               <span className="flex items-center text-yellow-500">
-                <Star className="w-3 h-3 mr-1 fill-current" />
+                <Star className="mr-1 h-3 w-3 fill-current" />
                 {rating.toFixed(1)}
               </span>
             )}
-            {releaseYear && <span className="text-muted-foreground">{releaseYear}</span>}
+
+            {releaseYear && (
+              <span className="text-muted-foreground">{releaseYear}</span>
+            )}
           </div>
         )}
 
-        <div className="mt-3 shrink-0 flex items-end relative z-20">
+        <div className="relative z-20 mt-3 flex shrink-0 items-end">
           {actionState === 'add' ? (
             <Button
               variant="outline"
-              aria-label={`Add ${title} to your list`}
-              className="w-full bg-white text-black hover:bg-white/90 font-medium h-9 dark:text-white cursor-pointer"
+              aria-label={t('addTitleToYourList', { title })}
+              className="h-9 w-full bg-white font-medium text-black hover:bg-white/90 dark:text-white"
               onClick={onAddClick}
             >
-              <Plus className="w-4 h-4 mr-2" aria-hidden="true" />
-              Add
+              <Plus className="mr-2 h-4 w-4" aria-hidden="true" />
+              {t('add')}
             </Button>
           ) : actionState === 'added' ? (
             <Button
               variant="secondary"
-              className="w-full bg-secondary/80 text-muted-foreground hover:bg-secondary cursor-default font-medium h-9"
+              className="h-9 w-full cursor-default bg-secondary/80 font-medium text-muted-foreground hover:bg-secondary"
               disabled
-              aria-label={`${title} is already added to your list`}
+              aria-label={t('titleIsAlreadyAddedToYourList', { title })}
             >
-              <Check className="w-4 h-4 mr-2" aria-hidden="true" />
-              Added
+              <Check className="mr-2 h-4 w-4" aria-hidden="true" />
+              {t('added')}
             </Button>
           ) : actionState === 'delete' ? (
             <Button
               type="button"
               variant="destructive"
-              aria-label={`Remove ${title} from your list`}
-              className="w-full font-medium h-9 cursor-pointer"
+              aria-label={t('removeTitleFromYourList', { title })}
+              className="h-9 w-full cursor-pointer font-medium"
               onClick={onDeleteClick}
             >
-              Delete
+             {t('delete')}
             </Button>
           ) : null}
         </div>
