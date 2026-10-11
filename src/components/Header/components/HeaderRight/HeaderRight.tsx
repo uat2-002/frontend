@@ -3,6 +3,7 @@ import { ColorThemeSwitch } from '@/components/Header/components/ColorThemeSwitc
 import { LanguageToggle } from '@/components/Header/components/LanguageSwitch/LanguageToggle';
 import { SignOutButton } from '@/components/Header/components/HeaderRight/SignOutButton';
 import { UserAvatar } from '@/components/Header/components/HeaderRight/UserAvatar';
+import { InstallPwaButton } from '@/components/Header/components/InstallPwa/InstallPwaButton';
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
@@ -22,6 +23,7 @@ export const HeaderRight = () => {
   return (
     <div className="ml-auto flex items-center gap-1">
       <div className="mr-2 flex items-center gap-1">
+        <InstallPwaButton />
         <ColorThemeSwitch />
         <LanguageToggle />
       </div>
