@@ -79,5 +79,6 @@
   "showPassword": "Show password",
   "changeLanguage": "Change language",
   "acceptTermsAndConditions": "Accept terms and conditions",
-  "seasonNumber": "Season {{number}}"
+  "seasonNumber": "Season {{number}}",
+  "installApp": "Install application"
 }

@@ -79,5 +79,6 @@
   "showPassword": "Показати пароль",
   "changeLanguage": "Змінити мову",
   "acceptTermsAndConditions": "Прийняти умови та положення",
-  "seasonNumber": "{{number}} сезон"
+  "seasonNumber": "{{number}} сезон",
+  "installApp": "Встановити додаток"
 }
